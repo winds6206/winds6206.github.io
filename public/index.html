@@ -158,9 +158,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">posts</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
@@ -188,6 +192,82 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/19/%E6%96%87%E7%AB%A0%E6%B8%AC%E8%A9%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tony Jhang">
+      <meta itemprop="description" content="Hexo-description">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="坐而言不如起而行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/19/%E6%96%87%E7%AB%A0%E6%B8%AC%E8%A9%A6/" class="post-title-link" itemprop="url">文章測試</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-04-19 16:38:43 / Modified: 16:39:26" itemprop="dateCreated datePublished" datetime="2021-04-19T16:38:43+08:00">2021-04-19</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="容器原生負載平衡-Container-native-load-balancing"><a href="#容器原生負載平衡-Container-native-load-balancing" class="headerlink" title="容器原生負載平衡(Container-native load balancing)"></a>容器原生負載平衡(Container-native load balancing)</h1><p>容器原生負載平衡(Container-native load balancing) 就是使用 NEGs 的方式來達成，意指不使用 iptables 的方式來達到負載平衡，</p>
+<blockquote>
+<p>Container-native load balancing leverages a data model called network endpoint groups (NEGs). NEGs are collections of network endpoints represented by IP-port pairs.[1]</p>
+</blockquote>
+<p>一般來說如果是 GKE 1.16(含) 以下要啟用 NEG 功能，需要在 Service Object 的 annotation 加上 <code>cloud.google.com/neg: &#39;&#123;&quot;ingress&quot;: true&#125;&#39;</code>；而 GKE 1.17 以上(含) 預設已經啟用 NEG，無需額外添加 annotation</p>
+<h2 id="啟用-NEGs-Network-Endpoint-Groups-的條件"><a href="#啟用-NEGs-Network-Endpoint-Groups-的條件" class="headerlink" title="啟用 NEGs(Network Endpoint Groups) 的條件"></a>啟用 NEGs(Network Endpoint Groups) 的條件</h2><ul>
+<li>需使用 alias IPs(如果建立叢集時沒有指定 secondary IP，使用GCP預設發配的，就代表沒有 alias IPs)</li>
+<li>GKE 1.16(含)以下 要啟用 NEG 功能，需要在 Service Object 的 annotation 加上 <code>cloud.google.com/neg: &#39;&#123;&quot;ingress&quot;: true&#125;&#39;</code></li>
+<li>GKE 1.17 (含)以上 預設已經啟用 NEG，無需額外添加 annotation</li>
+</ul>
+<p>alias IPs是否啟用，可以使用以下指令去檢查 <code>useIpAliases</code> 的項目是否為 True</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcloud container clusters describe [叢集名稱] --project&#x3D;[專案ID] --region&#x3D;[叢集所在Region]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
