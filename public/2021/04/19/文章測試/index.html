@@ -31,7 +31,7 @@
 <meta property="og:description" content="容器原生負載平衡(Container-native load balancing)容器原生負載平衡(Container-native load balancing) 就是使用 NEGs 的方式來達成，意指不使用 iptables 的方式來達到負載平衡，  Container-native load balancing leverages a data model called network en">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-04-19T08:38:43.000Z">
-<meta property="article:modified_time" content="2021-04-19T08:39:26.091Z">
+<meta property="article:modified_time" content="2021-04-19T08:52:27.054Z">
 <meta property="article:author" content="Tony Jhang">
 <meta property="article:tag" content="GCP">
 <meta name="twitter:card" content="summary">
@@ -231,7 +231,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2021-04-19 16:38:43 / Modified: 16:39:26" itemprop="dateCreated datePublished" datetime="2021-04-19T16:38:43+08:00">2021-04-19</time>
+      <time title="Created: 2021-04-19 16:38:43 / Modified: 16:52:27" itemprop="dateCreated datePublished" datetime="2021-04-19T16:38:43+08:00">2021-04-19</time>
     </span>
 
   
@@ -248,6 +248,8 @@
 <blockquote>
 <p>Container-native load balancing leverages a data model called network endpoint groups (NEGs). NEGs are collections of network endpoints represented by IP-port pairs.[1]</p>
 </blockquote>
+<span id="more"></span>
+
 <p>一般來說如果是 GKE 1.16(含) 以下要啟用 NEG 功能，需要在 Service Object 的 annotation 加上 <code>cloud.google.com/neg: &#39;&#123;&quot;ingress&quot;: true&#125;&#39;</code>；而 GKE 1.17 以上(含) 預設已經啟用 NEG，無需額外添加 annotation</p>
 <h2 id="啟用-NEGs-Network-Endpoint-Groups-的條件"><a href="#啟用-NEGs-Network-Endpoint-Groups-的條件" class="headerlink" title="啟用 NEGs(Network Endpoint Groups) 的條件"></a>啟用 NEGs(Network Endpoint Groups) 的條件</h2><ul>
 <li>需使用 alias IPs(如果建立叢集時沒有指定 secondary IP，使用GCP預設發配的，就代表沒有 alias IPs)</li>
