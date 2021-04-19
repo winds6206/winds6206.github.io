@@ -4,10 +4,10 @@
 
 # Site
 title: Hexo
-subtitle: ''
-description: ''
+subtitle: Hexo-subtitle
+description: Hexo-description
 keywords:
-author: John Doe
+author: Tony Jhang
 language: en
 timezone: ''
 
@@ -102,4 +102,6 @@ theme: landscape
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repository: http://github.com/winds6206/winds6206.github.io.git
+  branch: master
