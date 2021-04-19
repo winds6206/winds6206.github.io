@@ -8,8 +8,8 @@ subtitle: Hexo-subtitle
 description: Hexo-description
 keywords:
 author: Tony Jhang
-language: en
-timezone: ''
+language: zh-tw
+timezone: Asia/Taipei
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -97,7 +97,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
