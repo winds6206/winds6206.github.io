@@ -103,5 +103,5 @@ theme: landscape
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repository: http://github.com/winds6206/winds6206.github.io.git
+  repository: git@github.com:winds6206/winds6206.github.io.git
   branch: master
