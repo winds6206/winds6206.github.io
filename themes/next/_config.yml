@@ -23,7 +23,7 @@ custom_file_path:
   #header: source/_data/header.njk
   sidebar: source/_data/sidebar.njk
   #postMeta: source/_data/post-meta.njk
-  #postBodyEnd: source/_data/post-body-end.njk
+  postBodyEnd: source/_data/post-body-end.njk
   #footer: source/_data/footer.njk
   #bodyEnd: source/_data/body-end.njk
   #variable: source/_data/variables.styl
@@ -954,3 +954,20 @@ recent_posts:
   icon: fa fa-history
 # 最多多少文章鏈接
   max_count: 5
+
+likely:
+  enable: true
+  cdn:
+    js: //cdn.jsdelivr.net/npm/ilyabirman-likely@2/release/likely.min.js
+    css: //cdn.jsdelivr.net/npm/ilyabirman-likely@2/release/likely.min.css
+  look: normal # available values: normal, light, small, big
+  networks:
+    twitter: Tweet分享
+    facebook: FB分享
+    linkedin: Link分享
+  #  gplus: Plus
+  #  vkontakte: Share
+  #  odnoklassniki: Class
+    telegram: TG分享
+    whatsapp: Send
+  #  pinterest: Pin

@@ -35,6 +35,8 @@
 </ul>
 <p>alias IPs是否啟用，可以使用以下指令去檢查 <code>useIpAliases</code> 的項目是否為 True</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gcloud container clusters describe [叢集名稱] --project&#x3D;[專案ID] --region&#x3D;[叢集所在Region]</span><br></pre></td></tr></table></figure>
+
+<p>—test—</p>
 ]]></content>
       <tags>
         <tag>GCP</tag>
