@@ -583,8 +583,8 @@ comments:
 # Disqus
 # For more information: https://disqus.com
 disqus:
-  enable: false
-  shortname:
+  enable: true
+  shortname: winds6206
   count: true
 
 # DisqusJS
@@ -956,7 +956,7 @@ recent_posts:
   max_count: 5
 
 likely:
-  enable: true
+  enable: false
   cdn:
     js: //cdn.jsdelivr.net/npm/ilyabirman-likely@2/release/likely.min.js
     css: //cdn.jsdelivr.net/npm/ilyabirman-likely@2/release/likely.min.css

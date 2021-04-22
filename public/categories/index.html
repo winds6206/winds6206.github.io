@@ -47,7 +47,7 @@
     isPost : false,
     lang   : 'zh-TW'
   };
-</script><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/ilyabirman-likely@2/release/likely.min.css">
+</script>
 <title>categories | 坐而言不如起而行
 </title>
   
@@ -113,7 +113,7 @@
       <h1 class="site-title">坐而言不如起而行</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">與其打嘴砲，不如拿出真本領</p>
+      <p class="site-subtitle" itemprop="description">Talk is cheap. Show me the code.</p>
   </div>
 
   <div class="site-nav-right">
@@ -300,6 +300,11 @@
     
 
 
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -379,6 +384,37 @@
 
 
 
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://winds6206.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://winds6206.github.io/categories/index.html";
+    this.page.identifier = "categories/index.html";
+    this.page.title = "categories";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://winds6206.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>
