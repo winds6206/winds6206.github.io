@@ -47,7 +47,7 @@
     isPost : true,
     lang   : 'zh-TW'
   };
-</script><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/ilyabirman-likely@2/release/likely.min.css">
+</script>
 <title>Hello World | 坐而言不如起而行</title>
   
 
@@ -112,7 +112,7 @@
       <h1 class="site-title">坐而言不如起而行</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">與其打嘴砲，不如拿出真本領</p>
+      <p class="site-subtitle" itemprop="description">Talk is cheap. Show me the code.</p>
   </div>
 
   <div class="site-nav-right">
@@ -307,6 +307,20 @@
       <span class="post-meta-item-text">閱讀次數：</span>
       <span id="busuanzi_value_page_pv"></span>
     </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/04/19/hello-world/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/04/19/hello-world/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 </div>
 
         </div>
@@ -336,20 +350,7 @@
     
     
 
-    <footer class="post-footer"><div class="post-widgets">
-    <div class="likely">
-        <div class="twitter">Tweet分享</div>
-        <div class="facebook">FB分享</div>
-        <div class="linkedin">Link分享</div>
-        <div class="gplus">Plus</div>
-        <div class="vkontakte">Share</div>
-        <div class="odnoklassniki">Class</div>
-        <div class="telegram">TG分享</div>
-        <div class="whatsapp">Send</div>
-        <div class="pinterest">Pin</div>
-    </div>
-  </div>
-  <script src="//cdn.jsdelivr.net/npm/ilyabirman-likely@2/release/likely.min.js"></script><div>
+    <footer class="post-footer"><div>
   <script type="text/javascript">
     document.write(
       "<iframe scrolling='no' frameborder='0' sandbox='allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-storage-access-by-user-activation' style='height: 212px; width: 100%;' src='https://button.like.co/in/embed/winds6206/button?referrer=" +
@@ -378,6 +379,11 @@
 
 
 
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -457,6 +463,37 @@
 
 
 
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://winds6206.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://winds6206.github.io/2021/04/19/hello-world/";
+    this.page.identifier = "2021/04/19/hello-world/";
+    this.page.title = "Hello World";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://winds6206.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>
