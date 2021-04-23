@@ -81,9 +81,9 @@ creative_commons:
 # External url should start with http:// or https://
 menu:
   home: / || fa fa-home
-  about: /about/ || fa fa-user
+  #about: /about/ || fa fa-user
   tags: /tags/ || fa fa-tags
-  categories: /categories/ || fa fa-th
+  #categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
   #schedule: /schedule/ || fa fa-calendar
   #sitemap: /sitemap.xml || fa fa-sitemap
@@ -965,9 +965,9 @@ likely:
     twitter: Tweet分享
     facebook: FB分享
     linkedin: Link分享
-  #  gplus: Plus
-  #  vkontakte: Share
-  #  odnoklassniki: Class
+    gplus: Plus
+    vkontakte: Share
+    odnoklassniki: Class
     telegram: TG分享
     whatsapp: Send
-  #  pinterest: Pin
+    pinterest: Pin
