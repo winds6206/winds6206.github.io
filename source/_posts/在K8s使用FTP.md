@@ -1,12 +1,19 @@
 ---
 title: 在 K8s 使用 FTP
-date: 2021-04-26 15:27:10
-tags: GKE GCP K8s kubernetes
+date: 2021-04-26 16:15:09
+tags:
+  - GKE
+  - GCP
+  - K8s
+  - kubernetes
+  - ftp
 ---
 
 # 在 K8s 使用 FTP
 
 近期因公司內部的需求，需要在本機存取 K8s 內持久化儲存的檔案，原先想使用 NFS 架構來做掛載存取，但是因為這樣有點過於麻煩，後來才想使用 FTP 來實現，下方說明如何在 K8s 實現 FTP 功能，讓本機環境可以存取到持久化硬碟。
+
+<!--more-->
 
 這邊實現的是 SFTP 使用 22 port 連線，存取認證方式可以是使用「金鑰」或是「帳號/密碼驗證」
 
@@ -157,22 +164,22 @@ ports:
 
 點選 編輯 > 設定
 
-![](/source/_posts/_images/FTP/0.png)
+![](0.png)
 
 選擇 SFTP 並點選「加入金鑰檔案」，此時會請你選擇 private key 的位置
 
-![](/source/_posts/_images/FTP/1.png)
+![](1.png)
 
 這邊要注意一下，如果一開始產生金鑰時有設定 passphrase，會跳出此視窗，主要是因為他需要將 .key 轉成 .ppk，這邊直接點「是」
 
-![](/source/_posts/_images/FTP/2.png)
+![](2.png)
 
 輸入設定的 passphrase
 
-![](/source/_posts/_images/FTP/3.png)
+![](3.png)
 
 選擇鑰儲存 .ppk 的位置與命名
 
-![](/source/_posts/_images/FTP/4.png)
+![](4.png)
 
 最後再回到主畫面將連線資訊填入，密碼不用填寫，當連線後，會請你輸入 passphrase 的密碼
