@@ -29,7 +29,7 @@ tags:
 產生 ssh 金鑰是為了讓後續連線時，可以使用金鑰作為驗證，這邊是使用 Mac 的終端機產生，指令參照以下
 
 ```
-$ ssh-keygen -t rsa -b 4096 sftp_key
+$ ssh-keygen -t rsa -b 4096 -f sftp_key
 ```
 
 > Passphrase 設不設定都可以，如果有設定的話，最後以 FileZilla 測試時，private key 需要額外產生 .ppk 檔才能使用，後續會講解
