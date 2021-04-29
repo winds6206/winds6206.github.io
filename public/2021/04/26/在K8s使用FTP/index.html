@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://winds6206.github.io/2021/04/26/%E5%9C%A8K8s%E4%BD%BF%E7%94%A8FTP/3.png">
 <meta property="og:image" content="https://winds6206.github.io/2021/04/26/%E5%9C%A8K8s%E4%BD%BF%E7%94%A8FTP/4.png">
 <meta property="article:published_time" content="2021-04-26T08:15:09.000Z">
-<meta property="article:modified_time" content="2021-04-26T08:31:19.988Z">
+<meta property="article:modified_time" content="2021-04-29T02:11:32.536Z">
 <meta property="article:author" content="Tony">
 <meta property="article:tag" content="GKE">
 <meta property="article:tag" content="GCP">
@@ -302,10 +302,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2021-04-26 16:15:09 / 修改時間：16:31:19" itemprop="dateCreated datePublished" datetime="2021-04-26T16:15:09+08:00">2021-04-26</time>
+      <time title="創建時間：2021-04-26 16:15:09" itemprop="dateCreated datePublished" datetime="2021-04-26T16:15:09+08:00">2021-04-26</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-04-29 10:11:32" itemprop="dateModified" datetime="2021-04-29T10:11:32+08:00">2021-04-29</time>
+      </span>
 
   
     <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
@@ -354,7 +360,7 @@
 <p>環境是使用 GKE(Google Kubernetes Engine)</p>
 </blockquote>
 <h2 id="產生-ssh-金鑰"><a href="#產生-ssh-金鑰" class="headerlink" title="產生 ssh 金鑰"></a>產生 ssh 金鑰</h2><p>產生 ssh 金鑰是為了讓後續連線時，可以使用金鑰作為驗證，這邊是使用 Mac 的終端機產生，指令參照以下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -b 4096 sftp_key</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -b 4096 -f sftp_key</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>Passphrase 設不設定都可以，如果有設定的話，最後以 FileZilla 測試時，private key 需要額外產生 .ppk 檔才能使用，後續會講解</p>
