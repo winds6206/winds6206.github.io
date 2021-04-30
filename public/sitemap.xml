@@ -2,35 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://winds6206.github.io/2021/04/26/%E5%9C%A8K8s%E4%BD%BF%E7%94%A8FTP/</loc>
+    <loc>https://blog.tonyjhang.tk/2021/04/26/%E5%9C%A8K8s%E4%BD%BF%E7%94%A8FTP/</loc>
     
     <lastmod>2021-04-29</lastmod>
     
   </url>
   
   <url>
-    <loc>https://winds6206.github.io/2021/04/29/PHP-FPM%E8%A1%8C%E7%A8%8B%E5%84%AA%E5%8C%96/</loc>
+    <loc>https://blog.tonyjhang.tk/2021/04/29/PHP-FPM%E8%A1%8C%E7%A8%8B%E5%84%AA%E5%8C%96/</loc>
     
     <lastmod>2021-04-29</lastmod>
     
   </url>
   
   <url>
-    <loc>https://winds6206.github.io/tags/index.html</loc>
+    <loc>https://blog.tonyjhang.tk/tags/index.html</loc>
     
     <lastmod>2021-04-20</lastmod>
     
   </url>
   
   <url>
-    <loc>https://winds6206.github.io/about/index.html</loc>
+    <loc>https://blog.tonyjhang.tk/about/index.html</loc>
     
     <lastmod>2021-04-20</lastmod>
     
   </url>
   
   <url>
-    <loc>https://winds6206.github.io/categories/index.html</loc>
+    <loc>https://blog.tonyjhang.tk/categories/index.html</loc>
     
     <lastmod>2021-04-20</lastmod>
     
@@ -38,51 +38,51 @@
   
 
   <url>
-    <loc>https://winds6206.github.io/</loc>
-    <lastmod>2021-04-29</lastmod>
+    <loc>https://blog.tonyjhang.tk/</loc>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://winds6206.github.io/tags/PHP-FPM/</loc>
-    <lastmod>2021-04-29</lastmod>
+    <loc>https://blog.tonyjhang.tk/tags/PHP-FPM/</loc>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://winds6206.github.io/tags/GKE/</loc>
-    <lastmod>2021-04-29</lastmod>
+    <loc>https://blog.tonyjhang.tk/tags/GKE/</loc>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://winds6206.github.io/tags/GCP/</loc>
-    <lastmod>2021-04-29</lastmod>
+    <loc>https://blog.tonyjhang.tk/tags/GCP/</loc>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://winds6206.github.io/tags/K8s/</loc>
-    <lastmod>2021-04-29</lastmod>
+    <loc>https://blog.tonyjhang.tk/tags/K8s/</loc>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://winds6206.github.io/tags/kubernetes/</loc>
-    <lastmod>2021-04-29</lastmod>
+    <loc>https://blog.tonyjhang.tk/tags/kubernetes/</loc>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://winds6206.github.io/tags/ftp/</loc>
-    <lastmod>2021-04-29</lastmod>
+    <loc>https://blog.tonyjhang.tk/tags/ftp/</loc>
+    <lastmod>2021-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
