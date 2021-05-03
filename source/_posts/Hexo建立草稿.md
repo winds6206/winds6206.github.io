@@ -1,7 +1,9 @@
 ---
 title: Hexo建立草稿
 tags:
-  - hexo
+  - Hexo
+  - Hexo草稿
+  - blog
 ---
 
 ## 前言
@@ -79,3 +81,7 @@ render_drafts: true
 ```
 
 調整之後，以後要預覽 _drafts 內的文章，就跟一般放在 _posts 底下的一樣，只要使用 `hexo s` 通通都可以在本機預覽得到。
+
+## 參考資料
+
+- https://www.dazhuanlan.com/2019/11/02/5dbc7ecc737a5/
