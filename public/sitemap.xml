@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.tonyjhang.tk/2021/05/03/%E4%BD%BF%E7%94%A8GitHub-Pages/</loc>
+    <loc>https://blog.tonyjhang.tk/2021/04/26/%E5%9C%A8K8s%E4%BD%BF%E7%94%A8FTP/</loc>
     
     <lastmod>2021-05-03</lastmod>
     
@@ -16,9 +16,9 @@
   </url>
   
   <url>
-    <loc>https://blog.tonyjhang.tk/2021/04/26/%E5%9C%A8K8s%E4%BD%BF%E7%94%A8FTP/</loc>
+    <loc>https://blog.tonyjhang.tk/2021/05/03/%E4%BD%BF%E7%94%A8GitHub-Pages/</loc>
     
-    <lastmod>2021-04-29</lastmod>
+    <lastmod>2021-05-03</lastmod>
     
   </url>
   
@@ -116,6 +116,13 @@
   </url>
   
   <url>
+    <loc>https://blog.tonyjhang.tk/tags/Google-Cloud-Platform/</loc>
+    <lastmod>2021-05-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.tonyjhang.tk/tags/K8s/</loc>
     <lastmod>2021-05-03</lastmod>
     <changefreq>daily</changefreq>
@@ -123,14 +130,14 @@
   </url>
   
   <url>
-    <loc>https://blog.tonyjhang.tk/tags/kubernetes/</loc>
+    <loc>https://blog.tonyjhang.tk/tags/Kubernetes/</loc>
     <lastmod>2021-05-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://blog.tonyjhang.tk/tags/ftp/</loc>
+    <loc>https://blog.tonyjhang.tk/tags/FTP/</loc>
     <lastmod>2021-05-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

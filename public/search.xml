@@ -7,10 +7,10 @@
 <span id="more"></span>
 
 <h2 id="Hexo-草稿"><a href="#Hexo-草稿" class="headerlink" title="Hexo 草稿"></a>Hexo 草稿</h2><p>一般來說，我們建立文章都是使用此指令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new [title]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new [Title] [FileName]</span><br></pre></td></tr></table></figure>
 
 <p>如果今天要建立 Hexo 草稿，我們可以將上述指令改成</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new draft [title]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new draft [Title] [FileName]</span><br></pre></td></tr></table></figure>
 
 <p>那此時產生出來的草稿會放在 <code>./source/_drafts</code></p>
 <blockquote>
@@ -251,9 +251,10 @@
       <tags>
         <tag>GKE</tag>
         <tag>GCP</tag>
+        <tag>Google Cloud Platform</tag>
         <tag>K8s</tag>
-        <tag>kubernetes</tag>
-        <tag>ftp</tag>
+        <tag>Kubernetes</tag>
+        <tag>FTP</tag>
       </tags>
   </entry>
 </search>
