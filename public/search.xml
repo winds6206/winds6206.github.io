@@ -1,8 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Cloud NAT的限制</title>
+    <url>/2021/05/10/Cloud-NAT%E7%9A%84%E9%99%90%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因公司產品是採用 GKE 的基礎設施，為了讓 GKE 對外有一個 static IP，所以有加上 Cloud NAT 的功能，一開始加上去並沒有什麼問題，但日子長了之後，某一天發現要再擴增 Node 時，沒有辦法順利擴增，查了好一段時間才知道，原來是 Cloud NAT 導致要擴增 Node 時沒有辦法擴增，這其實很難想像得到，因為基本上不會有理由去懷疑是 Cloud NAT 所致。</p>
+<p>所以這邊紀錄一下遇到的問題，說不定你也正遇到跟我一樣的問題</p>
+<span id="more"></span>
+
+<h2 id="Cloud-NAT"><a href="#Cloud-NAT" class="headerlink" title="Cloud NAT"></a>Cloud NAT</h2><p>在 Cloud NAT 的進階設定中，有一個欄位叫做「每個 VM<br>執行個體的最低通訊埠數量」，如果你是使用英文介面會顯示「Minimum ports per VM instance」，就是這個數值會去影響可以運行的機器數量，後來參考外國的一篇文章才了解到此設定的重要性(參考的資料放在文後)，此數值不僅會決定你所選取的 VPC 內可以使用的機器數量，還會決定你的每台機器從 NAT 出去的連線數量，以下詳細說明</p>
+<h3 id="連線量"><a href="#連線量" class="headerlink" title="連線量"></a>連線量</h3><p>「每個 VM 執行個體的最低通訊埠數量」所填入的數值，本質意義是在說明: 你指定的 VPC 底下的每一台機器透過 Cloud NAT 到相同目的 IP 與 port 且使用相同的通訊協定(TCP or UDP) 的連線數量。</p>
+<p>舉例來說：預設數值為64，我的 VPC 內有三台機器，其中一台機器連線到 <code>TCP 1.1.1.1:1000</code> 此目的的數量有64條，這時此台機器要再連線此目的的連線就會被 drop 掉，導致後續的連線會異常，但是還是可以連線到「其他目的」。</p>
+<blockquote>
+<p>此處的「其他目的」是指與 <code>TCP 1.1.1.1:1000</code> 不同的「目的IP」或「目的Port」或「通訊協定」</p>
+</blockquote>
+<p>以下都是可以正常連線的目的，而且連線數是個別分開計算，這樣舉例會比較清楚</p>
+<ul>
+<li>UDP 1.1.1.1:1000</li>
+<li>TCP 2.2.2.2:1000</li>
+<li>UDP 2.2.2.2:1000</li>
+<li>TCP 2.2.2.2:2000</li>
+<li>UDP 2.2.2.2:3000</li>
+</ul>
+<h3 id="機器數量"><a href="#機器數量" class="headerlink" title="機器數量"></a>機器數量</h3><p>再來要討論「每個 VM 執行個體的最低通訊埠數量」的數值要怎麼計算 VPC 底下可以開幾台 Node</p>
+<p>每個 Cloud NAT 的 IP 有 65536 個連接埠分別給 TCP 與 UDP 使用，其中有 1024 個是公認通訊埠號(well-known port numbers)，所以實際可使用的連接埠為 64512(65536-1024)，如果使用 Google 給的預設數值64，那每個 NAT IP 可以支援相對應 VPC 底下高達 1008 台 Node (64512/64)，但是缺點就是可乘載的連線數量相對就比較少，如果想要擴增可乘載的機器數量，可以增加 NAT IP 來解決，如果在 Cloud NAT 放上第二組 NAT IP，此時 Node 就可以到 2016(1008*2) 那麼多。</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="https://medium.com/bluekiri/high-availability-nat-gateway-at-google-cloud-platform-with-cloud-nat-8a792b1c4cc4">https://medium.com/bluekiri/high-availability-nat-gateway-at-google-cloud-platform-with-cloud-nat-8a792b1c4cc4</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>GKE</tag>
+        <tag>GCP</tag>
+        <tag>Google Cloud Platform</tag>
+        <tag>Cloud NAT</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo建立草稿</title>
-    <url>/2021/05/03/Hexo%E5%BB%BA%E7%AB%8B%E8%8D%89%E7%A8%BF/</url>
+    <url>/2021/05/10/Hexo%E5%BB%BA%E7%AB%8B%E8%8D%89%E7%A8%BF/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>使用 Hexo 來當作技術部落格不僅簡單且快速，在剛開始架設完成後，可以使用指令 <code>hexo new [title]</code> 來建立文章並且撰寫，但是這樣的方式會延伸一個問題，如果這篇文章還處理撰寫的階段，但是我有修改其他已完成的文章需要發佈出去，但是不想把未完成的文章也一起發佈，此時就會有一些困擾，此篇會來說明如果使用 Hexo 的草稿功能。</p>
 <span id="more"></span>
 
@@ -53,8 +87,8 @@
 ]]></content>
       <tags>
         <tag>Hexo</tag>
-        <tag>Hexo草稿</tag>
         <tag>blog</tag>
+        <tag>Hexo草稿</tag>
       </tags>
   </entry>
   <entry>
@@ -163,9 +197,9 @@
 ]]></content>
       <tags>
         <tag>Hexo</tag>
-        <tag>blog</tag>
         <tag>GitHub</tag>
         <tag>GitHub Pages</tag>
+        <tag>blog</tag>
       </tags>
   </entry>
   <entry>
@@ -251,8 +285,8 @@
       <tags>
         <tag>GKE</tag>
         <tag>GCP</tag>
-        <tag>Google Cloud Platform</tag>
         <tag>K8s</tag>
+        <tag>Google Cloud Platform</tag>
         <tag>Kubernetes</tag>
         <tag>FTP</tag>
       </tags>
