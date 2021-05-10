@@ -17,13 +17,13 @@ tags:
 一般來說，我們建立文章都是使用此指令
 
 ```
-$ hexo new [title]
+$ hexo new [Title] [FileName]
 ```
 
 如果今天要建立 Hexo 草稿，我們可以將上述指令改成
 
 ```
-$ hexo new draft [title]
+$ hexo new draft [Title] [FileName]
 ```
 
 那此時產生出來的草稿會放在 `./source/_drafts`

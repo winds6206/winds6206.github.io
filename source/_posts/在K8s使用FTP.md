@@ -4,9 +4,10 @@ date: 2021-04-26 16:15:09
 tags:
   - GKE
   - GCP
+  - Google Cloud Platform
   - K8s
-  - kubernetes
-  - ftp
+  - Kubernetes
+  - FTP
 ---
 
 ## 前言
