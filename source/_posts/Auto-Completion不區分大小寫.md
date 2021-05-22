@@ -5,11 +5,13 @@ tags:
   - Auto Completion
   - Bash Completion
   - Linux
+date: 2021-05-11 16:25:56
 ---
+
 
 ## 前言
 
-Bash Completion可以讓你在使用 Bash 指令時，按「Tab」鍵，讓系統自動幫你把指令補齊，這可以加速你在輸入指令時的速度。
+Bash Completion 可以讓你在使用 Bash 指令時，按「Tab」鍵，讓系統自動幫你把指令補齊，這可以加速你在輸入指令時的速度。
 
 但如果今天我想要進入 Test 的目錄，依照習慣預設輸入法會是小寫所以大部的人會輸入成
 

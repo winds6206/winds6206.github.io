@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Auto Completion不區分大小寫</title>
+    <url>/2021/05/11/Auto-Completion%E4%B8%8D%E5%8D%80%E5%88%86%E5%A4%A7%E5%B0%8F%E5%AF%AB/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Bash Completion 可以讓你在使用 Bash 指令時，按「Tab」鍵，讓系統自動幫你把指令補齊，這可以加速你在輸入指令時的速度。</p>
+<p>但如果今天我想要進入 Test 的目錄，依照習慣預設輸入法會是小寫所以大部的人會輸入成</p>
+<ul>
+<li>輸入 <code>cd t</code> 再按 Tab 鍵</li>
+</ul>
+<p>此時系統就無法幫忙補齊，因為預設會區分大小寫，如果要忽略大小寫可以參考以下方式</p>
+<span id="more"></span>
+
+<h2 id="解決方式"><a href="#解決方式" class="headerlink" title="解決方式"></a>解決方式</h2><p>在家目錄底下有個 <code>.inputrc</code> 的檔案，可以最後面補上 <code>set completion-ignore-case On</code> 即可。 或者直接輸入以下指令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ echo &#39;set completion-ignore-case On&#39; &gt;&gt; ~&#x2F;.inputrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/">https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Bash</tag>
+        <tag>Auto Completion</tag>
+        <tag>Bash Completion</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Cloud NAT的限制</title>
     <url>/2021/05/10/Cloud-NAT%E7%9A%84%E9%99%90%E5%88%B6/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因公司產品是採用 GKE 的基礎設施，為了讓 GKE 對外有一個 static IP，所以有加上 Cloud NAT 的功能，一開始加上去並沒有什麼問題，但日子長了之後，某一天發現要再擴增 Node 時，沒有辦法順利擴增，查了好一段時間才知道，原來是 Cloud NAT 導致要擴增 Node 時沒有辦法擴增，這其實很難想像得到，因為基本上不會有理由去懷疑是 Cloud NAT 所致。</p>
@@ -36,7 +61,7 @@
   </entry>
   <entry>
     <title>Hexo建立草稿</title>
-    <url>/2021/05/10/Hexo%E5%BB%BA%E7%AB%8B%E8%8D%89%E7%A8%BF/</url>
+    <url>/2021/05/03/Hexo%E5%BB%BA%E7%AB%8B%E8%8D%89%E7%A8%BF/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>使用 Hexo 來當作技術部落格不僅簡單且快速，在剛開始架設完成後，可以使用指令 <code>hexo new [title]</code> 來建立文章並且撰寫，但是這樣的方式會延伸一個問題，如果這篇文章還處理撰寫的階段，但是我有修改其他已完成的文章需要發佈出去，但是不想把未完成的文章也一起發佈，此時就會有一些困擾，此篇會來說明如果使用 Hexo 的草稿功能。</p>
 <span id="more"></span>
 
@@ -88,7 +113,6 @@
       <tags>
         <tag>Hexo</tag>
         <tag>blog</tag>
-        <tag>Hexo草稿</tag>
       </tags>
   </entry>
   <entry>
@@ -153,6 +177,7 @@
 ]]></content>
       <tags>
         <tag>PHP-FPM</tag>
+        <tag>PHP</tag>
       </tags>
   </entry>
   <entry>
@@ -289,6 +314,50 @@
         <tag>Google Cloud Platform</tag>
         <tag>Kubernetes</tag>
         <tag>FTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何修改PHP-FPM上傳檔案大小限制</title>
+    <url>/2021/05/22/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9PHP-FPM%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E5%A4%A7%E5%B0%8F%E9%99%90%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>網頁上傳檔案屬於後端運作，如果檔案太大可能會造成上傳失敗，如果是採 Nginx + PHP-FPM 的架構，此時需要修改後端(PHP-FPM) <code>php.ini</code> 的相關參數設定。</p>
+<p>可以分為兩個面向：</p>
+<ul>
+<li>檔案上傳大小限制</li>
+<li>腳本執行時間或網路連線時間的長短限制</li>
+</ul>
+<span id="more"></span>
+
+<p>相關參數如下：</p>
+<blockquote>
+<p>此處的數值為預設值</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 檔案上傳大小限制相關參數</span><br><span class="line">upload_max_filesize &#x3D; 2M</span><br><span class="line">post_max_size &#x3D; 8M</span><br><span class="line">memory_limit &#x3D; 128M</span><br><span class="line"></span><br><span class="line"># 腳本執行時間或網路連線時間的限制</span><br><span class="line">max_execution_time &#x3D; 60</span><br><span class="line">max_input_time &#x3D; 60</span><br><span class="line">default_socket_timeout &#x3D; 60</span><br></pre></td></tr></table></figure>
+
+<h2 id="解決方式"><a href="#解決方式" class="headerlink" title="解決方式"></a>解決方式</h2><p>依照自身需求，調整 <code>php.ini</code> 的相關參數設定</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 上傳單一檔案大小</span><br><span class="line">upload_max_filesize &#x3D; 100M</span><br><span class="line"></span><br><span class="line"># 使用表單 POST 給 PHP 的大小上限(所有檔案大小加總)</span><br><span class="line">post_max_size &#x3D; 8M</span><br><span class="line"></span><br><span class="line"># 單一 PHP 腳本使用記憶體的上限</span><br><span class="line">memory_limit &#x3D; 128M</span><br></pre></td></tr></table></figure>
+
+<p>這邊需要注意的是，上述參數之間的值有大小原則需要注意</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">memory_limit &gt; post_max_size &gt; upload_max_filesize</span><br></pre></td></tr></table></figure>
+
+<p>到此就可以讓上傳檔案的大小再往上提升，不過接下來你可能會遇到檔案傳送到一半會斷線的情況，這代表傳送的檔案較大需要較多的時間，此時就需要再調整有關腳本執行的時間與網路連線的相關設定。</p>
+<hr>
+<p>有關 PHP 腳本執行的時間與網路連線時間長短的相關參數：</p>
+<blockquote>
+<p>此處的數值為預設值</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># PHP 腳本執行的時間上限(秒)，可避免無窮迴圈</span><br><span class="line">max_execution_time &#x3D; 30</span><br><span class="line"></span><br><span class="line"># 每個 PHP 腳本接收資料的時間上限(秒)，如果網路較慢，時間可能需要拉長</span><br><span class="line">max_input_time &#x3D; 60</span><br><span class="line"></span><br><span class="line"># Socket 無回應斷線時間上限</span><br><span class="line">default_socket_timeout &#x3D; 60</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>max_input_time</code> 數值若為 -1 表示無限制時間</p>
+</blockquote>
+<p>此處可以依照自身的 PHP 腳本與網路環境來調整到符合自身的需求</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="https://blog.gtwang.org/web-development/php-ini-large-file-upload-configuration/">https://blog.gtwang.org/web-development/php-ini-large-file-upload-configuration/</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>PHP-FPM</tag>
+        <tag>PHP</tag>
       </tags>
   </entry>
 </search>
