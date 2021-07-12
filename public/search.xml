@@ -111,8 +111,8 @@
 </ul>
 ]]></content>
       <tags>
+        <tag>Hexo</tag>
         <tag>blog</tag>
-        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -221,10 +221,10 @@
 </ul>
 ]]></content>
       <tags>
+        <tag>Hexo</tag>
         <tag>GitHub</tag>
         <tag>GitHub Pages</tag>
         <tag>blog</tag>
-        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -311,9 +311,9 @@
         <tag>GKE</tag>
         <tag>GCP</tag>
         <tag>K8s</tag>
-        <tag>kubernetes</tag>
         <tag>Google Cloud Platform</tag>
-        <tag>ftp</tag>
+        <tag>Kubernetes</tag>
+        <tag>FTP</tag>
       </tags>
   </entry>
   <entry>
