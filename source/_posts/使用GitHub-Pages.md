@@ -1,7 +1,7 @@
 ---
 title: 使用GitHub Pages
 tags:
-  - hexo
+  - Hexo
   - GitHub
   - GitHub Pages
   - blog

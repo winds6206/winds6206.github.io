@@ -1,7 +1,7 @@
 ---
 title: Hexo建立草稿
 tags:
-  - hexo
+  - Hexo
   - blog
 ---
 
