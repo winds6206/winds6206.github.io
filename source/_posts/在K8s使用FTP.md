@@ -6,8 +6,8 @@ tags:
   - GCP
   - Google Cloud Platform
   - K8s
-  - kubernetes
-  - ftp
+  - Kubernetes
+  - FTP
 ---
 
 ## 前言
