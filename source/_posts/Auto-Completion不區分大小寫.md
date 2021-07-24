@@ -10,7 +10,6 @@ categories:
   - Linux
 ---
 
-
 ## 前言
 
 Bash Completion 可以讓你在使用 Bash 指令時，按「Tab」鍵，讓系統自動幫你把指令補齊，這可以加速你在輸入指令時的速度。

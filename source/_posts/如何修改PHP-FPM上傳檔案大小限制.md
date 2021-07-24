@@ -8,7 +8,6 @@ categories:
   - PHP-FPM
 ---
 
-
 ## 前言
 
 網頁上傳檔案屬於後端運作，如果檔案太大可能會造成上傳失敗，如果是採 Nginx + PHP-FPM 的架構，此時需要修改後端(PHP-FPM) `php.ini` 的相關參數設定。
