@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Auto Completion不區分大小寫</title>
+    <url>/2021/05/11/Auto-Completion%E4%B8%8D%E5%8D%80%E5%88%86%E5%A4%A7%E5%B0%8F%E5%AF%AB/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Bash Completion 可以讓你在使用 Bash 指令時，按「Tab」鍵，讓系統自動幫你把指令補齊，這可以加速你在輸入指令時的速度。</p>
+<p>但如果今天我想要進入 Test 的目錄，依照習慣預設輸入法會是小寫所以大部的人會輸入成</p>
+<ul>
+<li>輸入 <code>cd t</code> 再按 Tab 鍵</li>
+</ul>
+<p>此時系統就無法幫忙補齊，因為預設會區分大小寫，如果要忽略大小寫可以參考以下方式</p>
+<span id="more"></span>
+
+<h2 id="解決方式"><a href="#解決方式" class="headerlink" title="解決方式"></a>解決方式</h2><p>在家目錄底下有個 <code>.inputrc</code> 的檔案，可以最後面補上 <code>set completion-ignore-case On</code> 即可。 或者直接輸入以下指令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ echo &#39;set completion-ignore-case On&#39; &gt;&gt; ~&#x2F;.inputrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/">https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Bash</tag>
+        <tag>Auto Completion</tag>
+        <tag>Bash Completion</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Cloud NAT的限制</title>
     <url>/2021/05/10/Cloud-NAT%E7%9A%84%E9%99%90%E5%88%B6/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因公司產品是採用 GKE 的基礎設施，為了讓 GKE 對外有一個 static IP，所以有加上 Cloud NAT 的功能，一開始加上去並沒有什麼問題，但日子長了之後，某一天發現要再擴增 Node 時，沒有辦法順利擴增，查了好一段時間才知道，原來是 Cloud NAT 導致要擴增 Node 時沒有辦法擴增，這其實很難想像得到，因為基本上不會有理由去懷疑是 Cloud NAT 所致。</p>
@@ -35,101 +63,6 @@
         <tag>GCP</tag>
         <tag>Google Cloud Platform</tag>
         <tag>Cloud NAT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Auto Completion不區分大小寫</title>
-    <url>/2021/05/11/Auto-Completion%E4%B8%8D%E5%8D%80%E5%88%86%E5%A4%A7%E5%B0%8F%E5%AF%AB/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Bash Completion 可以讓你在使用 Bash 指令時，按「Tab」鍵，讓系統自動幫你把指令補齊，這可以加速你在輸入指令時的速度。</p>
-<p>但如果今天我想要進入 Test 的目錄，依照習慣預設輸入法會是小寫所以大部的人會輸入成</p>
-<ul>
-<li>輸入 <code>cd t</code> 再按 Tab 鍵</li>
-</ul>
-<p>此時系統就無法幫忙補齊，因為預設會區分大小寫，如果要忽略大小寫可以參考以下方式</p>
-<span id="more"></span>
-
-<h2 id="解決方式"><a href="#解決方式" class="headerlink" title="解決方式"></a>解決方式</h2><p>在家目錄底下有個 <code>.inputrc</code> 的檔案，可以最後面補上 <code>set completion-ignore-case On</code> 即可。 或者直接輸入以下指令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ echo &#39;set completion-ignore-case On&#39; &gt;&gt; ~&#x2F;.inputrc</span><br></pre></td></tr></table></figure>
-
-<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
-<li><a href="https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/">https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Bash</tag>
-        <tag>Auto Completion</tag>
-        <tag>Bash Completion</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo標籤的使用</title>
-    <url>/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 網站中的文章可以使用標籤(tags)，標籤有點像是關鍵字的作用，可以替每篇不同的文章給予不同的標籤，這可以讓讀者針對標籤來快速篩選文章</p>
-<span id="more"></span>
-
-<h2 id="標籤的啟用-使用"><a href="#標籤的啟用-使用" class="headerlink" title="標籤的啟用/使用"></a>標籤的啟用/使用</h2><p>啟用標籤功能，讓標籤連結出現在網站上，首先調整 <code>./themes/next/_config.yml</code> 中的下述設定，將 <code>tags: /tags/ || fa fa-tags</code> 註解「取消」，這樣就可以讓網站出現標籤的連結</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || fa fa-home</span><br><span class="line">  about: &#x2F;about&#x2F; || fa fa-user</span><br><span class="line">  tags: &#x2F;tags&#x2F; || fa fa-tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || fa fa-th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || fa fa-archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || fa fa-calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
-
-<p>只有連結並沒有用處，點擊標籤連結時，要能夠顯示相關頁面，所以使用下述指令，讓 Hexo 幫你產生連結檔</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new page tags</span><br></pre></td></tr></table></figure>
-
-<p>Hexo 會在 <code>./source</code> 底下產生 tags 目錄，目錄內會有一個 index.md 檔案</p>
-<p>tags 頁面建立後，還需將 index.md 檔案打開，並且加入 type 參數，如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2021-04-20 15:37:19</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p>這樣基本上標籤功能就已經完成設定</p>
-<p>在使用時，只要在文章建立後加上 tags，並把要標籤的值加上去即可，如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 標籤測試</span><br><span class="line">tags:</span><br><span class="line">  - TEST</span><br><span class="line">  - TAG</span><br><span class="line">date: 2021-05-22 16:17:39</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<!--
-## 後記
-
-該篇與 Hexo分類/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結
-
-- [Hexo的分類功能]()
-- [Hexo的關於功能]()
--->
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo文章插入圖片</title>
-    <url>/2021/07/20/Hexo%E6%96%87%E7%AB%A0%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 中的文章是使用 Markdown 的語法，有時候文章中可能會需要一些圖片來予以輔助，這時候我們可能會需要調整一些設定來存放我們的圖片</p>
-<h2 id="文章插入圖片"><a href="#文章插入圖片" class="headerlink" title="文章插入圖片"></a>文章插入圖片</h2><p>這邊先講一下 Markdown 插入圖片的語法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](圖片路徑)</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<p>再來我們可以更改 Hexo 的設定檔，來讓我們建立文章時，能夠自動將該文章存放圖片的目錄也一起建立起來，修改 <code>./_config.xml</code>，並將下面參數值調整為 true</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure>
-
-<p>調整後當我們使用 <code>hexo new &quot;新文章&quot;</code> 建立文章後，就會自動在 <code>./source/_posts</code> 建立一個與文章相同名稱的目錄，然後就能將圖片放進去</p>
-<p>而 Markdown 要調用圖片時，圖片路徑只需要填上圖片名稱即可，例如：圖片名稱為 123.png</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](123.png)</span><br></pre></td></tr></table></figure>
-
-<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>上述方式對於每篇文章都需要插入圖片的使用者非常方便，但是如果你的文章只有少數幾篇需要圖片輔助的話，可能會造成 <code>./source/_posts</code> 會有很多空的目錄，所以如果只有少數幾篇需要使用到圖片的話，這邊給兩個建議：</p>
-<ol>
-<li>設定自動建立圖片存放目錄，然後自己手動將無需使用到圖片的文章的目錄刪除</li>
-<li>乾脆不要設定，自己手動建立與文章相同名稱的目錄來存放圖片</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>blog</tag>
       </tags>
   </entry>
   <entry>
@@ -182,6 +115,73 @@
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a href="https://www.dazhuanlan.com/2019/11/02/5dbc7ecc737a5/">https://www.dazhuanlan.com/2019/11/02/5dbc7ecc737a5/</a></li>
 </ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo文章插入圖片</title>
+    <url>/2021/07/20/Hexo%E6%96%87%E7%AB%A0%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 中的文章是使用 Markdown 的語法，有時候文章中可能會需要一些圖片來予以輔助，這時候我們可能會需要調整一些設定來存放我們的圖片</p>
+<h2 id="文章插入圖片"><a href="#文章插入圖片" class="headerlink" title="文章插入圖片"></a>文章插入圖片</h2><p>這邊先講一下 Markdown 插入圖片的語法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](圖片路徑)</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>再來我們可以更改 Hexo 的設定檔，來讓我們建立文章時，能夠自動將該文章存放圖片的目錄也一起建立起來，修改 <code>./_config.xml</code>，並將下面參數值調整為 true</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure>
+
+<p>調整後當我們使用 <code>hexo new &quot;新文章&quot;</code> 建立文章後，就會自動在 <code>./source/_posts</code> 建立一個與文章相同名稱的目錄，然後就能將圖片放進去</p>
+<p>而 Markdown 要調用圖片時，圖片路徑只需要填上圖片名稱即可，例如：圖片名稱為 123.png</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](123.png)</span><br></pre></td></tr></table></figure>
+
+<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>上述方式對於每篇文章都需要插入圖片的使用者非常方便，但是如果你的文章只有少數幾篇需要圖片輔助的話，可能會造成 <code>./source/_posts</code> 會有很多空的目錄，所以如果只有少數幾篇需要使用到圖片的話，這邊給兩個建議：</p>
+<ol>
+<li>設定自動建立圖片存放目錄，然後自己手動將無需使用到圖片的文章的目錄刪除</li>
+<li>乾脆不要設定，自己手動建立與文章相同名稱的目錄來存放圖片</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo標籤的使用</title>
+    <url>/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 網站中的文章可以使用標籤(tags)，標籤有點像是關鍵字的作用，可以替每篇不同的文章給予不同的標籤，這可以讓讀者針對標籤來快速篩選文章</p>
+<span id="more"></span>
+
+<h2 id="標籤的啟用-使用"><a href="#標籤的啟用-使用" class="headerlink" title="標籤的啟用/使用"></a>標籤的啟用/使用</h2><p>啟用標籤功能，讓標籤連結出現在網站上，首先調整 <code>./themes/next/_config.yml</code> 中的下述設定，將 <code>tags: /tags/ || fa fa-tags</code> 註解「取消」，這樣就可以讓網站出現標籤的連結</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || fa fa-home</span><br><span class="line">  about: &#x2F;about&#x2F; || fa fa-user</span><br><span class="line">  tags: &#x2F;tags&#x2F; || fa fa-tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || fa fa-th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || fa fa-archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || fa fa-calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
+
+<p>只有連結並沒有用處，點擊標籤連結時，要能夠顯示相關頁面，所以使用下述指令，讓 Hexo 幫你產生連結檔</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new page tags</span><br></pre></td></tr></table></figure>
+
+<p>Hexo 會在 <code>./source</code> 底下產生 tags 目錄，目錄內會有一個 index.md 檔案</p>
+<p>tags 頁面建立後，還需將 index.md 檔案打開，並且加入 type 參數，如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2021-04-20 15:37:19</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>這樣基本上標籤功能就已經完成設定</p>
+<p>在使用時，只要在文章建立後加上 tags，並把要標籤的值加上去即可，如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 標籤測試</span><br><span class="line">tags:</span><br><span class="line">  - TEST</span><br><span class="line">  - TAG</span><br><span class="line">date: 2021-05-22 16:17:39</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<!--
+## 後記
+
+該篇與 Hexo分類/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結
+
+- [Hexo的分類功能]()
+- [Hexo的關於功能]()
+-->
 ]]></content>
       <categories>
         <category>Hexo</category>
@@ -297,8 +297,8 @@
         <category>PHP-FPM</category>
       </categories>
       <tags>
-        <tag>PHP-FPM</tag>
         <tag>PHP</tag>
+        <tag>PHP-FPM</tag>
       </tags>
   </entry>
   <entry>
@@ -343,9 +343,9 @@
 ]]></content>
       <tags>
         <tag>Hexo</tag>
-        <tag>blog</tag>
         <tag>GitHub</tag>
         <tag>GitHub Pages</tag>
+        <tag>blog</tag>
       </tags>
   </entry>
   <entry>
@@ -483,8 +483,8 @@
         <category>PHP-FPM</category>
       </categories>
       <tags>
-        <tag>PHP-FPM</tag>
         <tag>PHP</tag>
+        <tag>PHP-FPM</tag>
       </tags>
   </entry>
 </search>
