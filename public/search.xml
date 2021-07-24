@@ -18,11 +18,14 @@
 <li><a href="https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/">https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/</a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
       <tags>
+        <tag>Linux</tag>
         <tag>Bash</tag>
         <tag>Auto Completion</tag>
         <tag>Bash Completion</tag>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -52,6 +55,9 @@
 <li><a href="https://medium.com/bluekiri/high-availability-nat-gateway-at-google-cloud-platform-with-cloud-nat-8a792b1c4cc4">https://medium.com/bluekiri/high-availability-nat-gateway-at-google-cloud-platform-with-cloud-nat-8a792b1c4cc4</a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>GCP</category>
+      </categories>
       <tags>
         <tag>GKE</tag>
         <tag>GCP</tag>
@@ -61,7 +67,7 @@
   </entry>
   <entry>
     <title>Hexo建立草稿</title>
-    <url>/2021/05/03/Hexo%E5%BB%BA%E7%AB%8B%E8%8D%89%E7%A8%BF/</url>
+    <url>/2021/07/12/Hexo%E5%BB%BA%E7%AB%8B%E8%8D%89%E7%A8%BF/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>使用 Hexo 來當作技術部落格不僅簡單且快速，在剛開始架設完成後，可以使用指令 <code>hexo new [title]</code> 來建立文章並且撰寫，但是這樣的方式會延伸一個問題，如果這篇文章還處理撰寫的階段，但是我有修改其他已完成的文章需要發佈出去，但是不想把未完成的文章也一起發佈，此時就會有一些困擾，此篇會來說明如果使用 Hexo 的草稿功能。</p>
 <span id="more"></span>
 
@@ -110,6 +116,118 @@
 <li><a href="https://www.dazhuanlan.com/2019/11/02/5dbc7ecc737a5/">https://www.dazhuanlan.com/2019/11/02/5dbc7ecc737a5/</a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo文章插入圖片</title>
+    <url>/2021/07/20/Hexo%E6%96%87%E7%AB%A0%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 中的文章是使用 Markdown 的語法，有時候文章中可能會需要一些圖片來予以輔助，這時候我們可能會需要調整一些設定來存放我們的圖片</p>
+<h2 id="文章插入圖片"><a href="#文章插入圖片" class="headerlink" title="文章插入圖片"></a>文章插入圖片</h2><p>這邊先講一下 Markdown 插入圖片的語法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](圖片路徑)</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>再來我們可以更改 Hexo 的設定檔，來讓我們建立文章時，能夠自動將該文章存放圖片的目錄也一起建立起來，修改 <code>./_config.xml</code>，並將下面參數值調整為 true</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure>
+
+<p>調整後當我們使用 <code>hexo new &quot;新文章&quot;</code> 建立文章後，就會自動在 <code>./source/_posts</code> 建立一個與文章相同名稱的目錄，然後就能將圖片放進去</p>
+<p>而 Markdown 要調用圖片時，圖片路徑只需要填上圖片名稱即可，例如：圖片名稱為 123.png</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](123.png)</span><br></pre></td></tr></table></figure>
+
+<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>上述方式對於每篇文章都需要插入圖片的使用者非常方便，但是如果你的文章只有少數幾篇需要圖片輔助的話，可能會造成 <code>./source/_posts</code> 會有很多空的目錄，所以如果只有少數幾篇需要使用到圖片的話，這邊給兩個建議：</p>
+<ol>
+<li>設定自動建立圖片存放目錄，然後自己手動將無需使用到圖片的文章的目錄刪除</li>
+<li>乾脆不要設定，自己手動建立與文章相同名稱的目錄來存放圖片</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo標籤的使用</title>
+    <url>/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 網站中的文章可以使用標籤(tags)，標籤有點像是關鍵字的作用，可以替每篇不同的文章給予不同的標籤，這可以讓讀者針對標籤來快速篩選文章</p>
+<span id="more"></span>
+
+<h2 id="標籤的啟用-使用"><a href="#標籤的啟用-使用" class="headerlink" title="標籤的啟用/使用"></a>標籤的啟用/使用</h2><p>啟用標籤功能，讓標籤連結出現在網站上，首先調整 <code>./themes/next/_config.yml</code> 中的下述設定，將 <code>tags: /tags/ || fa fa-tags</code> 註解「取消」，這樣就可以讓網站出現標籤的連結</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || fa fa-home</span><br><span class="line">  about: &#x2F;about&#x2F; || fa fa-user</span><br><span class="line">  tags: &#x2F;tags&#x2F; || fa fa-tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || fa fa-th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || fa fa-archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || fa fa-calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
+
+<p>只有連結並沒有用處，點擊標籤連結時，要能夠顯示相關頁面，所以使用下述指令，讓 Hexo 幫你產生連結檔</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new page tags</span><br></pre></td></tr></table></figure>
+
+<p>Hexo 會在 <code>./source</code> 底下產生 tags 目錄，目錄內會有一個 index.md 檔案</p>
+<p>tags 頁面建立後，還需將 index.md 檔案打開，並且加入 type 參數，如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2021-04-20 15:37:19</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>這樣基本上標籤功能就已經完成設定</p>
+<p>在使用時，只要在文章建立後加上 tags，並把要標籤的值加上去即可，如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 標籤測試</span><br><span class="line">tags:</span><br><span class="line">  - TEST</span><br><span class="line">  - TAG</span><br><span class="line">date: 2021-05-22 16:17:39</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<!--
+## 後記
+
+該篇與 Hexo分類/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結
+
+- [Hexo的分類功能]()
+- [Hexo的關於功能]()
+-->
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo的分類功能</title>
+    <url>/2021/07/23/Hexo%E7%9A%84%E5%88%86%E9%A1%9E%E5%8A%9F%E8%83%BD/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 的分類功能其實跟資料夾的功能差不多，作者可以自行將文章做分類，讓讀者在找尋時可以依據分類來快速找到相關的文章，功能上與標籤(tags) 有點大同小異</p>
+<span id="more"></span>
+
+<h2 id="分類的啟用-使用"><a href="#分類的啟用-使用" class="headerlink" title="分類的啟用/使用"></a>分類的啟用/使用</h2><p>啟用分類功能，讓分類連結出現在網站上，首先調整 <code>./themes/next/_config.yml</code> 中的下述設定，將 <code>categories: /categories/ || fa fa-th</code> 註解「取消」，這樣就可以讓網站出現分類的連結</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || fa fa-home</span><br><span class="line">  about: &#x2F;about&#x2F; || fa fa-user</span><br><span class="line">  tags: &#x2F;tags&#x2F; || fa fa-tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || fa fa-th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || fa fa-archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || fa fa-calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
+
+<p>只有連結並沒有用處，點擊分類連結時，要能夠顯示相關頁面，所以使用下述指令，讓 Hexo 幫你產生連結檔</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new page categories</span><br></pre></td></tr></table></figure>
+
+<p>Hexo 會在 <code>./source</code> 底下產生 categories 目錄，目錄內會有一個 index.md 檔案</p>
+<p>categories 頁面建立後，還需將 index.md 檔案打開，並且加入 type 參數，如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2021-04-20 15:37:19</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>這樣基本上分類功能就已經完成設定</p>
+<p>在使用時，只要在文章建立後加上 categories，並把要分類的值加上去即可，如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分類測試</span><br><span class="line">date: 2021-05-22 16:17:39</span><br><span class="line">categories:</span><br><span class="line">  - Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>這樣該篇文章就會被納入 Hexo 這個分類底下</p>
+<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>如果文章內的 categories 設定如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分類測試</span><br><span class="line">date: 2021-05-22 16:17:39</span><br><span class="line">categories:</span><br><span class="line">  - Hexo</span><br><span class="line">  - NexT</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>此時該文章將被分類到 Hexo 中的 NexT 底下，如：Hexo/NexT/分類測試</p>
+<!--
+## 後記
+
+該篇與 Hexo標籤/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結
+
+- [Hexo標籤的使用]()
+- [Hexo的關於功能]()
+-->
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
       <tags>
         <tag>Hexo</tag>
         <tag>blog</tag>
@@ -175,9 +293,12 @@
 <li><a href="https://www.mdeditor.tw/pl/p9Vf/zh-tw">https://www.mdeditor.tw/pl/p9Vf/zh-tw</a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>PHP-FPM</category>
+      </categories>
       <tags>
-        <tag>PHP-FPM</tag>
         <tag>PHP</tag>
+        <tag>PHP-FPM</tag>
       </tags>
   </entry>
   <entry>
@@ -295,7 +416,7 @@
 <li>連接埠: 預設是22，如果剛剛在編寫 External LoadBalace 時，有修改 port，這邊記得要跟著變</li>
 </ul>
 <p>如果是使用金鑰驗證，我們要先設定好 private key 的位置，開啟 FileZilla Client，依照下圖點選到設定位置</p>
-<p>點選 編輯 &gt; 設定</p>
+<p>點選 編輯 → 設定</p>
 <p><img src="0.png"></p>
 <p>選擇 SFTP 並點選「加入金鑰檔案」，此時會請你選擇 private key 的位置</p>
 <p><img src="1.png"></p>
@@ -307,6 +428,9 @@
 <p><img src="4.png"></p>
 <p>最後再回到主畫面將連線資訊填入，密碼不用填寫，當連線後，會請你輸入 passphrase 的密碼</p>
 ]]></content>
+      <categories>
+        <category>GKE</category>
+      </categories>
       <tags>
         <tag>GKE</tag>
         <tag>GCP</tag>
@@ -355,9 +479,12 @@
 <li><a href="https://blog.gtwang.org/web-development/php-ini-large-file-upload-configuration/">https://blog.gtwang.org/web-development/php-ini-large-file-upload-configuration/</a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>PHP-FPM</category>
+      </categories>
       <tags>
-        <tag>PHP-FPM</tag>
         <tag>PHP</tag>
+        <tag>PHP-FPM</tag>
       </tags>
   </entry>
 </search>

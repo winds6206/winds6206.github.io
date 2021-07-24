@@ -6,6 +6,8 @@ tags:
   - Bash Completion
   - Linux
 date: 2021-05-11 16:25:56
+categories:
+  - Linux
 ---
 
 

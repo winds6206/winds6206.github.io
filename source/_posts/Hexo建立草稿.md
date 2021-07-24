@@ -3,6 +3,8 @@ title: Hexo建立草稿
 tags:
   - Hexo
   - blog
+categories:
+  - Hexo
 ---
 
 ## 前言

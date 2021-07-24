@@ -6,6 +6,8 @@ tags:
   - Google Cloud Platform
   - Cloud NAT
 date: 2021-05-10 22:04:32
+categories:
+  - GCP
 ---
 
 ## 前言

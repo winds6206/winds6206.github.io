@@ -83,7 +83,7 @@ menu:
   home: / || fa fa-home
   #about: /about/ || fa fa-user
   tags: /tags/ || fa fa-tags
-  #categories: /categories/ || fa fa-th
+  categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
   #schedule: /schedule/ || fa fa-calendar
   #sitemap: /sitemap.xml || fa fa-sitemap
@@ -363,9 +363,9 @@ codeblock:
     dark: prism-dark
   # Add copy button on codeblock
   copy_button:
-    enable: false
+    enable: true
     # Available values: default | flat | mac
-    style:
+    style: default
 
 back2top:
   enable: true
@@ -469,7 +469,7 @@ exturl_icon: true
 
 # Google Webmaster tools verification.
 # See: https://developers.google.com/search
-google_site_verification: tIiLO31_C3GskCbFwazhqEgcnwYGFOOKTCA8Dhz5WUI
+google_site_verification: C2I2K3ifEz4zj3Dxkui7OQM-y4DHRfgwHRmyLGEAYUI
 
 # Bing Webmaster tools verification.
 # See: https://www.bing.com/webmasters
