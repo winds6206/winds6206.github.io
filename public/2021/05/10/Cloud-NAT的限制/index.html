@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
-  <meta name="google-site-verification" content="tIiLO31_C3GskCbFwazhqEgcnwYGFOOKTCA8Dhz5WUI">
+  <meta name="google-site-verification" content="C2I2K3ifEz4zj3Dxkui7OQM-y4DHRfgwHRmyLGEAYUI">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -22,7 +22,7 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.tonyjhang.tk","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"blog.tonyjhang.tk","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 <meta name="description" content="前言因公司產品是採用 GKE 的基礎設施，為了讓 GKE 對外有一個 static IP，所以有加上 Cloud NAT 的功能，一開始加上去並沒有什麼問題，但日子長了之後，某一天發現要再擴增 Node 時，沒有辦法順利擴增，查了好一段時間才知道，原來是 Cloud NAT 導致要擴增 Node 時沒有辦法擴增，這其實很難想像得到，因為基本上不會有理由去懷疑是 Cloud NAT 所致。 所以這邊">
 <meta property="og:type" content="article">
@@ -32,7 +32,7 @@
 <meta property="og:description" content="前言因公司產品是採用 GKE 的基礎設施，為了讓 GKE 對外有一個 static IP，所以有加上 Cloud NAT 的功能，一開始加上去並沒有什麼問題，但日子長了之後，某一天發現要再擴增 Node 時，沒有辦法順利擴增，查了好一段時間才知道，原來是 Cloud NAT 導致要擴增 Node 時沒有辦法擴增，這其實很難想像得到，因為基本上不會有理由去懷疑是 Cloud NAT 所致。 所以這邊">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-05-10T14:04:32.000Z">
-<meta property="article:modified_time" content="2021-05-11T08:20:00.885Z">
+<meta property="article:modified_time" content="2021-07-20T03:26:10.839Z">
 <meta property="article:author" content="Tony">
 <meta property="article:tag" content="GKE">
 <meta property="article:tag" content="GCP">
@@ -142,6 +142,7 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
@@ -215,9 +216,15 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">文章</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
@@ -229,10 +236,10 @@
 </div>
   <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/winds6206" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;winds6206" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/winds6206" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;winds6206" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:winds6206@gmail.com" title="E-Mail → mailto:winds6206@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:winds6206@gmail.com" title="E-Mail → mailto:winds6206@gmail.com" rel="noopener external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
   </div>
 
@@ -245,19 +252,19 @@
     </div>
     <ul class="links-of-recent-posts-list">
         <li class="links-of-recent-posts-item">
+          <a href="/2021/07/23/Hexo%E7%9A%84%E5%88%86%E9%A1%9E%E5%8A%9F%E8%83%BD/" title="2021&#x2F;07&#x2F;23&#x2F;Hexo的分類功能&#x2F;">Hexo的分類功能</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/" title="2021&#x2F;07&#x2F;21&#x2F;Hexo標籤的使用&#x2F;">Hexo標籤的使用</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2021/07/20/Hexo%E6%96%87%E7%AB%A0%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87/" title="2021&#x2F;07&#x2F;20&#x2F;Hexo文章插入圖片&#x2F;">Hexo文章插入圖片</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2021/07/12/Hexo%E5%BB%BA%E7%AB%8B%E8%8D%89%E7%A8%BF/" title="2021&#x2F;07&#x2F;12&#x2F;Hexo建立草稿&#x2F;">Hexo建立草稿</a>
+        </li>
+        <li class="links-of-recent-posts-item">
           <a href="/2021/05/22/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9PHP-FPM%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E5%A4%A7%E5%B0%8F%E9%99%90%E5%88%B6/" title="2021&#x2F;05&#x2F;22&#x2F;如何修改PHP-FPM上傳檔案大小限制&#x2F;">如何修改PHP-FPM上傳檔案大小限制</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021/05/11/Auto-Completion%E4%B8%8D%E5%8D%80%E5%88%86%E5%A4%A7%E5%B0%8F%E5%AF%AB/" title="2021&#x2F;05&#x2F;11&#x2F;Auto-Completion不區分大小寫&#x2F;">Auto Completion不區分大小寫</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021/05/10/Cloud-NAT%E7%9A%84%E9%99%90%E5%88%B6/" title="2021&#x2F;05&#x2F;10&#x2F;Cloud-NAT的限制&#x2F;">Cloud NAT的限制</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021/05/03/%E4%BD%BF%E7%94%A8GitHub-Pages/" title="2021&#x2F;05&#x2F;03&#x2F;使用GitHub-Pages&#x2F;">使用GitHub Pages</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021/05/03/Hexo%E5%BB%BA%E7%AB%8B%E8%8D%89%E7%A8%BF/" title="2021&#x2F;05&#x2F;03&#x2F;Hexo建立草稿&#x2F;">Hexo建立草稿</a>
         </li>
     </ul>
   </div>
@@ -324,8 +331,17 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-05-11 16:20:00" itemprop="dateModified" datetime="2021-05-11T16:20:00+08:00">2021-05-11</time>
+        <time title="修改時間：2021-07-20 11:26:10" itemprop="dateModified" datetime="2021-07-20T11:26:10+08:00">2021-07-20</time>
       </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/GCP/" itemprop="url" rel="index"><span itemprop="name">GCP</span></a>
+        </span>
+    </span>
 
   
     <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
@@ -379,7 +395,7 @@
 <h3 id="機器數量"><a href="#機器數量" class="headerlink" title="機器數量"></a>機器數量</h3><p>再來要討論「每個 VM 執行個體的最低通訊埠數量」的數值要怎麼計算 VPC 底下可以開幾台 Node</p>
 <p>每個 Cloud NAT 的 IP 有 65536 個連接埠分別給 TCP 與 UDP 使用，其中有 1024 個是公認通訊埠號(well-known port numbers)，所以實際可使用的連接埠為 64512(65536-1024)，如果使用 Google 給的預設數值64，那每個 NAT IP 可以支援相對應 VPC 底下高達 1008 台 Node (64512/64)，但是缺點就是可乘載的連線數量相對就比較少，如果想要擴增可乘載的機器數量，可以增加 NAT IP 來解決，如果在 Cloud NAT 放上第二組 NAT IP，此時 Node 就可以到 2016(1008*2) 那麼多。</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://medium.com/bluekiri/high-availability-nat-gateway-at-google-cloud-platform-with-cloud-nat-8a792b1c4cc4">https://medium.com/bluekiri/high-availability-nat-gateway-at-google-cloud-platform-with-cloud-nat-8a792b1c4cc4</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://medium.com/bluekiri/high-availability-nat-gateway-at-google-cloud-platform-with-cloud-nat-8a792b1c4cc4">https://medium.com/bluekiri/high-availability-nat-gateway-at-google-cloud-platform-with-cloud-nat-8a792b1c4cc4</a></li>
 </ul>
 
     </div>

@@ -41,7 +41,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: true
+post_asset_folder: false
 relative_link: false
 future: true
 highlight:
@@ -106,3 +106,10 @@ deploy:
   type: git
   repository: git@github.com:winds6206/winds6206.github.io.git
   branch: master
+
+nofollow:
+  enable: true
+  field: site
+#  exclude:
+#    - 'exclude1.com'
+#    - 'exclude2.com'

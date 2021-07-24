@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
-  <meta name="google-site-verification" content="tIiLO31_C3GskCbFwazhqEgcnwYGFOOKTCA8Dhz5WUI">
+  <meta name="google-site-verification" content="C2I2K3ifEz4zj3Dxkui7OQM-y4DHRfgwHRmyLGEAYUI">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -22,7 +22,7 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.tonyjhang.tk","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"blog.tonyjhang.tk","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 <meta name="description" content="前言Bash Completion 可以讓你在使用 Bash 指令時，按「Tab」鍵，讓系統自動幫你把指令補齊，這可以加速你在輸入指令時的速度。 但如果今天我想要進入 Test 的目錄，依照習慣預設輸入法會是小寫所以大部的人會輸入成  輸入 cd t 再按 Tab 鍵  此時系統就無法幫忙補齊，因為預設會區分大小寫，如果要忽略大小寫可以參考以下方式">
 <meta property="og:type" content="article">
@@ -32,12 +32,12 @@
 <meta property="og:description" content="前言Bash Completion 可以讓你在使用 Bash 指令時，按「Tab」鍵，讓系統自動幫你把指令補齊，這可以加速你在輸入指令時的速度。 但如果今天我想要進入 Test 的目錄，依照習慣預設輸入法會是小寫所以大部的人會輸入成  輸入 cd t 再按 Tab 鍵  此時系統就無法幫忙補齊，因為預設會區分大小寫，如果要忽略大小寫可以參考以下方式">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-05-11T08:25:56.000Z">
-<meta property="article:modified_time" content="2021-05-11T08:25:56.117Z">
+<meta property="article:modified_time" content="2021-07-20T03:29:17.882Z">
 <meta property="article:author" content="Tony">
+<meta property="article:tag" content="Linux">
 <meta property="article:tag" content="Bash">
 <meta property="article:tag" content="Auto Completion">
 <meta property="article:tag" content="Bash Completion">
-<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
 
 
@@ -142,6 +142,7 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
@@ -215,9 +216,15 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">文章</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
@@ -229,10 +236,10 @@
 </div>
   <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/winds6206" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;winds6206" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/winds6206" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;winds6206" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:winds6206@gmail.com" title="E-Mail → mailto:winds6206@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:winds6206@gmail.com" title="E-Mail → mailto:winds6206@gmail.com" rel="noopener external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
   </div>
 
@@ -245,19 +252,19 @@
     </div>
     <ul class="links-of-recent-posts-list">
         <li class="links-of-recent-posts-item">
+          <a href="/2021/07/23/Hexo%E7%9A%84%E5%88%86%E9%A1%9E%E5%8A%9F%E8%83%BD/" title="2021&#x2F;07&#x2F;23&#x2F;Hexo的分類功能&#x2F;">Hexo的分類功能</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/" title="2021&#x2F;07&#x2F;21&#x2F;Hexo標籤的使用&#x2F;">Hexo標籤的使用</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2021/07/20/Hexo%E6%96%87%E7%AB%A0%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87/" title="2021&#x2F;07&#x2F;20&#x2F;Hexo文章插入圖片&#x2F;">Hexo文章插入圖片</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2021/07/12/Hexo%E5%BB%BA%E7%AB%8B%E8%8D%89%E7%A8%BF/" title="2021&#x2F;07&#x2F;12&#x2F;Hexo建立草稿&#x2F;">Hexo建立草稿</a>
+        </li>
+        <li class="links-of-recent-posts-item">
           <a href="/2021/05/22/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9PHP-FPM%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E5%A4%A7%E5%B0%8F%E9%99%90%E5%88%B6/" title="2021&#x2F;05&#x2F;22&#x2F;如何修改PHP-FPM上傳檔案大小限制&#x2F;">如何修改PHP-FPM上傳檔案大小限制</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021/05/11/Auto-Completion%E4%B8%8D%E5%8D%80%E5%88%86%E5%A4%A7%E5%B0%8F%E5%AF%AB/" title="2021&#x2F;05&#x2F;11&#x2F;Auto-Completion不區分大小寫&#x2F;">Auto Completion不區分大小寫</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021/05/10/Cloud-NAT%E7%9A%84%E9%99%90%E5%88%B6/" title="2021&#x2F;05&#x2F;10&#x2F;Cloud-NAT的限制&#x2F;">Cloud NAT的限制</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021/05/03/%E4%BD%BF%E7%94%A8GitHub-Pages/" title="2021&#x2F;05&#x2F;03&#x2F;使用GitHub-Pages&#x2F;">使用GitHub Pages</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/2021/05/03/Hexo%E5%BB%BA%E7%AB%8B%E8%8D%89%E7%A8%BF/" title="2021&#x2F;05&#x2F;03&#x2F;Hexo建立草稿&#x2F;">Hexo建立草稿</a>
         </li>
     </ul>
   </div>
@@ -319,6 +326,22 @@
 
       <time title="創建時間：2021-05-11 16:25:56" itemprop="dateCreated datePublished" datetime="2021-05-11T16:25:56+08:00">2021-05-11</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-07-20 11:29:17" itemprop="dateModified" datetime="2021-07-20T11:29:17+08:00">2021-07-20</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
 
   
     <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
@@ -363,7 +386,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo &#39;set completion-ignore-case On&#39; &gt;&gt; ~&#x2F;.inputrc</span><br></pre></td></tr></table></figure>
 
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/">https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/">https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/</a></li>
 </ul>
 
     </div>
@@ -381,10 +404,10 @@
 <div>
 
           <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
               <a href="/tags/Bash/" rel="tag"><i class="fa fa-tag"></i> Bash</a>
               <a href="/tags/Auto-Completion/" rel="tag"><i class="fa fa-tag"></i> Auto Completion</a>
               <a href="/tags/Bash-Completion/" rel="tag"><i class="fa fa-tag"></i> Bash Completion</a>
-              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
           </div>
 
         

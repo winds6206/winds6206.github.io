@@ -4,6 +4,8 @@ tags:
   - PHP-FPM
   - PHP
 date: 2021-05-22 16:17:39
+categories:
+  - PHP-FPM
 ---
 
 

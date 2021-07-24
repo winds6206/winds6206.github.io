@@ -4,6 +4,8 @@ date: 2021-04-29 17:21:21
 tags:
   - PHP-FPM
   - PHP
+categories:
+  - PHP-FPM
 ---
 
 ## 前言

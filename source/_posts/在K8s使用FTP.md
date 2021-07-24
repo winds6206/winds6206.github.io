@@ -8,6 +8,8 @@ tags:
   - K8s
   - Kubernetes
   - FTP
+categories:
+  - GKE
 ---
 
 ## 前言
@@ -165,7 +167,7 @@ ports:
 
 如果是使用金鑰驗證，我們要先設定好 private key 的位置，開啟 FileZilla Client，依照下圖點選到設定位置
 
-點選 編輯 > 設定
+點選 編輯 → 設定
 
 ![](0.png)
 
