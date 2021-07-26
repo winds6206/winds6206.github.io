@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Auto Completion不區分大小寫</title>
+    <url>/2021/05/11/Auto-Completion%E4%B8%8D%E5%8D%80%E5%88%86%E5%A4%A7%E5%B0%8F%E5%AF%AB/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Bash Completion 可以讓你在使用 Bash 指令時，按「Tab」鍵，讓系統自動幫你把指令補齊，這可以加速你在輸入指令時的速度。</p>
+<p>但如果今天我想要進入 Test 的目錄，依照習慣預設輸入法會是小寫所以大部的人會輸入成</p>
+<ul>
+<li>輸入 <code>cd t</code> 再按 Tab 鍵</li>
+</ul>
+<p>此時系統就無法幫忙補齊，因為預設會區分大小寫，如果要忽略大小寫可以參考以下方式</p>
+<span id="more"></span>
+
+<h2 id="解決方式"><a href="#解決方式" class="headerlink" title="解決方式"></a>解決方式</h2><p>在家目錄底下有個 <code>.inputrc</code> 的檔案，可以最後面補上 <code>set completion-ignore-case On</code> 即可。 或者直接輸入以下指令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ echo &#39;set completion-ignore-case On&#39; &gt;&gt; ~&#x2F;.inputrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/">https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Bash</tag>
+        <tag>Auto Completion</tag>
+        <tag>Bash Completion</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Cloud NAT的限制</title>
     <url>/2021/05/10/Cloud-NAT%E7%9A%84%E9%99%90%E5%88%B6/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因公司產品是採用 GKE 的基礎設施，為了讓 GKE 對外有一個 static IP，所以有加上 Cloud NAT 的功能，一開始加上去並沒有什麼問題，但日子長了之後，某一天發現要再擴增 Node 時，沒有辦法順利擴增，查了好一段時間才知道，原來是 Cloud NAT 導致要擴增 Node 時沒有辦法擴增，這其實很難想像得到，因為基本上不會有理由去懷疑是 Cloud NAT 所致。</p>
@@ -35,34 +63,6 @@
         <tag>GCP</tag>
         <tag>Google Cloud Platform</tag>
         <tag>Cloud NAT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Auto Completion不區分大小寫</title>
-    <url>/2021/05/11/Auto-Completion%E4%B8%8D%E5%8D%80%E5%88%86%E5%A4%A7%E5%B0%8F%E5%AF%AB/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Bash Completion 可以讓你在使用 Bash 指令時，按「Tab」鍵，讓系統自動幫你把指令補齊，這可以加速你在輸入指令時的速度。</p>
-<p>但如果今天我想要進入 Test 的目錄，依照習慣預設輸入法會是小寫所以大部的人會輸入成</p>
-<ul>
-<li>輸入 <code>cd t</code> 再按 Tab 鍵</li>
-</ul>
-<p>此時系統就無法幫忙補齊，因為預設會區分大小寫，如果要忽略大小寫可以參考以下方式</p>
-<span id="more"></span>
-
-<h2 id="解決方式"><a href="#解決方式" class="headerlink" title="解決方式"></a>解決方式</h2><p>在家目錄底下有個 <code>.inputrc</code> 的檔案，可以最後面補上 <code>set completion-ignore-case On</code> 即可。 或者直接輸入以下指令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ echo &#39;set completion-ignore-case On&#39; &gt;&gt; ~&#x2F;.inputrc</span><br></pre></td></tr></table></figure>
-
-<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
-<li><a href="https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/">https://caloskao.org/linux-make-tab-auto-completion-case-insensitive-in-the-terminal/</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Bash</tag>
-        <tag>Auto Completion</tag>
-        <tag>Bash Completion</tag>
       </tags>
   </entry>
   <entry>
@@ -155,7 +155,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo標籤的使用</title>
+    <title>Hexo的標籤功能</title>
     <url>/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 網站中的文章可以使用標籤(tags)，標籤有點像是關鍵字的作用，可以替每篇不同的文章給予不同的標籤，這可以讓讀者針對標籤來快速篩選文章</p>
 <span id="more"></span>
@@ -174,14 +174,82 @@
 <p>在使用時，只要在文章建立後加上 tags，並把要標籤的值加上去即可，如下</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 標籤測試</span><br><span class="line">tags:</span><br><span class="line">  - TEST</span><br><span class="line">  - TAG</span><br><span class="line">date: 2021-05-22 16:17:39</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 
-<!--
-## 後記
+<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>該篇與 Hexo的分類/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結</p>
+<ul>
+<li><a href="https://blog.tonyjhang.tk/2021/07/23/Hexo%E7%9A%84%E5%88%86%E9%A1%9E%E5%8A%9F%E8%83%BD/">Hexo的分類功能</a></li>
+<li><a href="https://blog.tonyjhang.tk/2021/07/26/Hexo%E7%9A%84%E9%97%9C%E6%96%BC%E5%8A%9F%E8%83%BD/">Hexo的關於功能</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo的關於功能</title>
+    <url>/2021/07/26/Hexo%E7%9A%84%E9%97%9C%E6%96%BC%E5%8A%9F%E8%83%BD/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 的關於(about) 功能，主要是可以讓讀者點進特定頁面來去了解作者本人，也就是作者的自我介紹頁，以下會介紹如何啟用與使用</p>
+<span id="more"></span>
 
-該篇與 Hexo分類/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結
+<h2 id="關於的啟用-使用"><a href="#關於的啟用-使用" class="headerlink" title="關於的啟用/使用"></a>關於的啟用/使用</h2><p>啟用關於功能，讓關於連結出現在網站上，首先調整 <code>./themes/next/_config.yml</code> 中的下述設定，將 <code>about: /about/ || fa fa-user</code> 註解「取消」，這樣就可以讓網站出現關於的連結</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || fa fa-home</span><br><span class="line">  about: &#x2F;about&#x2F; || fa fa-user</span><br><span class="line">  tags: &#x2F;tags&#x2F; || fa fa-tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || fa fa-th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || fa fa-archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || fa fa-calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
 
-- [Hexo的分類功能]()
-- [Hexo的關於功能]()
--->
+<p>只有連結並沒有用處，點擊關於連結時，要能夠顯示相關頁面，所以使用下述指令，讓 Hexo 幫你產生連結檔</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new page about</span><br></pre></td></tr></table></figure>
+
+<p>Hexo 會在 <code>./source</code> 底下產生 about 目錄，目錄內會有一個 index.md 檔案</p>
+<p>about 頁面建立後，還需將 index.md 檔案打開，並且加入 type 參數，如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: about</span><br><span class="line">date: 2021-04-20 15:37:19</span><br><span class="line">type: &quot;about&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>這樣基本上關於功能就已經完成設定</p>
+<p>使用時，只要在 <code>./source/about/index.md</code> 頁面以 Markdown 語法寫下自我介紹即可</p>
+<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>該篇與 Hexo的分類/標籤功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結</p>
+<ul>
+<li><a href="https://blog.tonyjhang.tk/2021/07/23/Hexo%E7%9A%84%E5%88%86%E9%A1%9E%E5%8A%9F%E8%83%BD/">Hexo的分類功能</a></li>
+<li><a href="https://blog.tonyjhang.tk/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/">Hexo的標籤功能</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo的分類功能</title>
+    <url>/2021/07/23/Hexo%E7%9A%84%E5%88%86%E9%A1%9E%E5%8A%9F%E8%83%BD/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 的分類功能其實跟資料夾的功能差不多，作者可以自行將文章做分類，讓讀者在找尋時可以依據分類來快速找到相關的文章，功能上與標籤(tags) 有點大同小異</p>
+<span id="more"></span>
+
+<h2 id="分類的啟用-使用"><a href="#分類的啟用-使用" class="headerlink" title="分類的啟用/使用"></a>分類的啟用/使用</h2><p>啟用分類功能，讓分類連結出現在網站上，首先調整 <code>./themes/next/_config.yml</code> 中的下述設定，將 <code>categories: /categories/ || fa fa-th</code> 註解「取消」，這樣就可以讓網站出現分類的連結</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || fa fa-home</span><br><span class="line">  about: &#x2F;about&#x2F; || fa fa-user</span><br><span class="line">  tags: &#x2F;tags&#x2F; || fa fa-tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || fa fa-th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || fa fa-archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || fa fa-calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
+
+<p>只有連結並沒有用處，點擊分類連結時，要能夠顯示相關頁面，所以使用下述指令，讓 Hexo 幫你產生連結檔</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new page categories</span><br></pre></td></tr></table></figure>
+
+<p>Hexo 會在 <code>./source</code> 底下產生 categories 目錄，目錄內會有一個 index.md 檔案</p>
+<p>categories 頁面建立後，還需將 index.md 檔案打開，並且加入 type 參數，如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2021-04-20 15:37:19</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>這樣基本上分類功能就已經完成設定</p>
+<p>在使用時，只要在文章建立後加上 categories，並把要分類的值加上去即可，如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分類測試</span><br><span class="line">date: 2021-05-22 16:17:39</span><br><span class="line">categories:</span><br><span class="line">  - Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>這樣該篇文章就會被納入 Hexo 這個分類底下</p>
+<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>如果文章內的 categories 設定如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分類測試</span><br><span class="line">date: 2021-05-22 16:17:39</span><br><span class="line">categories:</span><br><span class="line">  - Hexo</span><br><span class="line">  - NexT</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>此時該文章將被分類到 Hexo 中的 NexT 底下，如：Hexo/NexT/分類測試</p>
+<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>該篇與 Hexo的標籤/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結</p>
+<ul>
+<li><a href="https://blog.tonyjhang.tk/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/">Hexo的標籤功能</a></li>
+<li><a href="https://blog.tonyjhang.tk/2021/07/26/Hexo%E7%9A%84%E9%97%9C%E6%96%BC%E5%8A%9F%E8%83%BD/">Hexo的關於功能</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>Hexo</category>
@@ -257,48 +325,6 @@
       <tags>
         <tag>PHP</tag>
         <tag>PHP-FPM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo的分類功能</title>
-    <url>/2021/07/23/Hexo%E7%9A%84%E5%88%86%E9%A1%9E%E5%8A%9F%E8%83%BD/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 的分類功能其實跟資料夾的功能差不多，作者可以自行將文章做分類，讓讀者在找尋時可以依據分類來快速找到相關的文章，功能上與標籤(tags) 有點大同小異</p>
-<span id="more"></span>
-
-<h2 id="分類的啟用-使用"><a href="#分類的啟用-使用" class="headerlink" title="分類的啟用/使用"></a>分類的啟用/使用</h2><p>啟用分類功能，讓分類連結出現在網站上，首先調整 <code>./themes/next/_config.yml</code> 中的下述設定，將 <code>categories: /categories/ || fa fa-th</code> 註解「取消」，這樣就可以讓網站出現分類的連結</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || fa fa-home</span><br><span class="line">  about: &#x2F;about&#x2F; || fa fa-user</span><br><span class="line">  tags: &#x2F;tags&#x2F; || fa fa-tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || fa fa-th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || fa fa-archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || fa fa-calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
-
-<p>只有連結並沒有用處，點擊分類連結時，要能夠顯示相關頁面，所以使用下述指令，讓 Hexo 幫你產生連結檔</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new page categories</span><br></pre></td></tr></table></figure>
-
-<p>Hexo 會在 <code>./source</code> 底下產生 categories 目錄，目錄內會有一個 index.md 檔案</p>
-<p>categories 頁面建立後，還需將 index.md 檔案打開，並且加入 type 參數，如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2021-04-20 15:37:19</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p>這樣基本上分類功能就已經完成設定</p>
-<p>在使用時，只要在文章建立後加上 categories，並把要分類的值加上去即可，如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分類測試</span><br><span class="line">date: 2021-05-22 16:17:39</span><br><span class="line">categories:</span><br><span class="line">  - Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p>這樣該篇文章就會被納入 Hexo 這個分類底下</p>
-<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>如果文章內的 categories 設定如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分類測試</span><br><span class="line">date: 2021-05-22 16:17:39</span><br><span class="line">categories:</span><br><span class="line">  - Hexo</span><br><span class="line">  - NexT</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p>此時該文章將被分類到 Hexo 中的 NexT 底下，如：Hexo/NexT/分類測試</p>
-<!--
-## 後記
-
-該篇與 Hexo標籤/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結
-
-- [Hexo標籤的使用]()
-- [Hexo的關於功能]()
--->
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>blog</tag>
       </tags>
   </entry>
   <entry>
