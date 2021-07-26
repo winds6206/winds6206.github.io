@@ -79,11 +79,9 @@ categories:
 
 此時該文章將被分類到 Hexo 中的 NexT 底下，如：Hexo/NexT/分類測試
 
-<!--
 ## 後記
 
-該篇與 Hexo標籤/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結
+該篇與 Hexo的標籤/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結
 
-- [Hexo標籤的使用]()
-- [Hexo的關於功能]()
--->
+- [Hexo的標籤功能](https://blog.tonyjhang.tk/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/)
+- [Hexo的關於功能](https://blog.tonyjhang.tk/2021/07/26/Hexo%E7%9A%84%E9%97%9C%E6%96%BC%E5%8A%9F%E8%83%BD/)
