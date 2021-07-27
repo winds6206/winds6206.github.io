@@ -1,5 +1,5 @@
 ---
-title: 什麼是HSTS?
+title: 什麼是HSTS
 tags:
   - HSTS
   - SSL
@@ -49,7 +49,7 @@ HTTP 強制安全傳輸(HTTP Strict Transport Security, HSTS)，就是告訴瀏�
 
 4. Redirect Internel 是客戶端本機瀏覽器 HTTP To HTTPS 跳轉過程，跳轉完成後客戶端就會以 HTTPS 訪問伺服器，這樣就能確保客戶端訪問伺服器時是使用 HTTPS 加密連線
 
-總結：使用 HSTS 時，當 max-age 未過期，客戶端會在「自己的瀏覽器」進行 307 跳轉成 HTTPS，再去訪問伺服器
+> 總結：使用 HSTS 時，當 max-age 未過期，客戶端會在「自己的瀏覽器」進行 307 跳轉成 HTTPS，再去訪問伺服器
 
 ## HSTS 優點
 
@@ -73,11 +73,11 @@ HTTP 強制安全傳輸(HTTP Strict Transport Security, HSTS)，就是告訴瀏�
 
 1. IP 的請求 HSTS 無法處理，例如：`http://1.1.1.1` Response Header 中設置了 STS，瀏覽器也不會理會
 
-<!--2. HSTS 只能在 80 和 443 埠號之間的轉換，如果服務是 8080 埠號，即便設置了 STS 也無效(待驗證)-->
+2. HSTS 只能在 80 和 443 埠號之間的轉換，如果服務是 8080 埠號，即便設置了 STS 也無效
 
-2. 當憑證一旦失效，網站會無法順利開啟
+3. 當憑證一旦失效，網站會無法順利開啟
 
-3. 如果伺服器的 HTTPS 沒有設定好就開啟了 STS 的 Response Header，並且設置了很長的過期時間，那麼在你伺服器 HTTPS 設定好之前，用戶都是沒辦法連到伺服器，除非 max-age 過期了(因為客戶端會強制使用 HTTPS 與伺服器連線)
+4. 如果伺服器的 HTTPS 沒有設定好就開啟了 STS 的 Response Header，並且設置了很長的過期時間，那麼在你伺服器 HTTPS 設定好之前，用戶都是沒辦法連到伺服器，除非 max-age 過期了(因為客戶端會強制使用 HTTPS 與伺服器連線)
 
 ## 參考資料
 
