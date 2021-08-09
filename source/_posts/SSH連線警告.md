@@ -1,5 +1,5 @@
 ---
-title: SSH 連線出現「WARNING:REMOTE HOST IDENTIFICATION HAS CHANGED!」
+title: 'SSH 連線出現「WARNING:REMOTE HOST IDENTIFICATION HAS CHANGED!」'
 tags:
   - Linux
   - SSH
@@ -7,7 +7,9 @@ tags:
   - known_hosts
 categories:
   - Linux
+date: 2021-08-09 10:48:45
 ---
+
 
 ## 前言
 
