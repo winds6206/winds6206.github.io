@@ -6,6 +6,7 @@ tags:
   - Disqus
 categories:
   - Hexo
+date: 2021-08-16 10:38:09
 ---
 
 ## 前言
@@ -25,7 +26,7 @@ Disqus 留言功能屬於第三方的功能，所以我們需要到 [Disqus 官�
 # For more information: https://disqus.com
 disqus:
   enable: false
-  shortname:
+  shortname: YOUR_SHORTNAME
   count: true
 ```
 
