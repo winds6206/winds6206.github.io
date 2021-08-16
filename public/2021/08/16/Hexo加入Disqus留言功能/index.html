@@ -24,18 +24,25 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"blog.tonyjhang.tk","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="Cloud System Engineer">
-<meta property="og:type" content="website">
-<meta property="og:title" content="坐而言不如起而行">
-<meta property="og:url" content="https://blog.tonyjhang.tk/tags/K8s/index.html">
+<meta name="description" content="前言當我們利用 Hexo 架設好部落格並選定主題後，我們可能會希望讀者們可以針對文章予以回饋，這時候留言板功能就顯得格外重要，在 Hexo 中我們可以整併 Disqus 留言功能進去，讓文章的結尾可以有一塊專門留言的留言板，好讓讀者能夠留下寶貴的意見或問題">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo加入Disqus留言功能">
+<meta property="og:url" content="https://blog.tonyjhang.tk/2021/08/16/Hexo%E5%8A%A0%E5%85%A5Disqus%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/index.html">
 <meta property="og:site_name" content="坐而言不如起而行">
-<meta property="og:description" content="Cloud System Engineer">
+<meta property="og:description" content="前言當我們利用 Hexo 架設好部落格並選定主題後，我們可能會希望讀者們可以針對文章予以回饋，這時候留言板功能就顯得格外重要，在 Hexo 中我們可以整併 Disqus 留言功能進去，讓文章的結尾可以有一塊專門留言的留言板，好讓讀者能夠留下寶貴的意見或問題">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://blog.tonyjhang.tk/2021/08/16/Hexo%E5%8A%A0%E5%85%A5Disqus%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/0.png">
+<meta property="article:published_time" content="2021-08-16T02:38:09.000Z">
+<meta property="article:modified_time" content="2021-08-16T02:38:21.567Z">
 <meta property="article:author" content="Tony">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="blog">
+<meta property="article:tag" content="Disqus">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.tonyjhang.tk/2021/08/16/Hexo%E5%8A%A0%E5%85%A5Disqus%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/0.png">
 
 
-<link rel="canonical" href="https://blog.tonyjhang.tk/tags/K8s/">
+<link rel="canonical" href="https://blog.tonyjhang.tk/2021/08/16/Hexo%E5%8A%A0%E5%85%A5Disqus%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/">
 
 
 <script class="page-configurations">
@@ -43,11 +50,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-TW'
   };
 </script>
-<title>標籤: K8s | 坐而言不如起而行</title>
+<title>Hexo加入Disqus留言功能 | 坐而言不如起而行</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196052332-1"></script>
     <script>
@@ -181,7 +188,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目錄
@@ -194,6 +201,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Disqus-%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD%E5%95%9F%E7%94%A8-%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">Disqus 留言功能啟用&#x2F;使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E5%BE%8C%E8%A8%8E%E8%AB%96"><span class="nav-number">3.</span> <span class="nav-text">文後討論</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -282,51 +290,147 @@
 </noscript>
 
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h2 class="collection-header">K8s
-          <small>標籤</small>
-        </h2>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://blog.tonyjhang.tk/2021/08/16/Hexo%E5%8A%A0%E5%85%A5Disqus%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/IMG_1598.jpg">
+      <meta itemprop="name" content="Tony">
+      <meta itemprop="description" content="Cloud System Engineer">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="坐而言不如起而行">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo加入Disqus留言功能
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+
+      <time title="創建時間：2021-08-16 10:38:09 / 修改時間：10:38:21" itemprop="dateCreated datePublished" datetime="2021-08-16T10:38:09+08:00">2021-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/08/16/Hexo%E5%8A%A0%E5%85%A5Disqus%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/16/Hexo加入Disqus留言功能/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>當我們利用 Hexo 架設好部落格並選定主題後，我們可能會希望讀者們可以針對文章予以回饋，這時候留言板功能就顯得格外重要，在 Hexo 中我們可以整併 Disqus 留言功能進去，讓文章的結尾可以有一塊專門留言的留言板，好讓讀者能夠留下寶貴的意見或問題</p>
+<span id="more"></span>
+
+<h2 id="Disqus-留言功能啟用-使用"><a href="#Disqus-留言功能啟用-使用" class="headerlink" title="Disqus 留言功能啟用/使用"></a>Disqus 留言功能啟用/使用</h2><p>Disqus 留言功能屬於第三方的功能，所以我們需要到 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://disqus.com/">Disqus 官方</a> 註冊帳號，註冊期間會請你填入 shortname，請留意一下，shortname 設定後是無法再修改的</p>
+<p>註冊後再到 <code>./themes/next/_config.yml</code> 內 Disqus 的區塊去做設定，將 enable 參數值改成 true，shortname 的值改成 Disqus 當時申請時所填入的 shortname</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Disqus</span><br><span class="line"># For more information: https:&#x2F;&#x2F;disqus.com</span><br><span class="line">disqus:</span><br><span class="line">  enable: false</span><br><span class="line">  shortname: YOUR_SHORTNAME</span><br><span class="line">  count: true</span><br></pre></td></tr></table></figure>
+
+<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>因 Disqus 屬於第三方管理，所以相關後台設定需要到 Disqus 登入自己的帳號來調整，例如：留言通知、更改語言等等…</p>
+<p>這邊順便提一下，Disqus 預設不允許讀者在沒有登入 Disqus 的情況下進行留言，如果想要讓讀者可以在沒有登入 Disqus 的情況下留言，可以到 Disqus 的後台下述路徑去調整</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Settings → Admin → Edit Settings → 選擇要修改的部落格 → Coummunity → Moderation → Guest Commenting打勾</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>路徑的部分可能隨時間官方會有所調整，若有更動，可能需要稍微找一下</p>
+</blockquote>
+<p>雖然如此，但是讀者最少還是得留下「名字」跟「E-mail」才能進行留言，如圖</p>
+<p><img src="0.png"></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-04-26T16:15:09+08:00"
-              content="2021-04-26">
-          04-26
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/04/26/%E5%9C%A8K8s%E4%BD%BF%E7%94%A8FTP/" itemprop="url">
-            <span itemprop="name">在 K8s 使用 FTP</span>
-          </a>
-      </div>
+    <footer class="post-footer"><div>
+  <script type="text/javascript">
+    document.write(
+      "<iframe scrolling='no' frameborder='0' sandbox='allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-storage-access-by-user-activation' style='height: 212px; width: 100%;' src='https://button.like.co/in/embed/winds6206/button?referrer=" +
+      encodeURIComponent(location.href.split("?")[0].split("#")[0]) + "'></iframe>");
+  </script>
+<div>
 
-      
-    </header>
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/tags/blog/" rel="tag"><i class="fa fa-tag"></i> blog</a>
+              <a href="/tags/Disqus/" rel="tag"><i class="fa fa-tag"></i> Disqus</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/09/SSH%E9%80%A3%E7%B7%9A%E8%AD%A6%E5%91%8A/" rel="prev" title="SSH 連線出現「WARNING:REMOTE HOST IDENTIFICATION HAS CHANGED!」">
+                  <i class="fa fa-chevron-left"></i> SSH 連線出現「WARNING:REMOTE HOST IDENTIFICATION HAS CHANGED!」
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-    </div>
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
-  
-  
-
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -414,6 +518,26 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.tonyjhang.tk/2021/08/16/Hexo%E5%8A%A0%E5%85%A5Disqus%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/";
+    this.page.identifier = "2021/08/16/Hexo加入Disqus留言功能/";
+    this.page.title = "Hexo加入Disqus留言功能";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://winds6206.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
 </body>
