@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 坐而言不如起而行
+title: 偷尼的部落格
 subtitle: Talk is cheap. Show me the code.
 description: Cloud System Engineer
 keywords:
@@ -40,8 +40,8 @@ external_link:
   field: site # Apply to the whole site
   exclude: ''
 filename_case: 0
-render_drafts: false
-post_asset_folder: false
+render_drafts:
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:

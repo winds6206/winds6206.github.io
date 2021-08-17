@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/</loc>
+    
+    <lastmod>2021-08-17</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.tonyjhang.tk/2021/08/16/Hexo%E5%8A%A0%E5%85%A5Disqus%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/</loc>
     
     <lastmod>2021-08-16</lastmod>
@@ -116,7 +123,7 @@
 
   <url>
     <loc>https://blog.tonyjhang.tk/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -124,147 +131,154 @@
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/Hexo/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/GitHub/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/GitHub-Pages/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/blog/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/Linux/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/PHP/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/PHP-FPM/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/GKE/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/GCP/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/K8s/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/Bash/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/Auto-Completion/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/Bash-Completion/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/Google-Cloud-Platform/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/Cloud-NAT/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/Disqus/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/SSH/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/fingerprint/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/known-hosts/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.tonyjhang.tk/tags/TCP/</loc>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/Kubernetes/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/tags/FTP/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -273,35 +287,42 @@
   
   <url>
     <loc>https://blog.tonyjhang.tk/categories/Linux/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/categories/PHP-FPM/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/categories/GKE/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/categories/GCP/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.tonyjhang.tk/categories/Hexo/</loc>
-    <lastmod>2021-08-16</lastmod>
+    <lastmod>2021-08-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.tonyjhang.tk/categories/TCP-IP/</loc>
+    <lastmod>2021-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
