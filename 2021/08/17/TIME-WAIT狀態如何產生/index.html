@@ -24,22 +24,27 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"blog.tonyjhang.tk","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="前言Hexo 中的文章是使用 Markdown 的語法，有時候文章中可能會需要一些圖片來予以輔助，這時候我們可能會需要調整一些設定來存放我們的圖片 文章插入圖片這邊先講一下 Markdown 插入圖片的語法 1![](圖片路徑)">
+<meta name="description" content="前言之前 Maintain A團隊的 K8s 時，有發生過 golang 寫的服務太多的 TIME_WAIT 導致 Pod 無法建立新的連線。 近期 Maintain B團隊的服務時，因為線上人數變多，擔心 Nginx 向 Upstream 發請求時，會不會造成太多的連線，然後有過多的 TIME_WAIT 現象，因為預設 Nginx 向 Upstream 發送請求是使用 http&#x2F;1.0，會導致連">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo文章插入圖片">
-<meta property="og:url" content="https://blog.tonyjhang.tk/2021/07/20/Hexo%E6%96%87%E7%AB%A0%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87/index.html">
+<meta property="og:title" content="TIME_WAIT狀態如何產生">
+<meta property="og:url" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/index.html">
 <meta property="og:site_name" content="偷尼的部落格">
-<meta property="og:description" content="前言Hexo 中的文章是使用 Markdown 的語法，有時候文章中可能會需要一些圖片來予以輔助，這時候我們可能會需要調整一些設定來存放我們的圖片 文章插入圖片這邊先講一下 Markdown 插入圖片的語法 1![](圖片路徑)">
+<meta property="og:description" content="前言之前 Maintain A團隊的 K8s 時，有發生過 golang 寫的服務太多的 TIME_WAIT 導致 Pod 無法建立新的連線。 近期 Maintain B團隊的服務時，因為線上人數變多，擔心 Nginx 向 Upstream 發請求時，會不會造成太多的連線，然後有過多的 TIME_WAIT 現象，因為預設 Nginx 向 Upstream 發送請求是使用 http&#x2F;1.0，會導致連">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2021-07-20T04:21:06.000Z">
-<meta property="article:modified_time" content="2021-07-24T10:00:28.660Z">
+<meta property="og:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-0.png">
+<meta property="og:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-1.png">
+<meta property="og:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-2.png">
+<meta property="og:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-3.png">
+<meta property="og:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-4.png">
+<meta property="article:published_time" content="2021-08-17T07:29:31.000Z">
+<meta property="article:modified_time" content="2021-08-17T07:29:31.201Z">
 <meta property="article:author" content="Tony">
-<meta property="article:tag" content="Hexo">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="TCP">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-0.png">
 
 
-<link rel="canonical" href="https://blog.tonyjhang.tk/2021/07/20/Hexo%E6%96%87%E7%AB%A0%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87/">
+<link rel="canonical" href="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/">
 
 
 <script class="page-configurations">
@@ -51,7 +56,7 @@
     lang   : 'zh-TW'
   };
 </script>
-<title>Hexo文章插入圖片 | 偷尼的部落格</title>
+<title>TIME_WAIT狀態如何產生 | 偷尼的部落格</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196052332-1"></script>
     <script>
@@ -198,7 +203,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87"><span class="nav-number">2.</span> <span class="nav-text">文章插入圖片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E5%BE%8C%E8%A8%8E%E8%AB%96"><span class="nav-number">3.</span> <span class="nav-text">文後討論</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-%E5%BB%BA%E7%AB%8B%E9%80%A3%E7%B7%9A"><span class="nav-number">2.</span> <span class="nav-text">TCP 建立連線</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-%E9%97%9C%E9%96%89%E9%80%A3%E7%B7%9A"><span class="nav-number">3.</span> <span class="nav-text">TCP 關閉連線</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%BA%E4%BD%95-TIME-WAIT-%E7%8B%80%E6%85%8B%E8%A6%81%E7%AD%89%E5%BE%85-2MSL-%E7%9A%84%E6%99%82%E9%96%93%E5%91%A2"><span class="nav-number">4.</span> <span class="nav-text">為何 TIME_WAIT 狀態要等待 2MSL 的時間呢?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4-TCP%E3%80%8C%E5%BB%BA%EF%A7%B7%EF%A6%9A%E7%B7%9A%E3%80%8D%E8%88%87%E3%80%8C%E9%97%9C%E9%96%89%EF%A6%9A%E7%B7%9A%E3%80%8D%E4%B9%8B%EF%A7%BA%E6%85%8B%E5%9C%96"><span class="nav-number">5.</span> <span class="nav-text">完整 TCP「建立連線」與「關閉連線」之狀態圖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">6.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -298,7 +303,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://blog.tonyjhang.tk/2021/07/20/Hexo%E6%96%87%E7%AB%A0%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87/">
+    <link itemprop="mainEntityOfPage" href="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/./images/IMG_1598.jpg">
@@ -311,7 +316,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo文章插入圖片
+          TIME_WAIT狀態如何產生
         </h1>
 
         <div class="post-meta-container">
@@ -322,22 +327,15 @@
       </span>
       <span class="post-meta-item-text">發表於</span>
 
-      <time title="創建時間：2021-07-20 12:21:06" itemprop="dateCreated datePublished" datetime="2021-07-20T12:21:06+08:00">2021-07-20</time>
+      <time title="創建時間：2021-08-17 15:29:31" itemprop="dateCreated datePublished" datetime="2021-08-17T15:29:31+08:00">2021-08-17</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-07-24 18:00:28" itemprop="dateModified" datetime="2021-07-24T18:00:28+08:00">2021-07-24</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分類於</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+          <a href="/categories/TCP-IP/" itemprop="url" rel="index"><span itemprop="name">TCP/IP</span></a>
         </span>
     </span>
 
@@ -357,8 +355,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2021/07/20/Hexo%E6%96%87%E7%AB%A0%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/07/20/Hexo文章插入圖片/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/17/TIME-WAIT狀態如何產生/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -372,24 +370,82 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 中的文章是使用 Markdown 的語法，有時候文章中可能會需要一些圖片來予以輔助，這時候我們可能會需要調整一些設定來存放我們的圖片</p>
-<h2 id="文章插入圖片"><a href="#文章插入圖片" class="headerlink" title="文章插入圖片"></a>文章插入圖片</h2><p>這邊先講一下 Markdown 插入圖片的語法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](圖片路徑)</span><br></pre></td></tr></table></figure>
-
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前 Maintain A團隊的 K8s 時，有發生過 golang 寫的服務太多的 TIME_WAIT 導致 Pod 無法建立新的連線。 近期 Maintain B團隊的服務時，因為線上人數變多，擔心 Nginx 向 Upstream 發請求時，會不會造成太多的連線，然後有過多的 TIME_WAIT 現象，因為預設 Nginx 向 Upstream 發送請求是使用 http/1.0，會導致連線無法複用，所以當連線一多時，就很容易發生過多的 TIME_WAIT 狀態。</p>
+<p>所以本篇主要是在講解 TCP 協定在「建立連線」與「關閉連線」的過程，只要了解運作過程，就會知道 TIME_WAIT 狀態到底是如何產生的</p>
 <span id="more"></span>
 
-<p>再來我們可以更改 Hexo 的設定檔，來讓我們建立文章時，能夠自動將該文章存放圖片的目錄也一起建立起來，修改 <code>./_config.xml</code>，並將下面參數值調整為 true</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure>
-
-<p>調整後當我們使用 <code>hexo new &quot;新文章&quot;</code> 建立文章後，就會自動在 <code>./source/_posts</code> 建立一個與文章相同名稱的目錄，然後就能將圖片放進去</p>
-<p>而 Markdown 要調用圖片時，圖片路徑只需要填上圖片名稱即可，例如：圖片名稱為 123.png</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](123.png)</span><br></pre></td></tr></table></figure>
-
-<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>上述方式對於每篇文章都需要插入圖片的使用者非常方便，但是如果你的文章只有少數幾篇需要圖片輔助的話，可能會造成 <code>./source/_posts</code> 會有很多空的目錄，所以如果只有少數幾篇需要使用到圖片的話，這邊給兩個建議：</p>
+<h2 id="TCP-建立連線"><a href="#TCP-建立連線" class="headerlink" title="TCP 建立連線"></a>TCP 建立連線</h2><p>依據 IETF 的標準文件 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.rfc-editor.org/rfc/rfc793.txt">rfc793</a> 中所描述的情形，可分為以下四種不同狀況</p>
+<ul>
+<li>Basic 3-Way Handshake for Connection Synchronization</li>
+<li>Simultaneous Connection Synchronization</li>
+<li>Recovery from Old Duplicate SYN</li>
+<li>Half-Open Connection Discovery</li>
+</ul>
+<p>以下僅針對第一個 Basic 3-Way Handshake for Connection Synchronization 進行說明</p>
+<p>通常 TCP 連線建立流程，需要經過三向交握(three-way handshaking) 來建立連線</p>
+<p><img src="TCPIP-0.png"></p>
 <ol>
-<li>設定自動建立圖片存放目錄，然後自己手動將無需使用到圖片的文章的目錄刪除</li>
-<li>乾脆不要設定，自己手動建立與文章相同名稱的目錄來存放圖片</li>
+<li>Server 建立 TCB，開啟監聽連線，進入 LISTENING 狀態</li>
+<li>Client 主動發出連線請求 SYN，進入 SYN_SENT 狀態，並等待回應</li>
+<li>Server 收到 SYN 要求，回應連線 SYN,ACK，並進入 SYN_RCVD 狀態</li>
+<li>Client 收到 SYN,ACK 確認完成連線進入 ESTABLISHED 狀態，並送出 ACK</li>
+<li>Server 收到 ACK 確認連線完成，同時也進入 ESTABLISHED 狀態</li>
 </ol>
+<p>名詞解釋：</p>
+<ul>
+<li>CLOSED：已關閉連線，表示該主機的連線呈現關閉中</li>
+<li>LISTENING：監聽狀態，表示該主機被動等待連線請求</li>
+<li>SYN_SENT：表示已送出 SYN 訊息，並等待對方回應</li>
+<li>SYN_RCVD：表示已接收到對方的 SYN 訊息，並且送出 SYN,ACK，等待對方回應</li>
+<li>ESTABLISHED：表示已完成雙方連線的建立，可開始傳輸資料</li>
+<li>TCB：傳輸控制區塊(Transmission Control Block)，用來儲存 Server 端有關 TCP 的所有資訊</li>
+<li>SYN：Synchronous，表示與對方建立連線的請求</li>
+<li>ACK：Acknowledgement，表示發送的數據已收到無誤</li>
+</ul>
+<p>「TCP建立連線」狀態流程圖</p>
+<p><img src="TCPIP-1.png"></p>
+<h2 id="TCP-關閉連線"><a href="#TCP-關閉連線" class="headerlink" title="TCP 關閉連線"></a>TCP 關閉連線</h2><p>依據 IETF 的標準文件 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.rfc-editor.org/rfc/rfc793.txt">rfc793</a> 中所描述的情形，可分為以下二種不同狀況</p>
+<ul>
+<li>Normal Close Sequence</li>
+<li>Simultaneous Close Sequence</li>
+</ul>
+<p>以下僅針對第一個 Normal Close Sequence 進行說明</p>
+<p>TCP 關閉流程如下，需要經過四次交握 (four-way handshaking)，來確認雙方都停止收發數據，<strong>要注意的是可以是由 server 發起主動關閉，或是 client 發起主動關閉</strong>，但是「通常」都是 client 發起，因此下圖使用 TCP A 與 TCP B 表示，：</p>
+<p><img src="TCPIP-2.png"></p>
+<ol>
+<li>TCP A：準備關閉連線，發出 FIN，進入 FIN_WAIT_1 狀態</li>
+<li>TCP B：收到 FIN，並回傳 ACK，進入 CLOSE_WAIT 狀態，並通知 Application 連線準備關閉</li>
+<li>TCP A：收到 ACK，進入 FIN_WAIT_2 狀態，並等待對方發出 FIN</li>
+<li>TCP B：確認 Application 處理完斷線請求，發出 FIN，並進入狀態 LAST_ACK</li>
+<li>TCP A：收到 FIN，並回傳 ACK，進入 TIME_WAIT 狀態，等待 2MSL 時間後正式關閉連線</li>
+<li>TCP B：收到 ACK，便直接關閉連線，進入 CLOSED 狀態</li>
+</ol>
+<p>名詞解釋：</p>
+<ul>
+<li>ESTABLISHED：表示已完成雙方連線的建立，可開始傳輸資料</li>
+<li>CLOSE_WAIT：等待連線關閉狀態，等待 Application 回應</li>
+<li>LAST_ACK：等待連線關閉狀態，等待遠端回應 ACK 後，便關閉連線</li>
+<li>FIN_WAIT_1：等待連線關閉狀態，等待遠端回應 ACK</li>
+<li>FIN_WAIT_2：等待連線關閉狀態，等待遠端回應 FIN</li>
+<li>TIME_WAIT：等待2MSL，保證遠端有收到其 ACK 關閉連線 (網路延遲問題)</li>
+<li>CLOSED：已關閉連線</li>
+<li>FIN：FINISH，表示關閉連線的請求</li>
+<li>ACK：Acknowledgement，表示發送的數據已收到無誤</li>
+</ul>
+<p>「TCP關閉連線」狀態流程圖</p>
+<p><img src="TCPIP-3.png"></p>
+<p>最後發送 ACK 時，會進入 TIME_WAIT 狀態，要等 2MSL 時間後，這條連接才真正消失，所以從這邊知道「主動關閉連線」的一方會進入 TIME_WAIT 狀態</p>
+<blockquote>
+<p>什麼是 MSL 時間<br>最大分段壽命 MSL(Maximum Segment Lifetime)，是 TCP 協定規定封包在網絡中最長生存時間，超出時間後封包就會被丟棄。</p>
+<p>RFC793 定義 MSL 為 2 分鐘，不過實際上不同的作業系統可能有不同的設定，以 Linux 為例，通常是 30 秒，2MSL 就是 60 秒</p>
+</blockquote>
+<h2 id="為何-TIME-WAIT-狀態要等待-2MSL-的時間呢"><a href="#為何-TIME-WAIT-狀態要等待-2MSL-的時間呢" class="headerlink" title="為何 TIME_WAIT 狀態要等待 2MSL 的時間呢?"></a>為何 TIME_WAIT 狀態要等待 2MSL 的時間呢?</h2><p>Client/Server 都完成了四次交握，代表 Client/Server 都同意關閉連線，照理說應該可以直接回到 CLOSED 狀態(就像是建立連線時 SYN_SEND 狀態到 ESTABLISH 狀態那樣)，但是這邊我們必須要假設網路傳輸是不可靠的，因為我們無法保證最後傳送的 ACK 對方一定會收到，傳輸過程中可能因為種種原因(例如：網路延遲、丟包等…) 導致對方一直處於 LAST_ACK 狀態下的 SOCKET 因為逾時而未收到 ACK 而重發 FIN，所以 TIME_WAIT 狀態的作用就是用來重發可能遺失的 ACK。</p>
+<p>TIME_WAIT 狀態，是為了避免因為網路傳輸的種種原因而造成的 TCP 傳輸不可靠，而 TIME_WAIT 狀態可以最大限度的提升網路傳輸的可靠性。</p>
+<h2 id="完整-TCP「建立連線」與「關閉連線」之狀態圖"><a href="#完整-TCP「建立連線」與「關閉連線」之狀態圖" class="headerlink" title="完整 TCP「建立連線」與「關閉連線」之狀態圖"></a>完整 TCP「建立連線」與「關閉連線」之狀態圖</h2><p><img src="TCPIP-4.png"></p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://dev.twsiyuan.com/2017/09/tcp-states.html">https://dev.twsiyuan.com/2017/09/tcp-states.html</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.gushiciku.cn/pl/p0aJ/zh-tw">https://www.gushiciku.cn/pl/p0aJ/zh-tw</a></li>
+</ul>
 
     </div>
 
@@ -406,22 +462,18 @@
 <div>
 
           <div class="post-tags">
-              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
-              <a href="/tags/blog/" rel="tag"><i class="fa fa-tag"></i> blog</a>
+              <a href="/tags/TCP/" rel="tag"><i class="fa fa-tag"></i> TCP</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/05/22/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9PHP-FPM%E4%B8%8A%E5%82%B3%E6%AA%94%E6%A1%88%E5%A4%A7%E5%B0%8F%E9%99%90%E5%88%B6/" rel="prev" title="如何修改PHP-FPM上傳檔案大小限制">
-                  <i class="fa fa-chevron-left"></i> 如何修改PHP-FPM上傳檔案大小限制
+                <a href="/2021/08/16/Hexo%E5%8A%A0%E5%85%A5Disqus%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/" rel="prev" title="Hexo加入Disqus留言功能">
+                  <i class="fa fa-chevron-left"></i> Hexo加入Disqus留言功能
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="next" title="Hexo的標籤功能">
-                  Hexo的標籤功能 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -528,9 +580,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.tonyjhang.tk/2021/07/20/Hexo%E6%96%87%E7%AB%A0%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87/";
-    this.page.identifier = "2021/07/20/Hexo文章插入圖片/";
-    this.page.title = "Hexo文章插入圖片";
+    this.page.url = "https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/";
+    this.page.identifier = "2021/08/17/TIME-WAIT狀態如何產生/";
+    this.page.title = "TIME_WAIT狀態如何產生";
     };
   NexT.utils.loadComments('#disqus_thread', () => {
     if (window.DISQUS) {
