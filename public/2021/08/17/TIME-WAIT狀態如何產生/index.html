@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="C2I2K3ifEz4zj3Dxkui7OQM-y4DHRfgwHRmyLGEAYUI">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.tonyjhang.tk","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="前言之前 Maintain A團隊的 K8s 時，有發生過 golang 寫的服務太多的 TIME_WAIT 導致 Pod 無法建立新的連線。 近期 Maintain B團隊的服務時，因為線上人數變多，擔心 Nginx 向 Upstream 發請求時，會不會造成太多的連線，然後有過多的 TIME_WAIT 現象，因為預設 Nginx 向 Upstream 發送請求是使用 http&#x2F;1.0，會導致連">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TIME_WAIT狀態如何產生">
+<meta property="og:url" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/index.html">
+<meta property="og:site_name" content="偷尼的部落格">
+<meta property="og:description" content="前言之前 Maintain A團隊的 K8s 時，有發生過 golang 寫的服務太多的 TIME_WAIT 導致 Pod 無法建立新的連線。 近期 Maintain B團隊的服務時，因為線上人數變多，擔心 Nginx 向 Upstream 發請求時，會不會造成太多的連線，然後有過多的 TIME_WAIT 現象，因為預設 Nginx 向 Upstream 發送請求是使用 http&#x2F;1.0，會導致連">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-0.png">
+<meta property="og:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-1.png">
+<meta property="og:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-2.png">
+<meta property="og:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-3.png">
+<meta property="og:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-4.png">
+<meta property="article:published_time" content="2021-08-17T07:29:31.000Z">
+<meta property="article:modified_time" content="2021-08-17T07:37:51.237Z">
+<meta property="article:author" content="Tony">
+<meta property="article:tag" content="TCP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-0.png">
+
+
+<link rel="canonical" href="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>TIME_WAIT狀態如何產生 | 偷尼的部落格</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196052332-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-196052332-1');
+      }
+    </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">偷尼的部落格</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap. Show me the code.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-%E5%BB%BA%E7%AB%8B%E9%80%A3%E7%B7%9A"><span class="nav-number">2.</span> <span class="nav-text">TCP 建立連線</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-%E9%97%9C%E9%96%89%E9%80%A3%E7%B7%9A"><span class="nav-number">3.</span> <span class="nav-text">TCP 關閉連線</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%BA%E4%BD%95-TIME-WAIT-%E7%8B%80%E6%85%8B%E8%A6%81%E7%AD%89%E5%BE%85-2MSL-%E7%9A%84%E6%99%82%E9%96%93%E5%91%A2"><span class="nav-number">4.</span> <span class="nav-text">為何 TIME_WAIT 狀態要等待 2MSL 的時間呢?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4-TCP%E3%80%8C%E5%BB%BA%EF%A7%B7%EF%A6%9A%E7%B7%9A%E3%80%8D%E8%88%87%E3%80%8C%E9%97%9C%E9%96%89%EF%A6%9A%E7%B7%9A%E3%80%8D%E4%B9%8B%EF%A7%BA%E6%85%8B%E5%9C%96"><span class="nav-number">5.</span> <span class="nav-text">完整 TCP「建立連線」與「關閉連線」之狀態圖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">6.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tony"
+      src="/./images/IMG_1598.jpg">
+  <p class="site-author-name" itemprop="name">Tony</p>
+  <div class="site-description" itemprop="description">Cloud System Engineer</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/winds6206" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;winds6206" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:winds6206@gmail.com" title="E-Mail → mailto:winds6206@gmail.com" rel="noopener external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-fw"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <a href="/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/" title="2021&#x2F;08&#x2F;17&#x2F;TIME-WAIT狀態如何產生&#x2F;">TIME_WAIT狀態如何產生</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2021/08/16/Hexo%E5%8A%A0%E5%85%A5Disqus%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/" title="2021&#x2F;08&#x2F;16&#x2F;Hexo加入Disqus留言功能&#x2F;">Hexo加入Disqus留言功能</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2021/08/09/SSH%E9%80%A3%E7%B7%9A%E8%AD%A6%E5%91%8A/" title="2021&#x2F;08&#x2F;09&#x2F;SSH連線警告&#x2F;">SSH 連線出現「WARNING:REMOTE HOST IDENTIFICATION HAS CHANGED!」</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2021/07/26/Hexo%E7%9A%84%E9%97%9C%E6%96%BC%E5%8A%9F%E8%83%BD/" title="2021&#x2F;07&#x2F;26&#x2F;Hexo的關於功能&#x2F;">Hexo的關於功能</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/2021/07/23/Hexo%E7%9A%84%E5%88%86%E9%A1%9E%E5%8A%9F%E8%83%BD/" title="2021&#x2F;07&#x2F;23&#x2F;Hexo的分類功能&#x2F;">Hexo的分類功能</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/IMG_1598.jpg">
+      <meta itemprop="name" content="Tony">
+      <meta itemprop="description" content="Cloud System Engineer">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="偷尼的部落格">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TIME_WAIT狀態如何產生
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2021-08-17 15:29:31 / 修改時間：15:37:51" itemprop="dateCreated datePublished" datetime="2021-08-17T15:29:31+08:00">2021-08-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/TCP-IP/" itemprop="url" rel="index"><span itemprop="name">TCP/IP</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/17/TIME-WAIT狀態如何產生/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前 Maintain A團隊的 K8s 時，有發生過 golang 寫的服務太多的 TIME_WAIT 導致 Pod 無法建立新的連線。 近期 Maintain B團隊的服務時，因為線上人數變多，擔心 Nginx 向 Upstream 發請求時，會不會造成太多的連線，然後有過多的 TIME_WAIT 現象，因為預設 Nginx 向 Upstream 發送請求是使用 http/1.0，會導致連線無法複用，所以當連線一多時，就很容易發生過多的 TIME_WAIT 狀態。</p>
+<p>所以本篇主要是在講解 TCP 協定在「建立連線」與「關閉連線」的過程，只要了解運作過程，就會知道 TIME_WAIT 狀態到底是如何產生的</p>
+<span id="more"></span>
+
+<h2 id="TCP-建立連線"><a href="#TCP-建立連線" class="headerlink" title="TCP 建立連線"></a>TCP 建立連線</h2><p>依據 IETF 的標準文件 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.rfc-editor.org/rfc/rfc793.txt">rfc793</a> 中所描述的情形，可分為以下四種不同狀況</p>
+<ul>
+<li>Basic 3-Way Handshake for Connection Synchronization</li>
+<li>Simultaneous Connection Synchronization</li>
+<li>Recovery from Old Duplicate SYN</li>
+<li>Half-Open Connection Discovery</li>
+</ul>
+<p>以下僅針對第一個 Basic 3-Way Handshake for Connection Synchronization 進行說明</p>
+<p>通常 TCP 連線建立流程，需要經過三向交握(three-way handshaking) 來建立連線</p>
+<p><img src="TCPIP-0.png"></p>
+<ol>
+<li>Server 建立 TCB，開啟監聽連線，進入 LISTENING 狀態</li>
+<li>Client 主動發出連線請求 SYN，進入 SYN_SENT 狀態，並等待回應</li>
+<li>Server 收到 SYN 要求，回應連線 SYN,ACK，並進入 SYN_RCVD 狀態</li>
+<li>Client 收到 SYN,ACK 確認完成連線進入 ESTABLISHED 狀態，並送出 ACK</li>
+<li>Server 收到 ACK 確認連線完成，同時也進入 ESTABLISHED 狀態</li>
+</ol>
+<p>名詞解釋：</p>
+<ul>
+<li>CLOSED：已關閉連線，表示該主機的連線呈現關閉中</li>
+<li>LISTENING：監聽狀態，表示該主機被動等待連線請求</li>
+<li>SYN_SENT：表示已送出 SYN 訊息，並等待對方回應</li>
+<li>SYN_RCVD：表示已接收到對方的 SYN 訊息，並且送出 SYN,ACK，等待對方回應</li>
+<li>ESTABLISHED：表示已完成雙方連線的建立，可開始傳輸資料</li>
+<li>TCB：傳輸控制區塊(Transmission Control Block)，用來儲存 Server 端有關 TCP 的所有資訊</li>
+<li>SYN：Synchronous，表示與對方建立連線的請求</li>
+<li>ACK：Acknowledgement，表示發送的數據已收到無誤</li>
+</ul>
+<p>「TCP建立連線」狀態流程圖</p>
+<p><img src="TCPIP-1.png"></p>
+<h2 id="TCP-關閉連線"><a href="#TCP-關閉連線" class="headerlink" title="TCP 關閉連線"></a>TCP 關閉連線</h2><p>依據 IETF 的標準文件 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.rfc-editor.org/rfc/rfc793.txt">rfc793</a> 中所描述的情形，可分為以下二種不同狀況</p>
+<ul>
+<li>Normal Close Sequence</li>
+<li>Simultaneous Close Sequence</li>
+</ul>
+<p>以下僅針對第一個 Normal Close Sequence 進行說明</p>
+<p>TCP 關閉流程如下，需要經過四次交握 (four-way handshaking)，來確認雙方都停止收發數據，<strong>要注意的是可以是由 server 發起主動關閉，或是 client 發起主動關閉</strong>，但是「通常」都是 client 發起，因此下圖使用 TCP A 與 TCP B 表示，：</p>
+<p><img src="TCPIP-2.png"></p>
+<ol>
+<li>TCP A：準備關閉連線，發出 FIN，進入 FIN_WAIT_1 狀態</li>
+<li>TCP B：收到 FIN，並回傳 ACK，進入 CLOSE_WAIT 狀態，並通知 Application 連線準備關閉</li>
+<li>TCP A：收到 ACK，進入 FIN_WAIT_2 狀態，並等待對方發出 FIN</li>
+<li>TCP B：確認 Application 處理完斷線請求，發出 FIN，並進入狀態 LAST_ACK</li>
+<li>TCP A：收到 FIN，並回傳 ACK，進入 TIME_WAIT 狀態，等待 2MSL 時間後正式關閉連線</li>
+<li>TCP B：收到 ACK，便直接關閉連線，進入 CLOSED 狀態</li>
+</ol>
+<p>名詞解釋：</p>
+<ul>
+<li>ESTABLISHED：表示已完成雙方連線的建立，可開始傳輸資料</li>
+<li>CLOSE_WAIT：等待連線關閉狀態，等待 Application 回應</li>
+<li>LAST_ACK：等待連線關閉狀態，等待對方回傳 ACK 後關閉連線</li>
+<li>FIN_WAIT_1：等待連線關閉狀態，等待對方回傳 ACK</li>
+<li>FIN_WAIT_2：等待連線關閉狀態，等待對方回傳 FIN</li>
+<li>TIME_WAIT：等待2MSL，保證遠端有收到其 ACK 關閉連線 (網路延遲問題)</li>
+<li>CLOSED：已關閉連線</li>
+<li>FIN：FINISH，表示關閉連線的請求</li>
+<li>ACK：Acknowledgement，表示發送的數據已收到無誤</li>
+</ul>
+<p>「TCP關閉連線」狀態流程圖</p>
+<p><img src="TCPIP-3.png"></p>
+<p>最後發送 ACK 時，會進入 TIME_WAIT 狀態，要等 2MSL 時間後，這條連接才真正消失，所以從這邊知道「主動關閉連線」的一方會進入 TIME_WAIT 狀態</p>
+<blockquote>
+<p>什麼是 MSL 時間<br>最大分段壽命 MSL(Maximum Segment Lifetime)，是 TCP 協定規定封包在網絡中最長生存時間，超出時間後封包就會被丟棄。</p>
+<p>RFC793 定義 MSL 為 2 分鐘，不過實際上不同的作業系統可能有不同的設定，以 Linux 為例，通常是 30 秒，2MSL 就是 60 秒</p>
+</blockquote>
+<h2 id="為何-TIME-WAIT-狀態要等待-2MSL-的時間呢"><a href="#為何-TIME-WAIT-狀態要等待-2MSL-的時間呢" class="headerlink" title="為何 TIME_WAIT 狀態要等待 2MSL 的時間呢?"></a>為何 TIME_WAIT 狀態要等待 2MSL 的時間呢?</h2><p>Client/Server 都完成了四次交握，代表 Client/Server 都同意關閉連線，照理說應該可以直接回到 CLOSED 狀態(就像是建立連線時 SYN_SEND 狀態到 ESTABLISH 狀態那樣)，但是這邊我們必須要假設網路傳輸是不可靠的，因為我們無法保證最後傳送的 ACK 對方一定會收到，傳輸過程中可能因為種種原因(例如：網路延遲、丟包等…) 導致對方一直處於 LAST_ACK 狀態下的 SOCKET 因為逾時而未收到 ACK 而重發 FIN，所以 TIME_WAIT 狀態的作用就是用來重發可能遺失的 ACK。</p>
+<p>TIME_WAIT 狀態，是為了避免因為網路傳輸的種種原因而造成的 TCP 傳輸不可靠，而 TIME_WAIT 狀態可以最大限度的提升網路傳輸的可靠性。</p>
+<h2 id="完整-TCP「建立連線」與「關閉連線」之狀態圖"><a href="#完整-TCP「建立連線」與「關閉連線」之狀態圖" class="headerlink" title="完整 TCP「建立連線」與「關閉連線」之狀態圖"></a>完整 TCP「建立連線」與「關閉連線」之狀態圖</h2><p><img src="TCPIP-4.png"></p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://dev.twsiyuan.com/2017/09/tcp-states.html">https://dev.twsiyuan.com/2017/09/tcp-states.html</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.gushiciku.cn/pl/p0aJ/zh-tw">https://www.gushiciku.cn/pl/p0aJ/zh-tw</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <script type="text/javascript">
+    document.write(
+      "<iframe scrolling='no' frameborder='0' sandbox='allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-storage-access-by-user-activation' style='height: 212px; width: 100%;' src='https://button.like.co/in/embed/winds6206/button?referrer=" +
+      encodeURIComponent(location.href.split("?")[0].split("#")[0]) + "'></iframe>");
+  </script>
+<div>
+
+          <div class="post-tags">
+              <a href="/tags/TCP/" rel="tag"><i class="fa fa-tag"></i> TCP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/16/Hexo%E5%8A%A0%E5%85%A5Disqus%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/" rel="prev" title="Hexo加入Disqus留言功能">
+                  <i class="fa fa-chevron-left"></i> Hexo加入Disqus留言功能
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://winds6206.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/";
+    this.page.identifier = "2021/08/17/TIME-WAIT狀態如何產生/";
+    this.page.title = "TIME_WAIT狀態如何產生";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://winds6206.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
