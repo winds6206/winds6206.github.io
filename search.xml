@@ -22,10 +22,10 @@
         <category>Linux</category>
       </categories>
       <tags>
+        <tag>Linux</tag>
         <tag>Bash</tag>
         <tag>Auto Completion</tag>
         <tag>Bash Completion</tag>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -352,8 +352,8 @@
         <category>PHP-FPM</category>
       </categories>
       <tags>
-        <tag>PHP-FPM</tag>
         <tag>PHP</tag>
+        <tag>PHP-FPM</tag>
       </tags>
   </entry>
   <entry>
@@ -443,9 +443,9 @@
 ]]></content>
       <tags>
         <tag>Hexo</tag>
-        <tag>blog</tag>
         <tag>GitHub</tag>
         <tag>GitHub Pages</tag>
+        <tag>blog</tag>
       </tags>
   </entry>
   <entry>
@@ -534,8 +534,8 @@
       <tags>
         <tag>GKE</tag>
         <tag>GCP</tag>
-        <tag>Google Cloud Platform</tag>
         <tag>K8s</tag>
+        <tag>Google Cloud Platform</tag>
         <tag>Kubernetes</tag>
         <tag>FTP</tag>
       </tags>
@@ -583,8 +583,8 @@
         <category>PHP-FPM</category>
       </categories>
       <tags>
-        <tag>PHP-FPM</tag>
         <tag>PHP</tag>
+        <tag>PHP-FPM</tag>
       </tags>
   </entry>
 </search>
