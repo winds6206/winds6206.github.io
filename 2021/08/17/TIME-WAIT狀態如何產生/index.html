@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-3.png">
 <meta property="og:image" content="https://blog.tonyjhang.tk/2021/08/17/TIME-WAIT%E7%8B%80%E6%85%8B%E5%A6%82%E4%BD%95%E7%94%A2%E7%94%9F/TCPIP-4.png">
 <meta property="article:published_time" content="2021-08-17T07:29:31.000Z">
-<meta property="article:modified_time" content="2021-08-17T07:29:31.201Z">
+<meta property="article:modified_time" content="2021-08-17T07:37:51.237Z">
 <meta property="article:author" content="Tony">
 <meta property="article:tag" content="TCP">
 <meta name="twitter:card" content="summary">
@@ -326,8 +326,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
+      
 
-      <time title="創建時間：2021-08-17 15:29:31" itemprop="dateCreated datePublished" datetime="2021-08-17T15:29:31+08:00">2021-08-17</time>
+      <time title="創建時間：2021-08-17 15:29:31 / 修改時間：15:37:51" itemprop="dateCreated datePublished" datetime="2021-08-17T15:29:31+08:00">2021-08-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -424,9 +425,9 @@
 <ul>
 <li>ESTABLISHED：表示已完成雙方連線的建立，可開始傳輸資料</li>
 <li>CLOSE_WAIT：等待連線關閉狀態，等待 Application 回應</li>
-<li>LAST_ACK：等待連線關閉狀態，等待遠端回應 ACK 後，便關閉連線</li>
-<li>FIN_WAIT_1：等待連線關閉狀態，等待遠端回應 ACK</li>
-<li>FIN_WAIT_2：等待連線關閉狀態，等待遠端回應 FIN</li>
+<li>LAST_ACK：等待連線關閉狀態，等待對方回傳 ACK 後關閉連線</li>
+<li>FIN_WAIT_1：等待連線關閉狀態，等待對方回傳 ACK</li>
+<li>FIN_WAIT_2：等待連線關閉狀態，等待對方回傳 FIN</li>
 <li>TIME_WAIT：等待2MSL，保證遠端有收到其 ACK 關閉連線 (網路延遲問題)</li>
 <li>CLOSED：已關閉連線</li>
 <li>FIN：FINISH，表示關閉連線的請求</li>
