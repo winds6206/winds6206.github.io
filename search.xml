@@ -184,40 +184,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo的標籤功能</title>
-    <url>/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 網站中的文章可以使用標籤(tags)，標籤有點像是關鍵字的作用，可以替每篇不同的文章給予不同的標籤，這可以讓讀者針對標籤來快速篩選文章</p>
-<span id="more"></span>
-
-<h2 id="標籤的啟用-使用"><a href="#標籤的啟用-使用" class="headerlink" title="標籤的啟用/使用"></a>標籤的啟用/使用</h2><p>啟用標籤功能，讓標籤連結出現在網站上，首先調整 <code>./themes/next/_config.yml</code> 中的下述設定，將 <code>tags: /tags/ || fa fa-tags</code> 註解「取消」，這樣就可以讓網站出現標籤的連結</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || fa fa-home</span><br><span class="line">  about: &#x2F;about&#x2F; || fa fa-user</span><br><span class="line">  tags: &#x2F;tags&#x2F; || fa fa-tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || fa fa-th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || fa fa-archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || fa fa-calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
-
-<p>只有連結並沒有用處，點擊標籤連結時，要能夠顯示相關頁面，所以使用下述指令，讓 Hexo 幫你產生連結檔</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new page tags</span><br></pre></td></tr></table></figure>
-
-<p>Hexo 會在 <code>./source</code> 底下產生 tags 目錄，目錄內會有一個 index.md 檔案</p>
-<p>tags 頁面建立後，還需將 index.md 檔案打開，並且加入 type 參數，如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2021-04-20 15:37:19</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p>這樣基本上標籤功能就已經完成設定</p>
-<p>在使用時，只要在文章建立後加上 tags，並把要標籤的值加上去即可，如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 標籤測試</span><br><span class="line">tags:</span><br><span class="line">  - TEST</span><br><span class="line">  - TAG</span><br><span class="line">date: 2021-05-22 16:17:39</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>該篇與 Hexo的分類/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結</p>
-<ul>
-<li><a href="https://blog.tonyjhang.tk/2021/07/23/Hexo%E7%9A%84%E5%88%86%E9%A1%9E%E5%8A%9F%E8%83%BD/">Hexo的分類功能</a></li>
-<li><a href="https://blog.tonyjhang.tk/2021/07/26/Hexo%E7%9A%84%E9%97%9C%E6%96%BC%E5%8A%9F%E8%83%BD/">Hexo的關於功能</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo的分類功能</title>
     <url>/2021/07/23/Hexo%E7%9A%84%E5%88%86%E9%A1%9E%E5%8A%9F%E8%83%BD/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 的分類功能其實跟資料夾的功能差不多，作者可以自行將文章做分類，讓讀者在找尋時可以依據分類來快速找到相關的文章，功能上與標籤(tags) 有點大同小異</p>
@@ -245,6 +211,72 @@
 <h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>該篇與 Hexo的標籤/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結</p>
 <ul>
 <li><a href="https://blog.tonyjhang.tk/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/">Hexo的標籤功能</a></li>
+<li><a href="https://blog.tonyjhang.tk/2021/07/26/Hexo%E7%9A%84%E9%97%9C%E6%96%BC%E5%8A%9F%E8%83%BD/">Hexo的關於功能</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo的關於功能</title>
+    <url>/2021/07/26/Hexo%E7%9A%84%E9%97%9C%E6%96%BC%E5%8A%9F%E8%83%BD/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 的關於(about) 功能，主要是可以讓讀者點進特定頁面來去了解作者本人，也就是作者的自我介紹頁，以下會介紹如何啟用與使用</p>
+<span id="more"></span>
+
+<h2 id="關於的啟用-使用"><a href="#關於的啟用-使用" class="headerlink" title="關於的啟用/使用"></a>關於的啟用/使用</h2><p>啟用關於功能，讓關於連結出現在網站上，首先調整 <code>./themes/next/_config.yml</code> 中的下述設定，將 <code>about: /about/ || fa fa-user</code> 註解「取消」，這樣就可以讓網站出現關於的連結</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || fa fa-home</span><br><span class="line">  about: &#x2F;about&#x2F; || fa fa-user</span><br><span class="line">  tags: &#x2F;tags&#x2F; || fa fa-tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || fa fa-th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || fa fa-archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || fa fa-calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
+
+<p>只有連結並沒有用處，點擊關於連結時，要能夠顯示相關頁面，所以使用下述指令，讓 Hexo 幫你產生連結檔</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new page about</span><br></pre></td></tr></table></figure>
+
+<p>Hexo 會在 <code>./source</code> 底下產生 about 目錄，目錄內會有一個 index.md 檔案</p>
+<p>about 頁面建立後，還需將 index.md 檔案打開，並且加入 type 參數，如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: about</span><br><span class="line">date: 2021-04-20 15:37:19</span><br><span class="line">type: &quot;about&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>這樣基本上關於功能就已經完成設定</p>
+<p>使用時，只要在 <code>./source/about/index.md</code> 頁面以 Markdown 語法寫下自我介紹即可</p>
+<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>該篇與 Hexo的分類/標籤功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結</p>
+<ul>
+<li><a href="https://blog.tonyjhang.tk/2021/07/23/Hexo%E7%9A%84%E5%88%86%E9%A1%9E%E5%8A%9F%E8%83%BD/">Hexo的分類功能</a></li>
+<li><a href="https://blog.tonyjhang.tk/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/">Hexo的標籤功能</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo的標籤功能</title>
+    <url>/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 網站中的文章可以使用標籤(tags)，標籤有點像是關鍵字的作用，可以替每篇不同的文章給予不同的標籤，這可以讓讀者針對標籤來快速篩選文章</p>
+<span id="more"></span>
+
+<h2 id="標籤的啟用-使用"><a href="#標籤的啟用-使用" class="headerlink" title="標籤的啟用/使用"></a>標籤的啟用/使用</h2><p>啟用標籤功能，讓標籤連結出現在網站上，首先調整 <code>./themes/next/_config.yml</code> 中的下述設定，將 <code>tags: /tags/ || fa fa-tags</code> 註解「取消」，這樣就可以讓網站出現標籤的連結</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || fa fa-home</span><br><span class="line">  about: &#x2F;about&#x2F; || fa fa-user</span><br><span class="line">  tags: &#x2F;tags&#x2F; || fa fa-tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || fa fa-th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || fa fa-archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || fa fa-calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
+
+<p>只有連結並沒有用處，點擊標籤連結時，要能夠顯示相關頁面，所以使用下述指令，讓 Hexo 幫你產生連結檔</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new page tags</span><br></pre></td></tr></table></figure>
+
+<p>Hexo 會在 <code>./source</code> 底下產生 tags 目錄，目錄內會有一個 index.md 檔案</p>
+<p>tags 頁面建立後，還需將 index.md 檔案打開，並且加入 type 參數，如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2021-04-20 15:37:19</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>這樣基本上標籤功能就已經完成設定</p>
+<p>在使用時，只要在文章建立後加上 tags，並把要標籤的值加上去即可，如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 標籤測試</span><br><span class="line">tags:</span><br><span class="line">  - TEST</span><br><span class="line">  - TAG</span><br><span class="line">date: 2021-05-22 16:17:39</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>該篇與 Hexo的分類/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結</p>
+<ul>
+<li><a href="https://blog.tonyjhang.tk/2021/07/23/Hexo%E7%9A%84%E5%88%86%E9%A1%9E%E5%8A%9F%E8%83%BD/">Hexo的分類功能</a></li>
 <li><a href="https://blog.tonyjhang.tk/2021/07/26/Hexo%E7%9A%84%E9%97%9C%E6%96%BC%E5%8A%9F%E8%83%BD/">Hexo的關於功能</a></li>
 </ul>
 ]]></content>
@@ -322,38 +354,6 @@
       <tags>
         <tag>PHP</tag>
         <tag>PHP-FPM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo的關於功能</title>
-    <url>/2021/07/26/Hexo%E7%9A%84%E9%97%9C%E6%96%BC%E5%8A%9F%E8%83%BD/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 的關於(about) 功能，主要是可以讓讀者點進特定頁面來去了解作者本人，也就是作者的自我介紹頁，以下會介紹如何啟用與使用</p>
-<span id="more"></span>
-
-<h2 id="關於的啟用-使用"><a href="#關於的啟用-使用" class="headerlink" title="關於的啟用/使用"></a>關於的啟用/使用</h2><p>啟用關於功能，讓關於連結出現在網站上，首先調整 <code>./themes/next/_config.yml</code> 中的下述設定，將 <code>about: /about/ || fa fa-user</code> 註解「取消」，這樣就可以讓網站出現關於的連結</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || fa fa-home</span><br><span class="line">  about: &#x2F;about&#x2F; || fa fa-user</span><br><span class="line">  tags: &#x2F;tags&#x2F; || fa fa-tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || fa fa-th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || fa fa-archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || fa fa-calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
-
-<p>只有連結並沒有用處，點擊關於連結時，要能夠顯示相關頁面，所以使用下述指令，讓 Hexo 幫你產生連結檔</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new page about</span><br></pre></td></tr></table></figure>
-
-<p>Hexo 會在 <code>./source</code> 底下產生 about 目錄，目錄內會有一個 index.md 檔案</p>
-<p>about 頁面建立後，還需將 index.md 檔案打開，並且加入 type 參數，如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: about</span><br><span class="line">date: 2021-04-20 15:37:19</span><br><span class="line">type: &quot;about&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p>這樣基本上關於功能就已經完成設定</p>
-<p>使用時，只要在 <code>./source/about/index.md</code> 頁面以 Markdown 語法寫下自我介紹即可</p>
-<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>該篇與 Hexo的分類/標籤功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結</p>
-<ul>
-<li><a href="https://blog.tonyjhang.tk/2021/07/23/Hexo%E7%9A%84%E5%88%86%E9%A1%9E%E5%8A%9F%E8%83%BD/">Hexo的分類功能</a></li>
-<li><a href="https://blog.tonyjhang.tk/2021/07/21/Hexo%E6%A8%99%E7%B1%A4%E7%9A%84%E4%BD%BF%E7%94%A8/">Hexo的標籤功能</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>blog</tag>
       </tags>
   </entry>
   <entry>
@@ -520,6 +520,105 @@
         <tag>SHA1</tag>
         <tag>Bcrypt</tag>
         <tag>Apache</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes Network Policy</title>
+    <url>/2024/01/16/kubernetes-network-policy/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 K8s 中，預設所有 Pod 不管是在哪個 Namespace，預設都是相通，若是想要進一步限制 Pod 之間的存取，可以使用 Network Policy 來達成。</p>
+<p>在 Google Kubernetes Engine 的環境中，可以自行啟用「Calico Kubernetes Network 政策」，即可輕鬆簡單的直接使用。</p>
+<span id="more"></span>
+
+<h2 id="Network-Policy-描述檔"><a href="#Network-Policy-描述檔" class="headerlink" title="Network Policy 描述檔"></a>Network Policy 描述檔</h2><p>基本範例</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">NetworkPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">demo-network-policy</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">podSelector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx-vts</span></span><br><span class="line">  <span class="attr">policyTypes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Ingress</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Egress</span></span><br><span class="line">  <span class="attr">ingress:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">from:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">podSelector:</span></span><br><span class="line">        <span class="attr">matchLabels:</span></span><br><span class="line">          <span class="attr">repo:</span> <span class="string">sugar</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">namespaceSelector:</span></span><br><span class="line">        <span class="attr">matchLabels:</span></span><br><span class="line">          <span class="attr">department:</span> <span class="string">rd</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ipBlock:</span></span><br><span class="line">        <span class="attr">cidr:</span> <span class="number">172.17</span><span class="number">.0</span><span class="number">.0</span><span class="string">/16</span></span><br><span class="line">        <span class="attr">except:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="number">172.17</span><span class="number">.1</span><span class="number">.0</span><span class="string">/24</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">9453</span></span><br><span class="line">  <span class="attr">egress:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">to:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ipBlock:</span></span><br><span class="line">        <span class="attr">cidr:</span> <span class="number">10.0</span><span class="number">.0</span><span class="number">.0</span><span class="string">/24</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">9527</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="分段解析"><a href="#分段解析" class="headerlink" title="分段解析"></a>分段解析</h3><h4 id="Part-1"><a href="#Part-1" class="headerlink" title="Part 1"></a>Part 1</h4><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">NetworkPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">demo-network-policy</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">podSelector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx-vts</span></span><br><span class="line">  <span class="attr">policyTypes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Ingress</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Egress</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+<p>在 <code>default</code> Namespace 中只要帶有 Label 為 <code>app=nginx-vts</code> 的 pod，接會被套上 Network Policy，並且進(ingress) 出(egress)流量皆會被限制。</p>
+<blockquote>
+<p>如果沒有設定 <code>spec.podSelector</code>，代表會套用到 <code>default</code> Namespace 中的所有 pod</p>
+</blockquote>
+<p>至於進(ingress) 出(egress)流量的限制細節，需要再往後設定</p>
+<h4 id="Part-2"><a href="#Part-2" class="headerlink" title="Part 2"></a>Part 2</h4><p>Ingress 流量的詳細設定</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">NetworkPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">demo-network-policy</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">podSelector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx-vts</span></span><br><span class="line">  <span class="attr">policyTypes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Ingress</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Egress</span></span><br><span class="line">  <span class="attr">ingress:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">from:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">podSelector:</span></span><br><span class="line">        <span class="attr">matchLabels:</span></span><br><span class="line">          <span class="attr">repo:</span> <span class="string">sugar</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">namespaceSelector:</span></span><br><span class="line">        <span class="attr">matchLabels:</span></span><br><span class="line">          <span class="attr">department:</span> <span class="string">rd</span></span><br><span class="line">    <span class="comment"># IP 範圍，而非 IP 封鎖</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ipBlock:</span></span><br><span class="line">        <span class="attr">cidr:</span> <span class="number">172.17</span><span class="number">.0</span><span class="number">.0</span><span class="string">/16</span></span><br><span class="line">        <span class="attr">except:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="number">172.17</span><span class="number">.1</span><span class="number">.0</span><span class="string">/24</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">9453</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+<p>Ingress from：管理從外部進來的流量，也就「允許」進來 Pod 的流量</p>
+<p>允許存取的來源白名單：</p>
+<ul>
+<li>允許 <code>default</code> Namespace 中帶有 <code>repo=sugar</code> Label 的 Pod</li>
+<li>允許帶有 <code>department=rd</code> Label 的 Namespace 中所有 Pod</li>
+<li>來源 IP 範圍 172.17.0.0/16 (不含 172.17.1.0/24)</li>
+</ul>
+<p>綜合 Part 1 的解析，會變成如下：</p>
+<ul>
+<li>允許 <code>default</code> Namespace 中帶有 <code>repo=sugar</code> Label 的 Pod，存取 <code>default</code> Namespace 中帶有 <code>app=nginx-vts</code> 標籤 Pod 的 9453 Port</li>
+<li>允許帶有 <code>department=rd</code> Label 的 Namespace 中所有 Pod，存取 <code>default</code> Namespace 中帶有 <code>app=nginx-vts</code> 標籤 Pod 的 9453 Port</li>
+<li>允許來源 IP 為 172.17.0.0/16(但排除 172.17.1.0/24)，存取 <code>default</code> Namespace 中帶有 <code>app=nginx-vts</code> 標籤 Pod 的 9453 Port</li>
+</ul>
+<h4 id="Part-3"><a href="#Part-3" class="headerlink" title="Part 3"></a>Part 3</h4><p>Egress 流量的詳細設定</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">NetworkPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">demo-network-policy</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">podSelector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx-vts</span></span><br><span class="line">  <span class="attr">policyTypes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Ingress</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Egress</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line">  <span class="attr">egress:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">to:</span></span><br><span class="line">    <span class="comment"># IP 範圍，而非 IP 封鎖</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">ipBlock:</span></span><br><span class="line">        <span class="attr">cidr:</span> <span class="number">10.0</span><span class="number">.0</span><span class="number">.0</span><span class="string">/24</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">9527</span></span><br></pre></td></tr></table></figure>
+
+<p>Egress to：管理從內部出去的流量，也就是「允許」從 Pod 的出去到達的目的流量</p>
+<p>「允許」從 Pod 的出去到達的目的流量白名單：</p>
+<ul>
+<li>只允許對外連線(egress) 到 IP 範圍 10.0.0.0/24 的 通訊協定 TCP 且目的 Port 為 9527。</li>
+</ul>
+<p>綜合 Part 1 的解析，會變成如下：</p>
+<p>「在 <code>default</code> 的命名空間中只要帶有 Label 為 <code>app=nginx-vts</code> 的 pod，只允許對外連線(egress) 到 IP 範圍 10.0.0.0/24 的 通訊協定 TCP 且目的 Port 為 9527」</p>
+<h4 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h4><p>從上述的解析中可以推論，不管是 Ingress 或是 Egress，對於設定上皆有三種白名單的細部控制：<code>podSelector</code>、<code>namespaceSelector</code>、<code>ipBlock</code></p>
+<h2 id="預設政策-default-policy"><a href="#預設政策-default-policy" class="headerlink" title="預設政策(default policy)"></a>預設政策(default policy)</h2><p>基本概念(重要)：</p>
+<ul>
+<li>若要選擇所有的 pod，則將 <code>podSelector</code> 設定為 <code>&#123;&#125;</code></li>
+<li>若是設定 <code>policyType</code>，就表示要全部拒絕該種連線(ingress/egress) 的流量</li>
+<li>若要打開上面的限制(也就是白名單)，則要在 <code>spec.ingress</code> 或 <code>spec.egress</code> 中設定</li>
+</ul>
+<p>綜合上述，可以推理出四種情況：</p>
+<ul>
+<li>拒絕從外面進來的流量，要在 <code>spec.policyTypes</code> 中包含 Ingress，並且略過 ingress 細部設定</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">NetworkPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">deny-all-ingress</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">podSelector:</span> &#123;&#125;</span><br><span class="line">  <span class="attr">policyTypes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Ingress</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>拒絕從內部出去的流量，要在 <code>spec.policyTypes</code> 中包含 Egress，並且略過 egress 細部設定</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">NetworkPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">deny-all-egress</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">podSelector:</span> &#123;&#125;</span><br><span class="line">  <span class="attr">policyTypes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Egress</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>接受從外面進來的網路流量，要在 <code>spec.policyTypes</code> 中包含 Ingress，並將 <code>spec.ingress</code> 設定為 <code>&#123;&#125;</code></li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">NetworkPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">allow-all-ingress</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">podSelector:</span> &#123;&#125;</span><br><span class="line">  <span class="attr">policyTypes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Ingress</span></span><br><span class="line">  <span class="attr">ingress:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>接受從內部出去的網路流向，要在 <code>spec.policyTypes</code> 中包含 Egress，並將 <code>spec.egress</code> 設定為 <code>&#123;&#125;</code></li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">NetworkPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">allow-all-egress</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">podSelector:</span> &#123;&#125;</span><br><span class="line">  <span class="attr">policyTypes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Egress</span></span><br><span class="line">  <span class="attr">egress:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在理解完上述情況後後，記得帶上 Namespace 的概念進去，這樣才知道該條政策的作用範圍：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">NetworkPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">allow-all-egress</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">podSelector:</span> &#123;&#125;</span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+<p>在 <code>default</code> Namespace 中所有的 pod(<code>podSelector: &#123;&#125;</code>)，皆會被套上 Network Policy，並且進(ingress) 出(egress)流量皆會被限制。</p>
+<h2 id="更多的使用場景"><a href="#更多的使用場景" class="headerlink" title="更多的使用場景"></a>更多的使用場景</h2><p>下述參考資料中，有更多的使用場景可以參照：</p>
+<p><a href="https://kubernetes.feisky.xyz/concepts/objects/network-policy#shi-yong-chang-jing">https://kubernetes.feisky.xyz/concepts/objects/network-policy#shi-yong-chang-jing</a></p>
+<h3 id="只允許同一個-Namespace-間的-Pod-相互訪問"><a href="#只允許同一個-Namespace-間的-Pod-相互訪問" class="headerlink" title="只允許同一個 Namespace 間的 Pod 相互訪問"></a>只允許同一個 Namespace 間的 Pod 相互訪問</h3><p>只允許 <code>monitoring</code> Namespace 間的 Pod 可以相互訪問，其他 Namespace 的 Pod 無法訪問 <code>monitoring</code> Namespace 的 Pod</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">NetworkPolicy</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">monitoring</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">deny-other-namespaces</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">podSelector:</span> &#123;&#125;</span><br><span class="line">  <span class="attr">policyTypes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Ingress</span></span><br><span class="line">  <span class="attr">ingress:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">from:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">podSelector:</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="禁止同一個-Namespace-間的-Pod-相互訪問，但是跨-Namespace-不在此限"><a href="#禁止同一個-Namespace-間的-Pod-相互訪問，但是跨-Namespace-不在此限" class="headerlink" title="禁止同一個 Namespace 間的 Pod 相互訪問，但是跨 Namespace 不在此限"></a>禁止同一個 Namespace 間的 Pod 相互訪問，但是跨 Namespace 不在此限</h3><p>禁止 <code>default</code> Namespace 間的 Pod 相互訪問，但 <code>default</code> Namespace 可以訪問其他 Namespace 的 Pod，其他 Namespace 的 Pod 也可以訪問 <code>default</code> Namespace 的 Pod </p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">NetworkPolicy</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">default-deny</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">podSelector:</span> &#123;&#125;</span><br><span class="line">  <span class="attr">policyTypes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Ingress</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="https://godleon.github.io/blog/Kubernetes/k8s-Network-Policy-Overview/">https://godleon.github.io/blog/Kubernetes/k8s-Network-Policy-Overview/</a></li>
+<li><a href="https://kubernetes.feisky.xyz/concepts/objects/network-policy#shi-yong-chang-jing">https://kubernetes.feisky.xyz/concepts/objects/network-policy#shi-yong-chang-jing</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>GKE</category>
+      </categories>
+      <tags>
+        <tag>GKE</tag>
+        <tag>GCP</tag>
+        <tag>K8s</tag>
+        <tag>Google Cloud Platform</tag>
+        <tag>Kubernetes</tag>
       </tags>
   </entry>
   <entry>
