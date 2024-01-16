@@ -3,9 +3,10 @@ title: 如何修改PHP-FPM上傳檔案大小限制
 tags:
   - PHP-FPM
   - PHP
-date: 2021-05-22 16:17:39
 categories:
   - PHP-FPM
+abbrlink: 452fc7c7
+date: 2021-05-22 16:17:39
 ---
 
 ## 前言

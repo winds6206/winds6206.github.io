@@ -8,6 +8,7 @@ tags:
   - Kubernetes
 categories:
   - GKE
+abbrlink: e08900fb
 date: 2024-01-16 13:51:16
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: 在 K8s 使用 FTP
-date: 2021-04-26 16:15:09
 tags:
   - GKE
   - GCP
@@ -10,6 +9,8 @@ tags:
   - FTP
 categories:
   - GKE
+abbrlink: 2de962d3
+date: 2021-04-26 16:15:09
 ---
 
 ## 前言
