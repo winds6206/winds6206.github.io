@@ -5,9 +5,10 @@ tags:
   - Auto Completion
   - Bash Completion
   - Linux
-date: 2021-05-11 16:25:56
 categories:
   - Linux
+abbrlink: 3bc3c62d
+date: 2021-05-11 16:25:56
 ---
 
 ## 前言

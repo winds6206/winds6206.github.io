@@ -3,6 +3,7 @@ title: TIME_WAIT狀態如何產生
 tags:
   - TCP
 categories: TCP/IP
+abbrlink: ab6fcbda
 date: 2021-08-17 15:29:31
 ---
 
