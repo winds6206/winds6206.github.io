@@ -32,7 +32,7 @@
 <meta property="og:description" content="前言Hexo 中的文章是使用 Markdown 的語法，有時候文章中可能會需要一些圖片來予以輔助，這時候我們可能會需要調整一些設定來存放我們的圖片 文章插入圖片這邊先講一下 Markdown 插入圖片的語法 1![](圖片路徑)">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-07-20T04:21:06.000Z">
-<meta property="article:modified_time" content="2024-01-16T06:33:39.701Z">
+<meta property="article:modified_time" content="2024-01-19T03:51:16.120Z">
 <meta property="article:author" content="Tony">
 <meta property="article:tag" content="Hexo">
 <meta property="article:tag" content="blog">
@@ -329,7 +329,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2024-01-16 14:33:39" itemprop="dateModified" datetime="2024-01-16T14:33:39+08:00">2024-01-16</time>
+        <time title="修改時間：2024-01-19 11:51:16" itemprop="dateModified" datetime="2024-01-19T11:51:16+08:00">2024-01-19</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -379,7 +379,7 @@
 <span id="more"></span>
 
 <p>再來我們可以更改 Hexo 的設定檔，來讓我們建立文章時，能夠自動將該文章存放圖片的目錄也一起建立起來，修改 <code>./_config.xml</code>，並將下面參數值調整為 true</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
 <p>調整後當我們使用 <code>hexo new &quot;新文章&quot;</code> 建立文章後，就會自動在 <code>./source/_posts</code> 建立一個與文章相同名稱的目錄，然後就能將圖片放進去</p>
 <p>而 Markdown 要調用圖片時，圖片路徑只需要填上圖片名稱即可，例如：圖片名稱為 123.png</p>
