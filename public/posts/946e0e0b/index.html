@@ -32,7 +32,7 @@
 <meta property="og:description" content="前言使用 Hexo 來當作技術部落格不僅簡單且快速，在剛開始架設完成後，可以使用指令 hexo new [title] 來建立文章並且撰寫，但是這樣的方式會延伸一個問題，如果這篇文章還處理撰寫的階段，但是我有修改其他已完成的文章需要發佈出去，但是不想把未完成的文章也一起發佈，此時就會有一些困擾，此篇會來說明如果使用 Hexo 的草稿功能。">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-05-03T02:26:06.000Z">
-<meta property="article:modified_time" content="2024-01-16T06:33:39.701Z">
+<meta property="article:modified_time" content="2024-01-19T04:00:42.869Z">
 <meta property="article:author" content="Tony">
 <meta property="article:tag" content="Hexo">
 <meta property="article:tag" content="blog">
@@ -329,7 +329,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2024-01-16 14:33:39" itemprop="dateModified" datetime="2024-01-16T14:33:39+08:00">2024-01-16</time>
+        <time title="修改時間：2024-01-19 12:00:42" itemprop="dateModified" datetime="2024-01-19T12:00:42+08:00">2024-01-19</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -376,10 +376,10 @@
 <span id="more"></span>
 
 <h2 id="Hexo-草稿"><a href="#Hexo-草稿" class="headerlink" title="Hexo 草稿"></a>Hexo 草稿</h2><p>一般來說，我們建立文章都是使用此指令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [Title] [FileName]</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [Title] [FileName]</span><br></pre></td></tr></table></figure>
 
 <p>如果今天要建立 Hexo 草稿，我們可以將上述指令改成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new draft [Title] [FileName]</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new draft [Title] [FileName]</span><br></pre></td></tr></table></figure>
 
 <p>那此時產生出來的草稿會放在 <code>./source/_drafts</code></p>
 <blockquote>
@@ -390,30 +390,30 @@
 <blockquote>
 <p>此處「文後討論」有補充說明</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s --draft</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s --draft</span><br></pre></td></tr></table></figure>
 
 <p>確認文章沒問題後，我們就可以將草稿 publish，使用此指令</p>
 <blockquote>
 <p>這邊的 publish 是將檔案從 _drafts 移動到 _posts</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo publish [FileName]  # 這邊是接 FileName，不包含副檔名 .md</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo publish [FileName]  <span class="comment"># 這邊是接 FileName，不包含副檔名 .md</span></span><br></pre></td></tr></table></figure>
 
 <p>接下來就跟放在 _posts 底下的文章發佈沒有兩樣，先進行移除舊的靜態檔與快取</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo cl</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo cl</span><br></pre></td></tr></table></figure>
 
 <p>然後進行編譯的動作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
 
 <p>最後再發佈</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
 
 <h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>看完上述，你可能會想，那能不能讓 <code>hexo s</code> 自動將 _drafts 底下的檔案自動預覽出來，而不要在指令後面又多加一個參數 <code>--draft</code>?</p>
 <p>答案是 可以的!</p>
-<p>此時要去調整 <code>./_config.yml</code> 內的設定，將下面的參數值由 false 調整為 true 即可</p>
+<p>只要去調整 <code>./_config.yml</code> 內的設定，將下面的參數值由 false 調整為 true 即可</p>
 <blockquote>
 <p>非 themes 底下的 _config.yml</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">render_drafts: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">render_drafts:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
 <p>調整之後，以後要預覽 _drafts 內的文章，就跟一般放在 _posts 底下的一樣，只要使用 <code>hexo s</code> 通通都可以在本機預覽得到。</p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>

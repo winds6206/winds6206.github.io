@@ -31,16 +31,16 @@
 <meta property="og:site_name" content="偷尼的部落格">
 <meta property="og:description" content="前言當我們開發程式時，一定都會想到 GitHub 或 GiLab 等版控的工具，今天要來介紹一下 GitHub Pages，GitHub Pages 是由 GitHub 所提供的服務，可以讓 Repository 內的靜態檔案，以網頁的方式呈現出來，這代表著 GitHub Pages 提供了 Web Server 的服務，但僅僅支援靜態頁面，如果是後端相關的 code，例如: .php 的副檔名，">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://blog.tonyjhang.tk/posts/9836e9cf/1.png">
+<meta property="og:image" content="https://blog.tonyjhang.tk/posts/9836e9cf/github-pages/mk-20240119120313.png">
 <meta property="article:published_time" content="2021-05-03T06:58:14.000Z">
-<meta property="article:modified_time" content="2024-01-16T06:33:39.705Z">
+<meta property="article:modified_time" content="2024-01-19T04:04:30.466Z">
 <meta property="article:author" content="Tony">
 <meta property="article:tag" content="Hexo">
 <meta property="article:tag" content="GitHub">
 <meta property="article:tag" content="GitHub Pages">
 <meta property="article:tag" content="blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.tonyjhang.tk/posts/9836e9cf/1.png">
+<meta name="twitter:image" content="https://blog.tonyjhang.tk/posts/9836e9cf/github-pages/mk-20240119120313.png">
 
 
 <link rel="canonical" href="https://blog.tonyjhang.tk/posts/9836e9cf/">
@@ -333,7 +333,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2024-01-16 14:33:39" itemprop="dateModified" datetime="2024-01-16T14:33:39+08:00">2024-01-16</time>
+        <time title="修改時間：2024-01-19 12:04:30" itemprop="dateModified" datetime="2024-01-19T12:04:30+08:00">2024-01-19</time>
       </span>
 
   
@@ -380,21 +380,21 @@
 <blockquote>
 <p>要使用 GitHub Pages，Repository 需要設定為 Public</p>
 </blockquote>
-<p><img src="1.png"></p>
+<p><img src="github-pages/mk-20240119120313.png"></p>
 <h3 id="建立測試檔"><a href="#建立測試檔" class="headerlink" title="建立測試檔"></a>建立測試檔</h3><p>接下來，在本機建立一個目錄並進入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir username.github.io</span><br><span class="line">$ cd username.github.io</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir username.github.io</span><br><span class="line"><span class="built_in">cd</span> username.github.io</span><br></pre></td></tr></table></figure>
 
 <p>並寫一個測試的首頁 index.html</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;Hello World&quot; &gt; index.html</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hello World&quot;</span> &gt; index.html</span><br></pre></td></tr></table></figure>
 
 <p>初始化目錄並設定 Rmote Repository</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br><span class="line">$ git remote add origin git@github.com:username&#x2F;username.github.io.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin git@github.com:username/username.github.io.git</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>上述 username 請填入自己的 GitHub 帳號</p>
 </blockquote>
 <p>提交檔案並推上 GitHub</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add --all</span><br><span class="line">$ git commit -m &quot;Initial commit&quot;</span><br><span class="line">$ git push -u origin master</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add --all</span><br><span class="line">git commit -m <span class="string">&quot;Initial commit&quot;</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
 
 <h3 id="測試網頁功能"><a href="#測試網頁功能" class="headerlink" title="測試網頁功能"></a>測試網頁功能</h3><p>成功推送後，可以開啟 https://<code>username</code>.github.io 試試看，會顯示「Hello World」</p>
 <blockquote>
