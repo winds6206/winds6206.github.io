@@ -32,7 +32,7 @@
 <meta property="og:description" content="前言在 Linux 環境中，我們常常使用 SSH 來與目標主機做連線，有時候因為目標主機的異動而導致我們後續連線時會出現 WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED這樣子的警示訊息，導致我們無法順利連線，為何會有這樣子的訊息，又該如何解決，可以參考以下內容">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2021-08-09T02:48:45.000Z">
-<meta property="article:modified_time" content="2024-01-16T06:33:39.705Z">
+<meta property="article:modified_time" content="2024-01-19T04:14:41.403Z">
 <meta property="article:author" content="Tony">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="SSH">
@@ -331,7 +331,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2024-01-16 14:33:39" itemprop="dateModified" datetime="2024-01-16T14:33:39+08:00">2024-01-16</time>
+        <time title="修改時間：2024-01-19 12:14:41" itemprop="dateModified" datetime="2024-01-19T12:14:41+08:00">2024-01-19</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -381,23 +381,23 @@
 <blockquote>
 <p>A public key fingerprint is a short sequence of bytes used to identify a longer public key.</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The authenticity of host &#39;192.168.26.11 (192.168.26.11)&#39; can&#39;t be established.</span><br><span class="line">RSA key fingerprint is a3:ca:ad:95:a1:45:d2:57:3a:e9:e7:75:a8:4c:1f:9f.</span><br><span class="line">Are you sure you want to continue connecting (yes&#x2F;no)?</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The authenticity of host &#x27;192.168.26.11 (192.168.26.11)&#x27; can&#x27;t be established.</span><br><span class="line">RSA key fingerprint is a3:ca:ad:95:a1:45:d2:57:3a:e9:e7:75:a8:4c:1f:9f.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)?</span><br></pre></td></tr></table></figure>
 
 <p>當選擇 yes，就會將該主機的 Public key 追加到本機 <code>~/.ssh/known_hosts</code> 中，當第二次連到該台主機時，就不會再出現相關訊息</p>
 <h2 id="解決方式"><a href="#解決方式" class="headerlink" title="解決方式"></a>解決方式</h2><p>這樣子的 Public key 檢查是一個重要的安全機制，可以防範中間人攻擊等問題，但有時候因爲某些原因，導致該 IP 的 Public key 改變了，這時候使用 SSH 連線時，會出現以下錯誤訊息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!</span><br><span class="line">Someone could be eavesdropping on you right now (man-in-the-middle attack)!</span><br><span class="line">It is also possible that the RSA host key has just been changed.</span><br><span class="line">The fingerprint for the RSA key sent by the remote host is</span><br><span class="line">e9:0c:36:89:7f:3c:07:71:09:5a:9f:28:8c:44:e9:05.</span><br><span class="line">Please contact your system administrator.</span><br><span class="line">Add correct host key in &#x2F;home&#x2F;tonyjhang&#x2F;.ssh&#x2F;known_hosts to get rid of this message.</span><br><span class="line">Offending key in &#x2F;home&#x2F;tonyjhang&#x2F;.ssh&#x2F;known_hosts:81</span><br><span class="line">RSA host key for 192.168.26.11 has changed and you have requested strict checking.</span><br><span class="line">Host key verification failed.</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!</span><br><span class="line">Someone could be eavesdropping on you right now (man-in-the-middle attack)!</span><br><span class="line">It is also possible that the RSA host key has just been changed.</span><br><span class="line">The fingerprint for the RSA key sent by the remote host is</span><br><span class="line">e9:0c:36:89:7f:3c:07:71:09:5a:9f:28:8c:44:e9:05.</span><br><span class="line">Please contact your system administrator.</span><br><span class="line">Add correct host key in /home/tonyjhang/.ssh/known_hosts to get rid of this message.</span><br><span class="line">Offending key in /home/tonyjhang/.ssh/known_hosts:81</span><br><span class="line">RSA host key for 192.168.26.11 has changed and you have requested strict checking.</span><br><span class="line">Host key verification failed.</span><br></pre></td></tr></table></figure>
 
 <p>有三種解決方式</p>
 <ol>
 <li>根據上述訊息，將第 81 行刪除，重新連線，主機會重新傳送一份 public key fingerprint</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Offending key in &#x2F;home&#x2F;tonyjhang&#x2F;.ssh&#x2F;known_hosts:81</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Offending key in /home/tonyjhang/.ssh/known_hosts:81</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>把整個 <code>~/.ssh/known_hosts</code> 刪除，這是最「不建議」的做法，可能會導致自動化失效或連線到其他主機的問題</li>
 <li>使用 <code>ssh-keygen -R</code> 的指令，將 <code>~/.ssh/known_hosts</code> 內的所有資訊，轉存一份到 <code>~/.ssh/known_hosts.old</code>，並且將 <code>~/.ssh/known_hosts</code> 內的目標主機項目移除，使用方式如下</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -R 192.168.26.11</span><br><span class="line"></span><br><span class="line"># Host 192.168.26.11 found: line 60</span><br><span class="line">&#x2F;Users&#x2F;tony_jhang&#x2F;.ssh&#x2F;known_hosts updated.</span><br><span class="line">Original contents retained as &#x2F;Users&#x2F;tony_jhang&#x2F;.ssh&#x2F;known_hosts.old</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -R 192.168.26.11</span><br><span class="line"></span><br><span class="line"><span class="comment"># Host 192.168.26.11 found: line 60</span></span><br><span class="line">/Users/tony_jhang/.ssh/known_hosts updated.</span><br><span class="line">Original contents retained as /Users/tony_jhang/.ssh/known_hosts.old</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>Original contents retained as /Users/tony_jhang/.ssh/known_hosts.old → 原始內容有被保存到 known_hosts.old</p>
