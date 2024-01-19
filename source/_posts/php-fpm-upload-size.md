@@ -24,7 +24,7 @@ date: 2021-05-22 16:17:39
 
 > 此處的數值為預設值
 
-```
+```text
 # 檔案上傳大小限制相關參數
 upload_max_filesize = 2M
 post_max_size = 8M
@@ -40,7 +40,7 @@ default_socket_timeout = 60
 
 依照自身需求，調整 `php.ini` 的相關參數設定
 
-```
+```text
 # 上傳單一檔案大小
 upload_max_filesize = 100M
 
@@ -53,7 +53,7 @@ memory_limit = 128M
 
 這邊需要注意的是，上述參數之間的值有大小原則需要注意
 
-```
+```text
 memory_limit > post_max_size > upload_max_filesize
 ```
 
@@ -65,7 +65,7 @@ memory_limit > post_max_size > upload_max_filesize
 
 > 此處的數值為預設值
 
-```
+```text
 # PHP 腳本執行的時間上限(秒)，可避免無窮迴圈
 max_execution_time = 30
 

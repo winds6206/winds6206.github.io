@@ -24,7 +24,7 @@ SSH 連接遠端主機時，會檢查主機的 Public key，如果是第一次�
 
 > A public key fingerprint is a short sequence of bytes used to identify a longer public key.
 
-```
+```text
 The authenticity of host '192.168.26.11 (192.168.26.11)' can't be established.
 RSA key fingerprint is a3:ca:ad:95:a1:45:d2:57:3a:e9:e7:75:a8:4c:1f:9f.
 Are you sure you want to continue connecting (yes/no)?
@@ -36,7 +36,7 @@ Are you sure you want to continue connecting (yes/no)?
 
 這樣子的 Public key 檢查是一個重要的安全機制，可以防範中間人攻擊等問題，但有時候因爲某些原因，導致該 IP 的 Public key 改變了，這時候使用 SSH 連線時，會出現以下錯誤訊息
 
-```
+```text
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -56,14 +56,14 @@ Host key verification failed.
 
 1. 根據上述訊息，將第 81 行刪除，重新連線，主機會重新傳送一份 public key fingerprint
 
-```
+```text
 Offending key in /home/tonyjhang/.ssh/known_hosts:81
 ```
 
 2. 把整個 `~/.ssh/known_hosts` 刪除，這是最「不建議」的做法，可能會導致自動化失效或連線到其他主機的問題
 3. 使用 `ssh-keygen -R` 的指令，將 `~/.ssh/known_hosts` 內的所有資訊，轉存一份到 `~/.ssh/known_hosts.old`，並且將 `~/.ssh/known_hosts` 內的目標主機項目移除，使用方式如下
 
-```
+```bash
 $ ssh-keygen -R 192.168.26.11
 
 # Host 192.168.26.11 found: line 60

@@ -27,8 +27,8 @@ Bash Completion 可以讓你在使用 Bash 指令時，按「Tab」鍵，讓系�
 
 在家目錄底下有個 `.inputrc` 的檔案，可以最後面補上 `set completion-ignore-case On` 即可。 或者直接輸入以下指令
 
-```
-$ echo 'set completion-ignore-case On' >> ~/.inputrc
+```bash
+echo 'set completion-ignore-case On' >> ~/.inputrc
 ```
 
 ## 參考資料
