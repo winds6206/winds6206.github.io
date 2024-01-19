@@ -15,11 +15,11 @@ date: 2021-04-29 17:21:21
 
 以下列了兩個行程不夠時常見的 Error Log
 
-```
+```text
 WARNING: [pool www] server reached pm.max_children setting (5), consider raising it
 ```
 
-```
+```text
 WARNING: [pool www] seems busy (you may need to increase pm.start_servers, or pm.min/max_spare_servers), spawning 32 children, there are 0 idle, and 19 total child
 ```
 
@@ -27,7 +27,7 @@ WARNING: [pool www] seems busy (you may need to increase pm.start_servers, or pm
 
 PHP-FPM 行程優化相關參數，以下為預設值，需要依照每台機器狀態不同去調教
 
-```
+```text
 pm = dynamic
 pm.max_children = 5
 pm.start_servers = 2
@@ -78,7 +78,7 @@ pm 為行程管理(Process Manager) 的縮寫，此參數主要是在設定 pm �
 
 可以利用以下指令去查詢行程使用的記憶體量
 
-```
+```bash
 $ ps -ylC php-fpm --sort:rss
 
 S   UID     PID    PPID  C PRI  NI   RSS    SZ WCHAN  TTY          TIME CMD
