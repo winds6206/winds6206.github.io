@@ -134,15 +134,15 @@
 </ul>
 <p>如果是使用金鑰驗證，我們要先設定好 private key 的位置，開啟 FileZilla Client，依照下圖點選到設定位置</p>
 <p>點選 編輯 → 設定</p>
-<p><img src="ftp-in-kubernetes/mk-20240119114134.png"></p>
+<p><img src="mk-20240119114134.png"></p>
 <p>選擇 SFTP 並點選「加入金鑰檔案」，此時會請你選擇 private key 的位置</p>
-<p><img src="ftp-in-kubernetes/mk-20240119114200.png"></p>
+<p><img src="mk-20240119114200.png"></p>
 <p>這邊要注意一下，如果一開始產生金鑰時有設定 passphrase，會跳出此視窗，主要是因為他需要將 .key 轉成 .ppk，這邊直接點「是」</p>
-<p><img src="ftp-in-kubernetes/mk-20240119114218.png"></p>
+<p><img src="mk-20240119114218.png"></p>
 <p>輸入設定的 passphrase</p>
-<p><img src="ftp-in-kubernetes/mk-20240119114239.png"></p>
+<p><img src="mk-20240119114239.png"></p>
 <p>選擇鑰儲存 .ppk 的位置與命名</p>
-<p><img src="ftp-in-kubernetes/mk-20240119114300.png"></p>
+<p><img src="mk-20240119114300.png"></p>
 <p>最後再回到主畫面將連線資訊填入，密碼不用填寫，當連線後，會請你輸入 passphrase 的密碼</p>
 ]]></content>
       <categories>
@@ -173,7 +173,7 @@
 <blockquote>
 <p>要使用 GitHub Pages，Repository 需要設定為 Public</p>
 </blockquote>
-<p><img src="github-pages/mk-20240119120313.png"></p>
+<p><img src="mk-20240119120313.png"></p>
 <h3 id="建立測試檔"><a href="#建立測試檔" class="headerlink" title="建立測試檔"></a>建立測試檔</h3><p>接下來，在本機建立一個目錄並進入</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir username.github.io</span><br><span class="line"><span class="built_in">cd</span> username.github.io</span><br></pre></td></tr></table></figure>
 
@@ -217,7 +217,7 @@
 <p>Workload Identity is the recommended way for your workloads running on Google Kubernetes Engine (GKE) to access Google Cloud services in a secure and manageable way.</p>
 </blockquote>
 <h2 id="啟用-Workload-Identity"><a href="#啟用-Workload-Identity" class="headerlink" title="啟用 Workload Identity"></a>啟用 Workload Identity</h2><p>要使用 Workload Identity，那就必須要先讓 GKE 支援 Workload Identity，可以從 Master Node 去確認有沒有啟用</p>
-<p><img src="gke-workload-identity/mk-20240118163311.png"></p>
+<p><img src="mk-20240118163311.png"></p>
 <p>如果一開始建立叢集時沒有預先啟動，那麼之後要啟動的話，所以有的 Worker Node 都必須重新生成過一遍才會生效，這點需要注意。</p>
 <p>Google 是建議啟用 Workload Identity 後，直接重新 create 新的 node pool</p>
 <blockquote>
@@ -323,7 +323,7 @@
 <p>路徑的部分可能隨時間官方會有所調整，若有更動，可能需要稍微找一下</p>
 </blockquote>
 <p>雖然如此，但是讀者最少還是得留下「名字」跟「E-mail」才能進行留言，如圖</p>
-<p><img src="hexo-Disqus-feature/mk-20240119114707.png"></p>
+<p><img src="mk-20240119114707.png"></p>
 ]]></content>
       <categories>
         <category>Hexo</category>
@@ -837,7 +837,7 @@
 </ul>
 <p>以下僅針對第一個 Basic 3-Way Handshake for Connection Synchronization 進行說明</p>
 <p>通常 TCP 連線建立流程，需要經過三向交握(three-way handshaking) 來建立連線</p>
-<p><img src="tcp-ip-time-wait/mk-20240119120657.png"></p>
+<p><img src="mk-20240119120657.png"></p>
 <ol>
 <li>Server 建立 TCB，開啟監聽連線，進入 LISTENING 狀態</li>
 <li>Client 主動發出連線請求 SYN，進入 SYN_SENT 狀態，並等待回應</li>
@@ -857,7 +857,7 @@
 <li>ACK：Acknowledgement，表示發送的數據已收到無誤</li>
 </ul>
 <p>「TCP建立連線」狀態流程圖</p>
-<p><img src="tcp-ip-time-wait/mk-20240119120730.png"></p>
+<p><img src="mk-20240119120730.png"></p>
 <h2 id="TCP-關閉連線"><a href="#TCP-關閉連線" class="headerlink" title="TCP 關閉連線"></a>TCP 關閉連線</h2><p>依據 IETF 的標準文件 <a href="http://www.rfc-editor.org/rfc/rfc793.txt">rfc793</a> 中所描述的情形，可分為以下二種不同狀況</p>
 <ul>
 <li>Normal Close Sequence</li>
@@ -865,7 +865,7 @@
 </ul>
 <p>以下僅針對第一個 Normal Close Sequence 進行說明</p>
 <p>TCP 關閉流程如下，需要經過四次交握 (four-way handshaking)，來確認雙方都停止收發數據，<strong>要注意的是可以是由 server 發起主動關閉，或是 client 發起主動關閉</strong>，但是「通常」都是 client 發起，因此下圖使用 TCP A 與 TCP B 表示，：</p>
-<p><img src="tcp-ip-time-wait/mk-20240119120822.png"></p>
+<p><img src="mk-20240119120822.png"></p>
 <ol>
 <li>TCP A：準備關閉連線，發出 FIN，進入 FIN_WAIT_1 狀態</li>
 <li>TCP B：收到 FIN，並回傳 ACK，進入 CLOSE_WAIT 狀態，並通知 Application 連線準備關閉</li>
@@ -887,7 +887,7 @@
 <li>ACK：Acknowledgement，表示發送的數據已收到無誤</li>
 </ul>
 <p>「TCP關閉連線」狀態流程圖</p>
-<p><img src="tcp-ip-time-wait/mk-20240119120856.png"></p>
+<p><img src="mk-20240119120856.png"></p>
 <p>最後發送 ACK 時，會進入 TIME_WAIT 狀態，要等 2MSL 時間後，這條連接才真正消失，所以從這邊知道「主動關閉連線」的一方會進入 TIME_WAIT 狀態</p>
 <blockquote>
 <p>什麼是 MSL 時間<br>最大分段壽命 MSL(Maximum Segment Lifetime)，是 TCP 協定規定封包在網絡中最長生存時間，超出時間後封包就會被丟棄。</p>
@@ -895,7 +895,7 @@
 </blockquote>
 <h2 id="為何-TIME-WAIT-狀態要等待-2MSL-的時間呢"><a href="#為何-TIME-WAIT-狀態要等待-2MSL-的時間呢" class="headerlink" title="為何 TIME_WAIT 狀態要等待 2MSL 的時間呢?"></a>為何 TIME_WAIT 狀態要等待 2MSL 的時間呢?</h2><p>Client/Server 都完成了四次交握，代表 Client/Server 都同意關閉連線，照理說應該可以直接回到 CLOSED 狀態(就像是建立連線時 SYN_SEND 狀態到 ESTABLISH 狀態那樣)，但是這邊我們必須要假設網路傳輸是不可靠的，因為我們無法保證最後傳送的 ACK 對方一定會收到，傳輸過程中可能因為種種原因(例如：網路延遲、丟包等…) 導致對方一直處於 LAST_ACK 狀態下的 SOCKET 因為逾時而未收到 ACK 而重發 FIN，所以 TIME_WAIT 狀態的作用就是用來重發可能遺失的 ACK。</p>
 <p>TIME_WAIT 狀態，是為了避免因為網路傳輸的種種原因而造成的 TCP 傳輸不可靠，而 TIME_WAIT 狀態可以最大限度的提升網路傳輸的可靠性。</p>
-<h2 id="完整-TCP「建立連線」與「關閉連線」之狀態圖"><a href="#完整-TCP「建立連線」與「關閉連線」之狀態圖" class="headerlink" title="完整 TCP「建立連線」與「關閉連線」之狀態圖"></a>完整 TCP「建立連線」與「關閉連線」之狀態圖</h2><p><img src="tcp-ip-time-wait/mk-20240119120922.png"></p>
+<h2 id="完整-TCP「建立連線」與「關閉連線」之狀態圖"><a href="#完整-TCP「建立連線」與「關閉連線」之狀態圖" class="headerlink" title="完整 TCP「建立連線」與「關閉連線」之狀態圖"></a>完整 TCP「建立連線」與「關閉連線」之狀態圖</h2><p><img src="mk-20240119120922.png"></p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a href="https://dev.twsiyuan.com/2017/09/tcp-states.html">https://dev.twsiyuan.com/2017/09/tcp-states.html</a></li>
 <li><a href="https://www.gushiciku.cn/pl/p0aJ/zh-tw">https://www.gushiciku.cn/pl/p0aJ/zh-tw</a></li>
