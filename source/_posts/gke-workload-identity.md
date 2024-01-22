@@ -8,7 +8,10 @@ tags:
   - Kubernetes
 categories:
   - GKE
+abbrlink: 7d4918c
+date: 2024-01-22 16:48:56
 ---
+
 
 ## 前言
 
@@ -20,7 +23,7 @@ categories:
 
 而 GKE 上 Workload Identity 就是用來解決 JWT 需要下載使用的問題，只要 JWT 不外流，對於安全性就更上一層樓了。 只需要 kubernetes service account(簡稱 KSA) 與 google service account(簡稱 GSA) 進行綁定，再將 KSA 賦予給 Pod，應用程式就會有相對應的權限可以使用。
 
-使用 Workload Identity 也是 Google 比較建議用來連接 gsa 的方式
+使用 Workload Identity 也是 Google 比較建議用來連接 GSA 的方式
 
 > Workload Identity is the recommended way for your workloads running on Google Kubernetes Engine (GKE) to access Google Cloud services in a secure and manageable way.
 
@@ -75,17 +78,48 @@ gcloud iam service-accounts create gsa-workload-identity \
 ```bash
 gcloud projects add-iam-policy-binding demo-123 \
     --member "serviceAccount:gsa-workload-identity@demo-123.iam.gserviceaccount.com" \
-    --role "roles/cloudbuild.builds.viewer"
+    --role "roles/cloudbuild.builds.viewer" \
     --project=demo-123
 ```
 
-將 KSA(ksa-workload-identity) 與 GSA(gsa-workload-identity) 進行綁定
+將 KSA(ksa-workload-identity) 與 GSA(gsa-workload-identity) 進行綁定，有兩種方式：
+
+- 使用 Google SDK
+- 使用 K8s 描述檔：管理上較方便
+
+**使用 Google SDK**
 
 ```bash
 gcloud iam service-accounts add-iam-policy-binding gsa-workload-identity@demo-123.iam.gserviceaccount.com \
     --role roles/iam.workloadIdentityUser \
     --member "serviceAccount:demo-123.svc.id.goog[workload-identity/ksa-workload-identity]" \
     --project=demo-123
+```
+
+解除綁定的方式 `add-iam-policy-binding` 改成 `remove-iam-policy-binding`
+```bash
+gcloud iam service-accounts remove-iam-policy-binding gsa-workload-identity@demo-123.iam.gserviceaccount.com \
+    --role roles/iam.workloadIdentityUser \
+    --member "serviceAccount:demo-123.svc.id.goog[workload-identity/ksa-workload-identity]" \
+    --project=demo-123
+```
+
+**使用 K8s 描述檔**
+
+```yaml
+apiVersion: iam.cnrm.cloud.google.com/v1beta1
+kind: IAMPolicy
+metadata:
+  name: iampolicy-workload-identity-sample
+spec:
+  resourceRef:
+    apiVersion: iam.cnrm.cloud.google.com/v1beta1
+    kind: IAMServiceAccount
+    name: gsa-workload-identity
+  bindings:
+    - role: roles/iam.workloadIdentityUser
+      members:
+        - serviceAccount:demo-123.svc.id.goog[workload-identity/ksa-workload-identity]
 ```
 
 調整 KSA 的設定，新增 annotation 資訊
