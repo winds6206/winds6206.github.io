@@ -209,7 +209,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -245,6 +245,9 @@
     </div>
     <ul class="links-of-recent-posts-list">
         <li class="links-of-recent-posts-item">
+          <a href="/posts/7d4918c/" title="posts&#x2F;7d4918c&#x2F;">GKE 上使用 Workload Identity</a>
+        </li>
+        <li class="links-of-recent-posts-item">
           <a href="/posts/e08900fb/" title="posts&#x2F;e08900fb&#x2F;">Kubernetes Network Policy</a>
         </li>
         <li class="links-of-recent-posts-item">
@@ -255,9 +258,6 @@
         </li>
         <li class="links-of-recent-posts-item">
           <a href="/posts/eed23cc9/" title="posts&#x2F;eed23cc9&#x2F;">Hexo加入Disqus留言功能</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <a href="/posts/67cc021f/" title="posts&#x2F;67cc021f&#x2F;">SSH 連線出現「WARNING:REMOTE HOST IDENTIFICATION HAS CHANGED!」</a>
         </li>
     </ul>
   </div>
@@ -283,6 +283,102 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.tonyjhang.tk/posts/7d4918c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/IMG_1598.jpg">
+      <meta itemprop="name" content="Tony">
+      <meta itemprop="description" content="Cloud System Engineer">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="偷尼的部落格">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/7d4918c/" class="post-title-link" itemprop="url">GKE 上使用 Workload Identity</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+      
+
+      <time title="創建時間：2024-01-22 16:48:56 / 修改時間：16:50:44" itemprop="dateCreated datePublished" datetime="2024-01-22T16:48:56+08:00">2024-01-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/GKE/" itemprop="url" rel="index"><span itemprop="name">GKE</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/posts/7d4918c/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/7d4918c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>以前在 GKE 內的應用程式若是有需要存取其他 GCP 上的服務時，會需要建立一個專用的 Service Account 並且將該帳戶賦予對應的權限，再將 JWT 掛載到應用程式。</p>
+<p>這對於管理與資安上都是一大的隱憂，只要 JWT 不小心被有心人士拿到，就可以有相對應的權限。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/7d4918c/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1171,112 +1267,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/posts/21f441c6/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.tonyjhang.tk/posts/452fc7c7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/./images/IMG_1598.jpg">
-      <meta itemprop="name" content="Tony">
-      <meta itemprop="description" content="Cloud System Engineer">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="偷尼的部落格">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/452fc7c7/" class="post-title-link" itemprop="url">如何修改PHP-FPM上傳檔案大小限制</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2021-05-22 16:17:39" itemprop="dateCreated datePublished" datetime="2021-05-22T16:17:39+08:00">2021-05-22</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2024-01-19 12:15:35" itemprop="dateModified" datetime="2024-01-19T12:15:35+08:00">2024-01-19</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/PHP-FPM/" itemprop="url" rel="index"><span itemprop="name">PHP-FPM</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/posts/452fc7c7/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/452fc7c7/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>網頁上傳檔案屬於後端運作，如果檔案太大可能會造成上傳失敗，如果是採 Nginx + PHP-FPM 的架構，此時需要修改後端(PHP-FPM) <code>php.ini</code> 的相關參數設定。</p>
-<p>可以分為兩個面向：</p>
-<ul>
-<li>檔案上傳大小限制</li>
-<li>腳本執行時間或網路連線時間的長短限制</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/452fc7c7/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
