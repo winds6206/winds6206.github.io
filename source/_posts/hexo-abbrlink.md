@@ -5,7 +5,10 @@ tags:
   - blog
 categories:
   - Hexo
+abbrlink: 94411fbc
+date: 2024-01-24 16:38:31
 ---
+
 
 ## 前言
 
@@ -58,7 +61,7 @@ vim ./_config.yml
 abbrlink:
   alg: crc32      #support crc16(default) and crc32
   rep: hex        #support dec(default) and hex
-  drafts: false   #(true)Process draft,(false)Do not process draft. false(default)
+  drafts: true   #(true)Process draft,(false)Do not process draft. false(default)
 ```
 
 註解預設的 permalink，並且在下面增加新的設定，之後就會依照該格式產生連結
@@ -94,7 +97,7 @@ abbrlink 一旦產生後，不論 Title 怎麼修改，abbrlink 都不會變動�
 確定 abbrlink 正常產出後，就可以 `hexo server` 進行本機測試，此時可以發現 URL 已經依照上面的設定改變了，會變成下面這種格式
 
 ```text
-www.example.com/posts/11e41c6
+http://www.example.com/posts/11e41c6
 ```
 
 最後確認無誤就可以佈署發布囉

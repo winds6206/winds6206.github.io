@@ -170,22 +170,22 @@ ports:
 
 點選 編輯 → 設定
 
-![](ftp-in-kubernetes/mk-20240119114134.png)
+![](mk-20240119114134.png)
 
 選擇 SFTP 並點選「加入金鑰檔案」，此時會請你選擇 private key 的位置
 
-![](ftp-in-kubernetes/mk-20240119114200.png)
+![](mk-20240119114200.png)
 
 這邊要注意一下，如果一開始產生金鑰時有設定 passphrase，會跳出此視窗，主要是因為他需要將 .key 轉成 .ppk，這邊直接點「是」
 
-![](ftp-in-kubernetes/mk-20240119114218.png)
+![](mk-20240119114218.png)
 
 輸入設定的 passphrase
 
-![](ftp-in-kubernetes/mk-20240119114239.png)
+![](mk-20240119114239.png)
 
 選擇鑰儲存 .ppk 的位置與命名
 
-![](ftp-in-kubernetes/mk-20240119114300.png)
+![](mk-20240119114300.png)
 
 最後再回到主畫面將連線資訊填入，密碼不用填寫，當連線後，會請你輸入 passphrase 的密碼

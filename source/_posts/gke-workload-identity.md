@@ -31,7 +31,7 @@ date: 2024-01-22 16:48:56
 
 要使用 Workload Identity，那就必須要先讓 GKE 支援 Workload Identity，可以從 Master Node 去確認有沒有啟用
 
-![](gke-workload-identity/mk-20240118163311.png)
+![](mk-20240118163311.png)
 
 如果一開始建立叢集時沒有預先啟動，那麼之後要啟動的話，所以有的 Worker Node 都必須重新生成過一遍才會生效，這點需要注意。
 

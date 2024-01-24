@@ -5,7 +5,8 @@ tags:
   - homebrew
   - brew
 categories:
-    - Other
+  - Other
+abbrlink: e7b1d5c2
 ---
 
 ## 前言
