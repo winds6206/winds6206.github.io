@@ -7,6 +7,7 @@ tags:
   - Domain
   - DNS
   - blog
+abbrlink: '17682405'
 ---
 
 ## 前言

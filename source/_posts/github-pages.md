@@ -29,7 +29,7 @@ date: 2021-05-03 14:58:14
 
 > 要使用 GitHub Pages，Repository 需要設定為 Public
 
-![](github-pages/mk-20240119120313.png)
+![](mk-20240119120313.png)
 
 ### 建立測試檔
 

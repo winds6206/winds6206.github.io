@@ -29,7 +29,7 @@ date: 2021-08-17 15:29:31
 
 通常 TCP 連線建立流程，需要經過三向交握(three-way handshaking) 來建立連線
 
-![](tcp-ip-time-wait/mk-20240119120657.png)
+![](mk-20240119120657.png)
 
 1. Server 建立 TCB，開啟監聽連線，進入 LISTENING 狀態
 2. Client 主動發出連線請求 SYN，進入 SYN_SENT 狀態，並等待回應
@@ -49,7 +49,7 @@ date: 2021-08-17 15:29:31
 
 「TCP建立連線」狀態流程圖
 
-![](tcp-ip-time-wait/mk-20240119120730.png)
+![](mk-20240119120730.png)
 
 ## TCP 關閉連線
 
@@ -62,7 +62,7 @@ date: 2021-08-17 15:29:31
 
 TCP 關閉流程如下，需要經過四次交握 (four-way handshaking)，來確認雙方都停止收發數據，**要注意的是可以是由 server 發起主動關閉，或是 client 發起主動關閉**，但是「通常」都是 client 發起，因此下圖使用 TCP A 與 TCP B 表示，：
 
-![](tcp-ip-time-wait/mk-20240119120822.png)
+![](mk-20240119120822.png)
 
 1. TCP A：準備關閉連線，發出 FIN，進入 FIN_WAIT_1 狀態
 2. TCP B：收到 FIN，並回傳 ACK，進入 CLOSE_WAIT 狀態，並通知 Application 連線準備關閉
@@ -84,7 +84,7 @@ TCP 關閉流程如下，需要經過四次交握 (four-way handshaking)，來�
 
 「TCP關閉連線」狀態流程圖
 
-![](tcp-ip-time-wait/mk-20240119120856.png)
+![](mk-20240119120856.png)
 
 最後發送 ACK 時，會進入 TIME_WAIT 狀態，要等 2MSL 時間後，這條連接才真正消失，所以從這邊知道「主動關閉連線」的一方會進入 TIME_WAIT 狀態
 
@@ -101,7 +101,7 @@ TIME_WAIT 狀態，是為了避免因為網路傳輸的種種原因而造成的 
 
 ## 完整 TCP「建立連線」與「關閉連線」之狀態圖
 
-![](tcp-ip-time-wait/mk-20240119120922.png)
+![](mk-20240119120922.png)
 
 ## 參考資料
 

@@ -45,4 +45,4 @@ Settings → Admin → Edit Settings → 選擇要修改的部落格 → Coummun
 
 雖然如此，但是讀者最少還是得留下「名字」跟「E-mail」才能進行留言，如圖
 
-![](hexo-Disqus-feature/mk-20240119114707.png)
+![](mk-20240119114707.png)

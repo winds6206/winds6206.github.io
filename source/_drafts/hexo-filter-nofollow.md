@@ -5,6 +5,7 @@ tags:
   - blog
 categories:
   - Hexo
+abbrlink: ad859434
 ---
 
 ## 前言
