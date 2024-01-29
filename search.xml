@@ -60,9 +60,124 @@
       </categories>
       <tags>
         <tag>GCP</tag>
-        <tag>Google Cloud Platform</tag>
         <tag>GKE</tag>
+        <tag>Google Cloud Platform</tag>
         <tag>Cloud NAT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>透過 Auth Proxy 存取 Cloud SQL</title>
+    <url>/posts/3850bdf7/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一般來說，要連線到 Could SQL 需要透過 Proxy 與 GCP 做授權驗證，而該代理工具稱為「Cloud SQL Auth Proxy」</p>
+<p>Cloud SQL Auth Proxy 是存取 Could SQL 的連線工具，讓我們無須額外設定網路授權或 SSL 的相關設定，提供較安全的存取方式。</p>
+<span id="more"></span>
+
+<p>使用 Cloud SQL Auth Proxy 的好處大致有三點：</p>
+<ul>
+<li>安全的加密連線</li>
+<li>透過 IAM 的簡易連線授權</li>
+<li>自動更新 OAuth 2.0 Token</li>
+</ul>
+<p>有興趣深入了解，可以參考<a href="https://cloud.google.com/sql/docs/mysql/sql-proxy">官方文件</a></p>
+<h2 id="大致設定流程"><a href="#大致設定流程" class="headerlink" title="大致設定流程"></a>大致設定流程</h2><p>大前提：</p>
+<ul>
+<li>Google Service Account 簡稱 GSA</li>
+<li>Kubernetes Service Account 簡稱 KSA</li>
+<li>Project ID 為 demo-123</li>
+<li>Cloud SQL 使用的是 MySQL</li>
+</ul>
+<p>使用 Google Service Account/E-mail 加上 Cloud SQL Auth Proxy 來做授權驗證，簡單來說，就是透過 Google Service Account/E-mail 的 IAM 權限管控，來決定使用者是否能夠存取到 Cloud SQL 的服務，接著再使用 Cloud SQL 裡面的使用者帳號與 SQL 做連線操作。</p>
+<p>主要設定步驟如下</p>
+<ol>
+<li>創建 Google Service Account 並賦予 IAM 權限 → roles/cloudsql.client</li>
+</ol>
+<p>以下三個 IAM 權限任一皆可</p>
+<ul>
+<li>roles/cloudsql.client</li>
+<li>roles/cloudsql.editor</li>
+<li>roles/cloudsql.admin</li>
+</ul>
+<ol start="2">
+<li>下載 Google Service Account 的 JWT</li>
+<li>將 JWT 交付給 Cloud SQL Auth Proxy 做授權驗證</li>
+<li>使用 Cloud SQL 的使用者帳號與 Cloud SQL Auth Proxy 做連線</li>
+</ol>
+<h2 id="本機使用-Cloud-SQL-Auth-Proxy"><a href="#本機使用-Cloud-SQL-Auth-Proxy" class="headerlink" title="本機使用 Cloud SQL Auth Proxy"></a>本機使用 Cloud SQL Auth Proxy</h2><p>這種方式是透過 Auth Proxy 與 Cloud SQL 建立起一個 Tunnel，本機就可以直接與 Auth Proxy 連線存取到 Cloud SQL</p>
+<p>有兩種方式可以達到目的</p>
+<ul>
+<li>使用 Google Service Account</li>
+<li>使用 E-mail</li>
+</ul>
+<h3 id="方法一：使用-Service-Account"><a href="#方法一：使用-Service-Account" class="headerlink" title="方法一：使用 Service Account"></a>方法一：使用 Service Account</h3><p>下載相對應作業系統的 Cloud SQL Auth Proxy，並按照官方的方式修改權限</p>
+<p><a href="https://cloud.google.com/sql/docs/mysql/connect-admin-proxy#cloud-sql-auth-proxy-docker-image_1">https://cloud.google.com/sql/docs/mysql/connect-admin-proxy#cloud-sql-auth-proxy-docker-image_1</a></p>
+<p>建立 Google Service Account</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gcloud iam service-accounts create gsa-cloud-sql \</span><br><span class="line">    --project=demo-123</span><br></pre></td></tr></table></figure>
+
+<p>並且賦予權限</p>
+<blockquote>
+<p>IAM 權限請參考前一節</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gcloud projects add-iam-policy-binding demo-123 \</span><br><span class="line">    --member <span class="string">&quot;serviceAccount:gsa-cloud-sql@demo-123.iam.gserviceaccount.com&quot;</span> \</span><br><span class="line">    --role <span class="string">&quot;roles/cloudsql.client&quot;</span> \</span><br><span class="line">    --project=demo-123</span><br></pre></td></tr></table></figure>
+
+<p>記得把 Google Service Account 的 JWT 下載到本機</p>
+<p>使用 TCP Socket 的方式啟用 Cloud SQL Auth Proxy</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Format</span></span><br><span class="line">./cloud-sql-proxy --address 0.0.0.0 --port 3306 \</span><br><span class="line">    [INSTANCE_CONNECTION_NAME] \</span><br><span class="line">    --credentials-file [PATH_TO_KEY_FILE]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Example</span></span><br><span class="line">./cloud-sql-proxy --address 0.0.0.0 --port 3306 \</span><br><span class="line">    demo-123:asia-east1:<span class="built_in">test</span> \</span><br><span class="line">    --credentials-file ./demo-123-d617764af0fb.json</span><br></pre></td></tr></table></figure>
+
+<p>連線名稱(connectionName) 的查詢方式，或者直接到網頁看</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Format</span></span><br><span class="line">gcloud sql instances describe [Instance_Name] --project=[Project_ID]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Example</span></span><br><span class="line">gcloud sql instances describe <span class="built_in">test</span> --project=demo-123</span><br></pre></td></tr></table></figure>
+
+<p>最後使用 Cloud SQL 的使用者帳號與 Cloud SQL Auth Proxy 做連線驗證，也可以使用第三方工具來連線測試，例如：MySQL WorkBench, phpMyAdmin…</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql -u [USERNAME] -p --host 127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法二：使用-E-mail"><a href="#方法二：使用-E-mail" class="headerlink" title="方法二：使用 E-mail"></a>方法二：使用 E-mail</h3><p>改成使用自己的 E-mail 帳號賦予的 IAM 權限來做授權驗證，確認此帳號是否有存取 cloudSQL 的權限，所以<strong>在 proxy 在與 GCP 做授權驗證前，我們必須手動使用 Cloud SDK 來登入 Google Cloud 並透過瀏覽器來確認 Cloud Identity credentials</strong>，但是一般來說本機都已經有做過此動過了</p>
+<blockquote>
+<p>uses the Cloud SDK to log in to Google Cloud and enters his Cloud Identity credentials through the web browser.</p>
+</blockquote>
+<p>如果還未執行 Cloud Identity credentials，可以使用下面指令，這部份就不多做說明，當作大家都已經知道如何登入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gcloud auth login</span><br></pre></td></tr></table></figure>
+
+<p>將自己的 E-mail 帳號新增 IAM 權限</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gcloud projects add-iam-policy-binding demo-123 \</span><br><span class="line">    --member <span class="string">&quot;user:tony@gmail.com&quot;</span> \</span><br><span class="line">    --role <span class="string">&quot;roles/cloudsql.client&quot;</span> \</span><br><span class="line">    --project=demo-123</span><br></pre></td></tr></table></figure>
+
+<p>產生應用程式使用的 credential，下了該指令後，會有網頁流程要跑，其實就是把你的 E-mail 的權限做成 json 檔，然後 Proxy 程式預設會去拿這支檔案來用</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gcloud auth application-default login</span><br></pre></td></tr></table></figure>
+
+<p>這將會在 <code>$&#123;HOME&#125;/.config/gcloud</code> 產生一個 json 檔 「application_default_credentials.json」，如要撤銷可以使用 <code>gcloud auth application-default revoke</code>，此時檔案將會被移除並撤銷</p>
+<p>接著直接在本機使用下面指令，可以發現這次的指令是不需要 <code>--credentials-file</code>，因為我們需要讓系統自動到 <code>$&#123;HOME&#125;/.config/gcloud</code> 取得授權驗證</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Format</span></span><br><span class="line">./cloud-sql-proxy --port 3306 [INSTANCE_CONNECTION_NAME]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Example</span></span><br><span class="line">./cloud-sql-proxy --port 3306 demo-123:asia-east1:<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Cloud-SQL-Auth-Proxy-in-K8s"><a href="#Cloud-SQL-Auth-Proxy-in-K8s" class="headerlink" title="Cloud SQL Auth Proxy in K8s"></a>Cloud SQL Auth Proxy in K8s</h2><p>在 GKE 內的 Pod 若是要存取 Cloud SQL，一樣是透過 Cloud SQL Auth Proxy 來做代理的動作，官方建議將 Auth Proxy 以 sidecar 的形式運行在需要使用的 Pod 上，並且依照不同服務給予不同的  Google Service Account，當然如果有特殊理由，也是可以多個 Pod 使用同一個 Cloud SQL Auth Proxy 進行存取。</p>
+<p>在 GKE 中使用 Google Service Account，原廠已經建議使用 Workload-Identity 的方式進行綁定，不建議再將 JWT 下載後以 Secret 方式掛載，對於還不知道 GKE Workload-Identity 或者想更進一步了解使用方式的，可以參考我的<a href="https://blog.tonyjhang.tk/posts/7d4918c/#more">另外一篇</a>，裡面有更詳細的介紹。</p>
+<p>Google Service Account 的設定，前面已經有步驟，這邊不再重複贅述，直接從 Workload-Identity 中 KSA 和 GSA 綁定步驟開始</p>
+<p>建立 K8s ServiceAccount</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ksa-cloud-sql-proxy</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">iam.gke.io/gcp-service-account:</span> <span class="string">gsa-cloud-sql-proxy@demo-123.iam.gserviceaccount.com</span></span><br></pre></td></tr></table></figure>
+
+<p>將 KSA(ksa-cloud-sql-proxy) 與 GSA(gsa-cloud-sql-proxy) 進行綁定</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gcloud iam service-accounts add-iam-policy-binding gsa-cloud-sql-proxy@demo-123.iam.gserviceaccount.com \</span><br><span class="line">    --role roles/iam.workloadIdentityUser \</span><br><span class="line">    --member <span class="string">&quot;serviceAccount:demo-123.svc.id.goog[default/ksa-cloud-sql-proxy]&quot;</span> \</span><br><span class="line">    --project=demo-123</span><br></pre></td></tr></table></figure>
+
+<p>佈署 Cloud SQL Auth Proxy，這邊沒有以 sidecar 方式呈現，如果要以 sidecar 運行的話，可以再自己加以修改</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cloud-sql-proxy</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">cloud-sql-proxy</span></span><br><span class="line">    <span class="attr">product:</span> <span class="string">demo</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">ClusterIP</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">3306</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="number">3306</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">cloud-sql-proxy</span></span><br><span class="line">    <span class="attr">product:</span> <span class="string">demo</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cloud-sql-proxy</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">cloud-sql-proxy</span></span><br><span class="line">    <span class="attr">product:</span> <span class="string">demo</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">cloud-sql-proxy</span></span><br><span class="line">      <span class="attr">product:</span> <span class="string">demo</span></span><br><span class="line">  <span class="attr">strategy:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">RollingUpdate</span></span><br><span class="line">    <span class="attr">rollingUpdate:</span></span><br><span class="line">      <span class="attr">maxSurge:</span> <span class="number">1</span></span><br><span class="line">      <span class="attr">maxUnavailable:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">cloud-sql-proxy</span></span><br><span class="line">        <span class="attr">product:</span> <span class="string">demo</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br><span class="line">      <span class="attr">serviceAccountName:</span> <span class="string">ksa-cloud-sql-proxy</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">cloud-sql-proxy</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">gcr.io/cloudsql-docker/gce-proxy:1.33.14</span></span><br><span class="line">        <span class="attr">imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">3306</span></span><br><span class="line">        <span class="attr">command:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">/cloud_sql_proxy</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">-instances=demo-123:asia-east1:test=tcp:0.0.0.0:3306</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">TZ</span></span><br><span class="line">            <span class="attr">value:</span> <span class="string">Asia/Taipei</span></span><br><span class="line">      <span class="attr">nodeSelector:</span></span><br><span class="line">        <span class="attr">iam.gke.io/gke-metadata-server-enabled:</span> <span class="string">&quot;true&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>最後用 phpMyAdmin 測試連線情況</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">phpmyadmin</span></span><br><span class="line">    <span class="attr">repo:</span> <span class="string">demo</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">phpmyadmin</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">phpmyadmin</span></span><br><span class="line">      <span class="attr">repo:</span> <span class="string">demo</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">phpmyadmin</span></span><br><span class="line">        <span class="attr">repo:</span> <span class="string">demo</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">env:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">PMA_HOST</span></span><br><span class="line">          <span class="attr">value:</span> <span class="string">cloud-sql-proxy.default.svc.cluster.local</span> <span class="comment"># 填入 cloud-sql-proxy 的 service </span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">PMA_PORT</span></span><br><span class="line">          <span class="attr">value:</span> <span class="string">&quot;3306&quot;</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">phpmyadmin:5.1.1</span></span><br><span class="line">        <span class="attr">imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">phpmyadmin</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>如果對於 GKE 上使用 Workload-Identity 不懂的，不妨先去<a href="https://blog.tonyjhang.tk/posts/7d4918c/#more">補一下</a></p>
+<p>官方文件在掛載 KSA 的 deployment 描述檔有加上 <code>spec.nodeSelector</code>，來確保服務正常跑在有啟用 Workload-Identity 的 Node 上</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">nodeSelector:</span></span><br><span class="line">    <span class="attr">iam.gke.io/gke-metadata-server-enabled:</span> <span class="string">&quot;true&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="https://cloud.google.com/sql/docs/mysql/connect-auth-proxy">https://cloud.google.com/sql/docs/mysql/connect-auth-proxy</a></li>
+<li><a href="https://cloud.google.com/sql/docs/mysql/sql-proxy#benefits_of_the">https://cloud.google.com/sql/docs/mysql/sql-proxy#benefits_of_the</a></li>
+<li><a href="https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity">https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>GCP</category>
+      </categories>
+      <tags>
+        <tag>GCP</tag>
+        <tag>Google Cloud Platform</tag>
+        <tag>Cloud SQL</tag>
       </tags>
   </entry>
   <entry>
@@ -150,8 +265,8 @@
       </categories>
       <tags>
         <tag>GCP</tag>
-        <tag>Google Cloud Platform</tag>
         <tag>GKE</tag>
+        <tag>Google Cloud Platform</tag>
         <tag>K8s</tag>
         <tag>Kubernetes</tag>
         <tag>FTP</tag>
@@ -299,8 +414,8 @@
       </categories>
       <tags>
         <tag>GCP</tag>
-        <tag>Google Cloud Platform</tag>
         <tag>GKE</tag>
+        <tag>Google Cloud Platform</tag>
         <tag>K8s</tag>
         <tag>Kubernetes</tag>
       </tags>
@@ -461,36 +576,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo文章插入圖片</title>
-    <url>/posts/21f441c6/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 中的文章是使用 Markdown 的語法，有時候文章中可能會需要一些圖片來予以輔助，這時候我們可能會需要調整一些設定來存放我們的圖片</p>
-<h2 id="文章插入圖片"><a href="#文章插入圖片" class="headerlink" title="文章插入圖片"></a>文章插入圖片</h2><p>這邊先講一下 Markdown 插入圖片的語法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](圖片路徑)</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<p>再來我們可以更改 Hexo 的設定檔，來讓我們建立文章時，能夠自動將該文章存放圖片的目錄也一起建立起來，修改 <code>./_config.xml</code>，並將下面參數值調整為 true</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>調整後當我們使用 <code>hexo new &quot;新文章&quot;</code> 建立文章後，就會自動在 <code>./source/_posts</code> 建立一個與文章相同名稱的目錄，然後就能將圖片放進去</p>
-<p>而 Markdown 要調用圖片時，圖片路徑只需要填上圖片名稱即可，例如：圖片名稱為 123.png</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](123.png)</span><br></pre></td></tr></table></figure>
-
-<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>上述方式對於每篇文章都需要插入圖片的使用者非常方便，但是如果你的文章只有少數幾篇需要圖片輔助的話，可能會造成 <code>./source/_posts</code> 會有很多空的目錄，所以如果只有少數幾篇需要使用到圖片的話，這邊給兩個建議：</p>
-<ol>
-<li>設定自動建立圖片存放目錄，然後自己手動將無需使用到圖片的文章的目錄刪除</li>
-<li>乾脆不要設定，自己手動建立與文章相同名稱的目錄來存放圖片</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo建立草稿</title>
     <url>/posts/946e0e0b/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>使用 Hexo 來當作技術部落格不僅簡單且快速，在剛開始架設完成後，可以使用指令 <code>hexo new [title]</code> 來建立文章並且撰寫，但是這樣的方式會延伸一個問題，如果這篇文章還處理撰寫的階段，但是我有修改其他已完成的文章需要發佈出去，但是不想把未完成的文章也一起發佈，此時就會有一些困擾，此篇會來說明如果使用 Hexo 的草稿功能。</p>
@@ -540,6 +625,36 @@
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a href="https://www.dazhuanlan.com/2019/11/02/5dbc7ecc737a5/">https://www.dazhuanlan.com/2019/11/02/5dbc7ecc737a5/</a></li>
 </ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo文章插入圖片</title>
+    <url>/posts/21f441c6/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 中的文章是使用 Markdown 的語法，有時候文章中可能會需要一些圖片來予以輔助，這時候我們可能會需要調整一些設定來存放我們的圖片</p>
+<h2 id="文章插入圖片"><a href="#文章插入圖片" class="headerlink" title="文章插入圖片"></a>文章插入圖片</h2><p>這邊先講一下 Markdown 插入圖片的語法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](圖片路徑)</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>再來我們可以更改 Hexo 的設定檔，來讓我們建立文章時，能夠自動將該文章存放圖片的目錄也一起建立起來，修改 <code>./_config.xml</code>，並將下面參數值調整為 true</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>調整後當我們使用 <code>hexo new &quot;新文章&quot;</code> 建立文章後，就會自動在 <code>./source/_posts</code> 建立一個與文章相同名稱的目錄，然後就能將圖片放進去</p>
+<p>而 Markdown 要調用圖片時，圖片路徑只需要填上圖片名稱即可，例如：圖片名稱為 123.png</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](123.png)</span><br></pre></td></tr></table></figure>
+
+<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>上述方式對於每篇文章都需要插入圖片的使用者非常方便，但是如果你的文章只有少數幾篇需要圖片輔助的話，可能會造成 <code>./source/_posts</code> 會有很多空的目錄，所以如果只有少數幾篇需要使用到圖片的話，這邊給兩個建議：</p>
+<ol>
+<li>設定自動建立圖片存放目錄，然後自己手動將無需使用到圖片的文章的目錄刪除</li>
+<li>乾脆不要設定，自己手動建立與文章相同名稱的目錄來存放圖片</li>
+</ol>
 ]]></content>
       <categories>
         <category>Hexo</category>
@@ -710,8 +825,8 @@
       </categories>
       <tags>
         <tag>GCP</tag>
-        <tag>Google Cloud Platform</tag>
         <tag>GKE</tag>
+        <tag>Google Cloud Platform</tag>
         <tag>K8s</tag>
         <tag>Kubernetes</tag>
       </tags>
