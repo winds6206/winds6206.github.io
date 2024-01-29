@@ -7,7 +7,9 @@ tags:
 categories:
   - GCP
 abbrlink: 3850bdf7
+date: 2024-01-29 10:53:21
 ---
+
 
 ## 前言
 
@@ -271,7 +273,7 @@ spec:
 
 ## 文後討論
 
-如果對於 GKE 上使用 Workload-Identity 不懂的，不妨先去[補一下](https://blog.tonyjhang.tk/posts/7d4918c/#more)一下 
+如果對於 GKE 上使用 Workload-Identity 不懂的，不妨先去[補一下](https://blog.tonyjhang.tk/posts/7d4918c/#more)
 
 官方文件在掛載 KSA 的 deployment 描述檔有加上 `spec.nodeSelector`，來確保服務正常跑在有啟用 Workload-Identity 的 Node 上
 
