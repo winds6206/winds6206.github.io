@@ -1,5 +1,5 @@
 ---
-title: Kubernetes更新ConfigMap或Secret自動重啟Pod
+title: Kubernetes 更新 ConfigMap 或 Secret 自動重啟 Pod
 tags:
   - GKE
   - GCP
