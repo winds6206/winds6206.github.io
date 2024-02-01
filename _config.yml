@@ -119,3 +119,8 @@ nofollow:
 #  exclude:
 #    - 'exclude1.com'
 #    - 'exclude2.com'
+
+sitemap:
+  path: sitemap.xml
+  tags: true
+  categories: true
