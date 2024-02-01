@@ -537,6 +537,36 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo文章插入圖片</title>
+    <url>/posts/21f441c6/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 中的文章是使用 Markdown 的語法，有時候文章中可能會需要一些圖片來予以輔助，這時候我們可能會需要調整一些設定來存放我們的圖片</p>
+<h2 id="文章插入圖片"><a href="#文章插入圖片" class="headerlink" title="文章插入圖片"></a>文章插入圖片</h2><p>這邊先講一下 Markdown 插入圖片的語法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](圖片路徑)</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>再來我們可以更改 Hexo 的設定檔，來讓我們建立文章時，能夠自動將該文章存放圖片的目錄也一起建立起來，修改 <code>./_config.xml</code>，並將下面參數值調整為 true</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>調整後當我們使用 <code>hexo new &quot;新文章&quot;</code> 建立文章後，就會自動在 <code>./source/_posts</code> 建立一個與文章相同名稱的目錄，然後就能將圖片放進去</p>
+<p>而 Markdown 要調用圖片時，圖片路徑只需要填上圖片名稱即可，例如：圖片名稱為 123.png</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](123.png)</span><br></pre></td></tr></table></figure>
+
+<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>上述方式對於每篇文章都需要插入圖片的使用者非常方便，但是如果你的文章只有少數幾篇需要圖片輔助的話，可能會造成 <code>./source/_posts</code> 會有很多空的目錄，所以如果只有少數幾篇需要使用到圖片的話，這邊給兩個建議：</p>
+<ol>
+<li>設定自動建立圖片存放目錄，然後自己手動將無需使用到圖片的文章的目錄刪除</li>
+<li>乾脆不要設定，自己手動建立與文章相同名稱的目錄來存放圖片</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo的分類功能</title>
     <url>/posts/8bfb5405/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 的分類功能其實跟資料夾的功能差不多，作者可以自行將文章做分類，讓讀者在找尋時可以依據分類來快速找到相關的文章，功能上與標籤(tags) 有點大同小異</p>
@@ -625,36 +655,6 @@
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a href="https://www.dazhuanlan.com/2019/11/02/5dbc7ecc737a5/">https://www.dazhuanlan.com/2019/11/02/5dbc7ecc737a5/</a></li>
 </ul>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo文章插入圖片</title>
-    <url>/posts/21f441c6/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo 中的文章是使用 Markdown 的語法，有時候文章中可能會需要一些圖片來予以輔助，這時候我們可能會需要調整一些設定來存放我們的圖片</p>
-<h2 id="文章插入圖片"><a href="#文章插入圖片" class="headerlink" title="文章插入圖片"></a>文章插入圖片</h2><p>這邊先講一下 Markdown 插入圖片的語法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](圖片路徑)</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<p>再來我們可以更改 Hexo 的設定檔，來讓我們建立文章時，能夠自動將該文章存放圖片的目錄也一起建立起來，修改 <code>./_config.xml</code>，並將下面參數值調整為 true</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>調整後當我們使用 <code>hexo new &quot;新文章&quot;</code> 建立文章後，就會自動在 <code>./source/_posts</code> 建立一個與文章相同名稱的目錄，然後就能將圖片放進去</p>
-<p>而 Markdown 要調用圖片時，圖片路徑只需要填上圖片名稱即可，例如：圖片名稱為 123.png</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![](123.png)</span><br></pre></td></tr></table></figure>
-
-<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>上述方式對於每篇文章都需要插入圖片的使用者非常方便，但是如果你的文章只有少數幾篇需要圖片輔助的話，可能會造成 <code>./source/_posts</code> 會有很多空的目錄，所以如果只有少數幾篇需要使用到圖片的話，這邊給兩個建議：</p>
-<ol>
-<li>設定自動建立圖片存放目錄，然後自己手動將無需使用到圖片的文章的目錄刪除</li>
-<li>乾脆不要設定，自己手動建立與文章相同名稱的目錄來存放圖片</li>
-</ol>
 ]]></content>
       <categories>
         <category>Hexo</category>
