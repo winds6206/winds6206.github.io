@@ -151,7 +151,7 @@ gcloud auth application-default login
 
 在 GKE 內的 Pod 若是要存取 Cloud SQL，一樣是透過 Cloud SQL Auth Proxy 來做代理的動作，官方建議將 Auth Proxy 以 sidecar 的形式運行在需要使用的 Pod 上，並且依照不同服務給予不同的  Google Service Account，當然如果有特殊理由，也是可以多個 Pod 使用同一個 Cloud SQL Auth Proxy 進行存取。
 
-在 GKE 中使用 Google Service Account，原廠已經建議使用 Workload-Identity 的方式進行綁定，不建議再將 JWT 下載後以 Secret 方式掛載，對於還不知道 GKE Workload-Identity 或者想更進一步了解使用方式的，可以參考我的[另外一篇](https://blog.tonyjhang.tk/posts/7d4918c/#more)，裡面有更詳細的介紹。
+在 GKE 中使用 Google Service Account，原廠已經建議使用 Workload-Identity 的方式進行綁定，不建議再將 JWT 下載後以 Secret 方式掛載，對於還不知道 GKE Workload-Identity 或者想更進一步了解使用方式的，可以參考我的[另外一篇](https://winds6206.github.io/posts/7d4918c/#more)，裡面有更詳細的介紹。
 
 Google Service Account 的設定，前面已經有步驟，這邊不再重複贅述，直接從 Workload-Identity 中 KSA 和 GSA 綁定步驟開始
 
@@ -273,7 +273,7 @@ spec:
 
 ## 文後討論
 
-如果對於 GKE 上使用 Workload-Identity 不懂的，不妨先去[補一下](https://blog.tonyjhang.tk/posts/7d4918c/#more)
+如果對於 GKE 上使用 Workload-Identity 不懂的，不妨先去[補一下](https://winds6206.github.io/posts/7d4918c/#more)
 
 官方文件在掛載 KSA 的 deployment 描述檔有加上 `spec.nodeSelector`，來確保服務正常跑在有啟用 Workload-Identity 的 Node 上
 
