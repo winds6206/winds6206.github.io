@@ -67,5 +67,5 @@ date: 2021-05-22 16:17:39
 
 該篇與 Hexo的分類/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結
 
-- [Hexo的分類功能](https://winds6206.github.io/posts/8bfb5405)
-- [Hexo的關於功能](https://winds6206.github.io/posts/8be085a8)
+- [Hexo的分類功能](https://blog.tonyjhang.dev/posts/8bfb5405)
+- [Hexo的關於功能](https://blog.tonyjhang.dev/posts/8be085a8)
