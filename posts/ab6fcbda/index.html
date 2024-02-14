@@ -22,29 +22,29 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"winds6206.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"blog.tonyjhang.dev","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 <meta name="description" content="前言之前 Maintain A團隊的 K8s 時，有發生過 golang 寫的服務太多的 TIME_WAIT 導致 Pod 無法建立新的連線。 近期 Maintain B團隊的服務時，因為線上人數變多，擔心 Nginx 向 Upstream 發請求時，會不會造成太多的連線，然後有過多的 TIME_WAIT 現象，因為預設 Nginx 向 Upstream 發送請求是使用 http&#x2F;1.0，會導致連">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TIME_WAIT狀態如何產生">
-<meta property="og:url" content="https://winds6206.github.io/posts/ab6fcbda/index.html">
+<meta property="og:url" content="https://blog.tonyjhang.dev/posts/ab6fcbda/index.html">
 <meta property="og:site_name" content="偷尼的部落格">
 <meta property="og:description" content="前言之前 Maintain A團隊的 K8s 時，有發生過 golang 寫的服務太多的 TIME_WAIT 導致 Pod 無法建立新的連線。 近期 Maintain B團隊的服務時，因為線上人數變多，擔心 Nginx 向 Upstream 發請求時，會不會造成太多的連線，然後有過多的 TIME_WAIT 現象，因為預設 Nginx 向 Upstream 發送請求是使用 http&#x2F;1.0，會導致連">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://winds6206.github.io/posts/ab6fcbda/mk-20240119120657.png">
-<meta property="og:image" content="https://winds6206.github.io/posts/ab6fcbda/mk-20240119120730.png">
-<meta property="og:image" content="https://winds6206.github.io/posts/ab6fcbda/mk-20240119120822.png">
-<meta property="og:image" content="https://winds6206.github.io/posts/ab6fcbda/mk-20240119120856.png">
-<meta property="og:image" content="https://winds6206.github.io/posts/ab6fcbda/mk-20240119120922.png">
+<meta property="og:image" content="https://blog.tonyjhang.dev/posts/ab6fcbda/mk-20240119120657.png">
+<meta property="og:image" content="https://blog.tonyjhang.dev/posts/ab6fcbda/mk-20240119120730.png">
+<meta property="og:image" content="https://blog.tonyjhang.dev/posts/ab6fcbda/mk-20240119120822.png">
+<meta property="og:image" content="https://blog.tonyjhang.dev/posts/ab6fcbda/mk-20240119120856.png">
+<meta property="og:image" content="https://blog.tonyjhang.dev/posts/ab6fcbda/mk-20240119120922.png">
 <meta property="article:published_time" content="2021-08-17T07:29:31.000Z">
 <meta property="article:modified_time" content="2024-01-22T09:02:17.105Z">
 <meta property="article:author" content="Tony">
 <meta property="article:tag" content="TCP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://winds6206.github.io/posts/ab6fcbda/mk-20240119120657.png">
+<meta name="twitter:image" content="https://blog.tonyjhang.dev/posts/ab6fcbda/mk-20240119120657.png">
 
 
-<link rel="canonical" href="https://winds6206.github.io/posts/ab6fcbda/">
+<link rel="canonical" href="https://blog.tonyjhang.dev/posts/ab6fcbda/">
 
 
 <script class="page-configurations">
@@ -303,7 +303,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://winds6206.github.io/posts/ab6fcbda/">
+    <link itemprop="mainEntityOfPage" href="https://blog.tonyjhang.dev/posts/ab6fcbda/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/./images/IMG_1598.jpg">
@@ -590,7 +590,7 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://winds6206.github.io/posts/ab6fcbda/";
+    this.page.url = "https://blog.tonyjhang.dev/posts/ab6fcbda/";
     this.page.identifier = "posts/ab6fcbda/";
     this.page.title = "TIME_WAIT狀態如何產生";
     };

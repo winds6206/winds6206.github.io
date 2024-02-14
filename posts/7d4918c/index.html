@@ -22,16 +22,16 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"winds6206.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"blog.tonyjhang.dev","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 <meta name="description" content="前言以前在 GKE 內的應用程式若是有需要存取其他 GCP 上的服務時，會需要建立一個專用的 Service Account 並且將該帳戶賦予對應的權限，再將 JWT 掛載到應用程式。 這對於管理與資安上都是一大的隱憂，只要 JWT 不小心被有心人士拿到，就可以有相對應的權限。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GKE 上使用 Workload Identity">
-<meta property="og:url" content="https://winds6206.github.io/posts/7d4918c/index.html">
+<meta property="og:url" content="https://blog.tonyjhang.dev/posts/7d4918c/index.html">
 <meta property="og:site_name" content="偷尼的部落格">
 <meta property="og:description" content="前言以前在 GKE 內的應用程式若是有需要存取其他 GCP 上的服務時，會需要建立一個專用的 Service Account 並且將該帳戶賦予對應的權限，再將 JWT 掛載到應用程式。 這對於管理與資安上都是一大的隱憂，只要 JWT 不小心被有心人士拿到，就可以有相對應的權限。">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://winds6206.github.io/posts/7d4918c/mk-20240118163311.png">
+<meta property="og:image" content="https://blog.tonyjhang.dev/posts/7d4918c/mk-20240118163311.png">
 <meta property="article:published_time" content="2024-01-22T08:48:56.000Z">
 <meta property="article:modified_time" content="2024-01-22T09:07:59.439Z">
 <meta property="article:author" content="Tony">
@@ -41,10 +41,10 @@
 <meta property="article:tag" content="K8s">
 <meta property="article:tag" content="Kubernetes">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://winds6206.github.io/posts/7d4918c/mk-20240118163311.png">
+<meta name="twitter:image" content="https://blog.tonyjhang.dev/posts/7d4918c/mk-20240118163311.png">
 
 
-<link rel="canonical" href="https://winds6206.github.io/posts/7d4918c/">
+<link rel="canonical" href="https://blog.tonyjhang.dev/posts/7d4918c/">
 
 
 <script class="page-configurations">
@@ -303,7 +303,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://winds6206.github.io/posts/7d4918c/">
+    <link itemprop="mainEntityOfPage" href="https://blog.tonyjhang.dev/posts/7d4918c/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/./images/IMG_1598.jpg">
@@ -598,7 +598,7 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://winds6206.github.io/posts/7d4918c/";
+    this.page.url = "https://blog.tonyjhang.dev/posts/7d4918c/";
     this.page.identifier = "posts/7d4918c/";
     this.page.title = "GKE 上使用 Workload Identity";
     };

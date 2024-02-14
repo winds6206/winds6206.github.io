@@ -147,7 +147,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Format</span></span><br><span class="line">./cloud-sql-proxy --port 3306 [INSTANCE_CONNECTION_NAME]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Example</span></span><br><span class="line">./cloud-sql-proxy --port 3306 demo-123:asia-east1:<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="Cloud-SQL-Auth-Proxy-in-K8s"><a href="#Cloud-SQL-Auth-Proxy-in-K8s" class="headerlink" title="Cloud SQL Auth Proxy in K8s"></a>Cloud SQL Auth Proxy in K8s</h2><p>在 GKE 內的 Pod 若是要存取 Cloud SQL，一樣是透過 Cloud SQL Auth Proxy 來做代理的動作，官方建議將 Auth Proxy 以 sidecar 的形式運行在需要使用的 Pod 上，並且依照不同服務給予不同的  Google Service Account，當然如果有特殊理由，也是可以多個 Pod 使用同一個 Cloud SQL Auth Proxy 進行存取。</p>
-<p>在 GKE 中使用 Google Service Account，原廠已經建議使用 Workload-Identity 的方式進行綁定，不建議再將 JWT 下載後以 Secret 方式掛載，對於還不知道 GKE Workload-Identity 或者想更進一步了解使用方式的，可以參考我的<a href="https://winds6206.github.io/posts/7d4918c/#more">另外一篇</a>，裡面有更詳細的介紹。</p>
+<p>在 GKE 中使用 Google Service Account，原廠已經建議使用 Workload-Identity 的方式進行綁定，不建議再將 JWT 下載後以 Secret 方式掛載，對於還不知道 GKE Workload-Identity 或者想更進一步了解使用方式的，可以參考我的<a href="https://blog.tonyjhang.dev/posts/7d4918c/#more">另外一篇</a>，裡面有更詳細的介紹。</p>
 <p>Google Service Account 的設定，前面已經有步驟，這邊不再重複贅述，直接從 Workload-Identity 中 KSA 和 GSA 綁定步驟開始</p>
 <p>建立 K8s ServiceAccount</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ksa-cloud-sql-proxy</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">iam.gke.io/gcp-service-account:</span> <span class="string">gsa-cloud-sql-proxy@demo-123.iam.gserviceaccount.com</span></span><br></pre></td></tr></table></figure>
@@ -161,7 +161,7 @@
 <p>最後用 phpMyAdmin 測試連線情況</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">phpmyadmin</span></span><br><span class="line">    <span class="attr">repo:</span> <span class="string">demo</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">phpmyadmin</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">phpmyadmin</span></span><br><span class="line">      <span class="attr">repo:</span> <span class="string">demo</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">phpmyadmin</span></span><br><span class="line">        <span class="attr">repo:</span> <span class="string">demo</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">env:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">PMA_HOST</span></span><br><span class="line">          <span class="attr">value:</span> <span class="string">cloud-sql-proxy.default.svc.cluster.local</span> <span class="comment"># 填入 cloud-sql-proxy 的 service </span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">PMA_PORT</span></span><br><span class="line">          <span class="attr">value:</span> <span class="string">&quot;3306&quot;</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">phpmyadmin:5.1.1</span></span><br><span class="line">        <span class="attr">imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">phpmyadmin</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>如果對於 GKE 上使用 Workload-Identity 不懂的，不妨先去<a href="https://winds6206.github.io/posts/7d4918c/#more">補一下</a></p>
+<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>如果對於 GKE 上使用 Workload-Identity 不懂的，不妨先去<a href="https://blog.tonyjhang.dev/posts/7d4918c/#more">補一下</a></p>
 <p>官方文件在掛載 KSA 的 deployment 描述檔有加上 <code>spec.nodeSelector</code>，來確保服務正常跑在有啟用 Workload-Identity 的 Node 上</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">nodeSelector:</span></span><br><span class="line">    <span class="attr">iam.gke.io/gke-metadata-server-enabled:</span> <span class="string">&quot;true&quot;</span></span><br></pre></td></tr></table></figure>
 
@@ -524,8 +524,8 @@
 <p>使用時，只要在 <code>./source/about/index.md</code> 頁面以 Markdown 語法寫下自我介紹即可</p>
 <h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>該篇與 Hexo的分類/標籤功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結</p>
 <ul>
-<li><a href="https://winds6206.github.io/posts/8bfb5405">Hexo的分類功能</a></li>
-<li><a href="https://winds6206.github.io/posts/1436c3e2">Hexo的標籤功能</a></li>
+<li><a href="https://blog.tonyjhang.dev/posts/8bfb5405">Hexo的分類功能</a></li>
+<li><a href="https://blog.tonyjhang.dev/posts/1436c3e2">Hexo的標籤功能</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -563,8 +563,8 @@
 <p>此時該文章將被分類到 Hexo 中的 NexT 底下，如：Hexo/NexT/分類測試</p>
 <h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>該篇與 Hexo的標籤/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結</p>
 <ul>
-<li><a href="https://winds6206.github.io/posts/1436c3e2">Hexo的標籤功能</a></li>
-<li><a href="https://winds6206.github.io/posts/8be085a8">Hexo的關於功能</a></li>
+<li><a href="https://blog.tonyjhang.dev/posts/1436c3e2">Hexo的標籤功能</a></li>
+<li><a href="https://blog.tonyjhang.dev/posts/8be085a8">Hexo的關於功能</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -686,8 +686,8 @@
 
 <h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>該篇與 Hexo的分類/關於功能 設定方式極度雷同，如有需要可以搭配一起設定，另外兩篇請參考下面連結</p>
 <ul>
-<li><a href="https://winds6206.github.io/posts/8bfb5405">Hexo的分類功能</a></li>
-<li><a href="https://winds6206.github.io/posts/8be085a8">Hexo的關於功能</a></li>
+<li><a href="https://blog.tonyjhang.dev/posts/8bfb5405">Hexo的分類功能</a></li>
+<li><a href="https://blog.tonyjhang.dev/posts/8be085a8">Hexo的關於功能</a></li>
 </ul>
 ]]></content>
       <categories>
