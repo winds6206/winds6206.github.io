@@ -22,20 +22,20 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.tonyjhang.tk","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"winds6206.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 <meta name="description" content="前言近期因公司內部的需求，需要在本機存取 K8s 內持久化儲存的檔案，原先想使用 NFS 架構來做掛載存取，但是因為這樣有點過於麻煩，後來才想使用 FTP 來實現，下面說明如何在 K8s 實現 FTP 功能，讓本機環境可以存取到持久化硬碟。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 K8s 使用 FTP">
-<meta property="og:url" content="https://blog.tonyjhang.tk/posts/2de962d3/index.html">
+<meta property="og:url" content="https://winds6206.github.io/posts/2de962d3/index.html">
 <meta property="og:site_name" content="偷尼的部落格">
 <meta property="og:description" content="前言近期因公司內部的需求，需要在本機存取 K8s 內持久化儲存的檔案，原先想使用 NFS 架構來做掛載存取，但是因為這樣有點過於麻煩，後來才想使用 FTP 來實現，下面說明如何在 K8s 實現 FTP 功能，讓本機環境可以存取到持久化硬碟。">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://blog.tonyjhang.tk/posts/2de962d3/mk-20240119114134.png">
-<meta property="og:image" content="https://blog.tonyjhang.tk/posts/2de962d3/mk-20240119114200.png">
-<meta property="og:image" content="https://blog.tonyjhang.tk/posts/2de962d3/mk-20240119114218.png">
-<meta property="og:image" content="https://blog.tonyjhang.tk/posts/2de962d3/mk-20240119114239.png">
-<meta property="og:image" content="https://blog.tonyjhang.tk/posts/2de962d3/mk-20240119114300.png">
+<meta property="og:image" content="https://winds6206.github.io/posts/2de962d3/mk-20240119114134.png">
+<meta property="og:image" content="https://winds6206.github.io/posts/2de962d3/mk-20240119114200.png">
+<meta property="og:image" content="https://winds6206.github.io/posts/2de962d3/mk-20240119114218.png">
+<meta property="og:image" content="https://winds6206.github.io/posts/2de962d3/mk-20240119114239.png">
+<meta property="og:image" content="https://winds6206.github.io/posts/2de962d3/mk-20240119114300.png">
 <meta property="article:published_time" content="2021-04-26T08:15:09.000Z">
 <meta property="article:modified_time" content="2024-01-22T09:02:25.745Z">
 <meta property="article:author" content="Tony">
@@ -46,10 +46,10 @@
 <meta property="article:tag" content="Kubernetes">
 <meta property="article:tag" content="FTP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.tonyjhang.tk/posts/2de962d3/mk-20240119114134.png">
+<meta name="twitter:image" content="https://winds6206.github.io/posts/2de962d3/mk-20240119114134.png">
 
 
-<link rel="canonical" href="https://blog.tonyjhang.tk/posts/2de962d3/">
+<link rel="canonical" href="https://winds6206.github.io/posts/2de962d3/">
 
 
 <script class="page-configurations">
@@ -308,7 +308,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://blog.tonyjhang.tk/posts/2de962d3/">
+    <link itemprop="mainEntityOfPage" href="https://winds6206.github.io/posts/2de962d3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/./images/IMG_1598.jpg">
@@ -597,7 +597,7 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://blog.tonyjhang.tk/posts/2de962d3/";
+    this.page.url = "https://winds6206.github.io/posts/2de962d3/";
     this.page.identifier = "posts/2de962d3/";
     this.page.title = "在 K8s 使用 FTP";
     };
