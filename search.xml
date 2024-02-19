@@ -181,6 +181,50 @@
       </tags>
   </entry>
   <entry>
+    <title>在 Docker Engine 使用 Cloud SQL Auth Proxy</title>
+    <url>/posts/8ebcb883/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因為之前的 <a href="https://blog.tonyjhang.tk/posts/8ebcb883/">透過 Auth Proxy 存取 Cloud SQL</a> 的篇幅有點長，所以決定把 Docker Engine 使用 Cloud SQL Auth Proxy 的方法另外寫一篇，在看這篇之前，如果還沒有閱讀過上一篇，可以點擊上面連結，先去看看，再回過頭來接續</p>
+<span id="more"></span>
+
+<h2 id="Cloud-SQL-Auth-Proxy-in-a-Docker-container"><a href="#Cloud-SQL-Auth-Proxy-in-a-Docker-container" class="headerlink" title="Cloud SQL Auth Proxy in a Docker container"></a>Cloud SQL Auth Proxy in a Docker container</h2><p>建立 Google Service Account</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gcloud iam service-accounts create gsa-cloud-sql \</span><br><span class="line">    --project=demo-123</span><br></pre></td></tr></table></figure>
+
+<p>並且賦予權限，以下三個 IAM 權限任一皆可</p>
+<ul>
+<li>roles/cloudsql.client</li>
+<li>roles/cloudsql.editor</li>
+<li>roles/cloudsql.admin</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gcloud projects add-iam-policy-binding demo-123 \</span><br><span class="line">    --member <span class="string">&quot;serviceAccount:gsa-cloud-sql@demo-123.iam.gserviceaccount.com&quot;</span> \</span><br><span class="line">    --role <span class="string">&quot;roles/cloudsql.client&quot;</span> \</span><br><span class="line">    --project=demo-123</span><br></pre></td></tr></table></figure>
+
+<p>記得把 Google Service Account 的 JWT 下載到本機</p>
+<p>將 JWT 與連線資訊掛載到 container 內，讓容器拿著這把 Key 到 GCP 上做授權驗證</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Format</span></span><br><span class="line">docker run -d \</span><br><span class="line">  -v [LOCAL_PATH_TO_KEY_FILE]:/path/to/service-account-key.json \</span><br><span class="line">  -p 127.0.0.1:3306:3306 \</span><br><span class="line">  gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.8.2 \</span><br><span class="line">  --credentials-file /path/to/service-account-key.json \</span><br><span class="line">  [INSTANCE_CONNECTION_NAME]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Eample</span></span><br><span class="line">sudo docker run -d \</span><br><span class="line">  -v /home/tony/key.json:/path/to/service-account-key.json \</span><br><span class="line">  -p 127.0.0.1:3306:3306 \</span><br><span class="line">  gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.8.2 \</span><br><span class="line">  --credentials-file /path/to/service-account-key.json \</span><br><span class="line">  demo-123:asia-east1:<span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<p>關於 <code>-p 127.0.0.1:3306:3306</code>，如果是要讓 Docker 環境內其他 container 可以存取，需要將 <code>127.0.0.1</code> 調整為 <code>0.0.0.0</code>，或者直接省略，如：<code>-p 3306:3306</code>，因為預設就是 <code>0.0.0.0</code></p>
+<blockquote>
+<p>Always specify 127.0.0.1 prefix in -p so that the Cloud SQL Auth proxy is not exposed outside the local host. The “0.0.0.0” in the instances parameter is required to make the port accessible from outside of the Docker container.</p>
+</blockquote>
+<p>連線名稱(connectionName) 的查詢方式，或者直接到網頁看</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Format</span></span><br><span class="line">gcloud sql instances describe [Instance_Name] --project=[Project_ID]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Example</span></span><br><span class="line">gcloud sql instances describe <span class="built_in">test</span> --project=demo-123</span><br></pre></td></tr></table></figure>
+
+<p>最後使用 Cloud SQL 的使用者帳號與 Cloud SQL Auth Proxy 做連線驗證，也可以使用第三方工具來連線測試，例如：MySQL WorkBench, phpMyAdmin…</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql -u [USERNAME] -p --host 127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="https://cloud.google.com/sql/docs/mysql/connect-auth-proxy">https://cloud.google.com/sql/docs/mysql/connect-auth-proxy</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>GCP</category>
+      </categories>
+      <tags>
+        <tag>GCP</tag>
+        <tag>Google Cloud Platform</tag>
+        <tag>Cloud SQL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>在 K8s 使用 FTP</title>
     <url>/posts/2de962d3/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近期因公司內部的需求，需要在本機存取 K8s 內持久化儲存的檔案，原先想使用 NFS 架構來做掛載存取，但是因為這樣有點過於麻煩，後來才想使用 FTP 來實現，下面說明如何在 K8s 實現 FTP 功能，讓本機環境可以存取到持久化硬碟。</p>
