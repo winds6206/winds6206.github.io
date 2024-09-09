@@ -1,9 +1,6 @@
 ---
 title: Cloud NAT的限制
 tags:
-  - GKE
-  - GCP
-  - Google Cloud Platform
   - Cloud NAT
 categories:
   - GCP

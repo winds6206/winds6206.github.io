@@ -1,10 +1,5 @@
 ---
 title: Auto Completion不區分大小寫
-tags:
-  - Bash
-  - Auto Completion
-  - Bash Completion
-  - Linux
 categories:
   - Linux
 abbrlink: 3bc3c62d

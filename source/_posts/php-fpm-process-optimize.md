@@ -1,8 +1,5 @@
 ---
 title: PHP-FPM行程優化
-tags:
-  - PHP-FPM
-  - PHP
 categories:
   - PHP-FPM
 abbrlink: 66a05136

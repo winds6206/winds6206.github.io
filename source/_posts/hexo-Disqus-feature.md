@@ -2,10 +2,8 @@
 title: Hexo加入Disqus留言功能
 tags:
   - Hexo
-  - blog
-  - Disqus
 categories:
-  - Hexo
+  - Blog
 abbrlink: eed23cc9
 date: 2021-08-16 10:38:09
 ---

@@ -1,17 +1,13 @@
 ---
 title: GKE 上使用 Workload Identity
 tags:
-  - GCP
   - GKE
-  - Google Cloud Platform
-  - K8s
-  - Kubernetes
+  - Workload Identity
 categories:
-  - GKE
+  - GCP
 abbrlink: 7d4918c
 date: 2024-01-22 16:48:56
 ---
-
 
 ## 前言
 

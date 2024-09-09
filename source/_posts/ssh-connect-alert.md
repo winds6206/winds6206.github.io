@@ -1,10 +1,7 @@
 ---
 title: 'SSH 連線出現「WARNING:REMOTE HOST IDENTIFICATION HAS CHANGED!」'
 tags:
-  - Linux
   - SSH
-  - fingerprint
-  - known_hosts
 categories:
   - Linux
 abbrlink: 67cc021f

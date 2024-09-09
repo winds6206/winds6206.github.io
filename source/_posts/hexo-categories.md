@@ -2,9 +2,8 @@
 title: Hexo的分類功能
 tags:
   - Hexo
-  - blog
 categories:
-  - Hexo
+  - Blog
 abbrlink: 8bfb5405
 date: 2021-07-23 10:26:06
 ---

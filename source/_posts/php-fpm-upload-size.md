@@ -1,8 +1,5 @@
 ---
-title: 如何修改PHP-FPM上傳檔案大小限制
-tags:
-  - PHP-FPM
-  - PHP
+title: 如何修改 PHP-FPM 上傳檔案大小限制
 categories:
   - PHP-FPM
 abbrlink: 452fc7c7

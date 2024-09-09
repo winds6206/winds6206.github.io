@@ -1,10 +1,9 @@
 ---
 title: 使用GitHub Pages
 tags:
-  - Hexo
   - GitHub
-  - GitHub Pages
-  - blog
+categories:
+  - Blog
 abbrlink: 9836e9cf
 date: 2021-05-03 14:58:14
 ---

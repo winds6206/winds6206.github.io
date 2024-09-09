@@ -1,13 +1,9 @@
 ---
 title: Kubernetes Network Policy
 tags:
-  - GCP
-  - GKE
-  - Google Cloud Platform
-  - K8s
-  - Kubernetes
+  - Network Policy
 categories:
-  - GKE
+  - Kubernetes
 abbrlink: e08900fb
 date: 2024-01-16 13:51:16
 ---

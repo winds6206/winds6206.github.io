@@ -1,14 +1,9 @@
 ---
 title: 在 K8s 使用 FTP
 tags:
-  - GKE
-  - GCP
-  - Google Cloud Platform
-  - K8s
-  - Kubernetes
   - FTP
 categories:
-  - GKE
+  - Kubernetes
 abbrlink: 2de962d3
 date: 2021-04-26 16:15:09
 ---

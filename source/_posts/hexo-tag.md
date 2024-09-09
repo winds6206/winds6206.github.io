@@ -2,9 +2,8 @@
 title: Hexo的標籤功能
 tags:
   - Hexo
-  - blog
 categories:
-  - Hexo
+  - Blog
 abbrlink: 1436c3e2
 date: 2021-07-21 11:32:57
 ---

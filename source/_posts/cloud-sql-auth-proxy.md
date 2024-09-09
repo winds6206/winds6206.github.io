@@ -1,9 +1,7 @@
 ---
 title: 透過 Auth Proxy 存取 Cloud SQL
 tags:
-  - GCP
   - Cloud SQL
-  - Google Cloud Platform
 categories:
   - GCP
 abbrlink: 3850bdf7

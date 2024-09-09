@@ -2,9 +2,8 @@
 title: 使用 hexo-abbrlink 優化文章連結
 tags:
   - Hexo
-  - blog
 categories:
-  - Hexo
+  - Blog
 abbrlink: 94411fbc
 date: 2024-01-24 16:38:31
 ---

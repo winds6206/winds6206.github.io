@@ -2,9 +2,8 @@
 title: Hexo建立草稿
 tags:
   - Hexo
-  - blog
 categories:
-  - Hexo
+  - Blog
 abbrlink: 946e0e0b
 date: 2021-05-03 10:26:06
 ---
