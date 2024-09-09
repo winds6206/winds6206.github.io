@@ -2,16 +2,15 @@
 title: Kubernetes 更新 ConfigMap 或 Secret 自動重啟 Pod
 tags:
   - GKE
-  - GCP
   - K8s
   - kubernetes
-  - stakater
-  - reloader
   - opensource
 categories:
   - GKE
 abbrlink: 1a2eedde
+date: 2024-09-09 15:25:09
 ---
+
 
 ## 前言
 
