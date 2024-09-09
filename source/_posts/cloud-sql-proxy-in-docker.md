@@ -1,9 +1,7 @@
 ---
 title: 在 Docker Engine 使用 Cloud SQL Auth Proxy
 tags:
-  - GCP
   - Cloud SQL
-  - Google Cloud Platform
 categories:
   - GCP
 abbrlink: 8ebcb883
@@ -40,20 +38,28 @@ gcloud projects add-iam-policy-binding demo-123 \
 
 將 JWT 與連線資訊掛載到 container 內，讓容器拿著這把 Key 到 GCP 上做授權驗證
 ```bash
-# Format
+# Syntax
 docker run -d \
   -v [LOCAL_PATH_TO_KEY_FILE]:/path/to/service-account-key.json \
   -p 127.0.0.1:3306:3306 \
-  gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.8.2 \
+  gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.13.0 \
   --credentials-file /path/to/service-account-key.json \
+  --port=3306 \
+  --address=0.0.0.0 \
+  --structured-logs \
+  --debug-logs \
   [INSTANCE_CONNECTION_NAME]
 
 # Eample
 sudo docker run -d \
   -v /home/tony/key.json:/path/to/service-account-key.json \
   -p 127.0.0.1:3306:3306 \
-  gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.8.2 \
+  gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.13.0 \
   --credentials-file /path/to/service-account-key.json \
+  --port=3306 \
+  --address=0.0.0.0 \
+  --structured-logs \
+  --debug-logs \
   demo-123:asia-east1:test
 ```
 

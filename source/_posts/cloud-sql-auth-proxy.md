@@ -8,7 +8,6 @@ abbrlink: 3850bdf7
 date: 2024-01-29 10:53:21
 ---
 
-
 ## 前言
 
 一般來說，要連線到 Could SQL 需要透過 Proxy 與 GCP 做授權驗證，而該代理工具稱為「Cloud SQL Auth Proxy」
@@ -82,15 +81,23 @@ gcloud projects add-iam-policy-binding demo-123 \
 
 使用 TCP Socket 的方式啟用 Cloud SQL Auth Proxy
 ```bash
-# Format
-./cloud-sql-proxy --address 0.0.0.0 --port 3306 \
-    [INSTANCE_CONNECTION_NAME] \
-    --credentials-file [PATH_TO_KEY_FILE]
+# 2024/08/28 Updated
+
+# Syntax
+./cloud-sql-proxy --address 0.0.0.0 \
+  --port 3306 \
+  --structured-logs \
+  --debug-logs \
+  --credentials-file [PATH_TO_KEY_FILE] \
+  [INSTANCE_CONNECTION_NAME]
 
 # Example
-./cloud-sql-proxy --address 0.0.0.0 --port 3306 \
-    demo-123:asia-east1:test \
-    --credentials-file ./demo-123-d617764af0fb.json
+./cloud-sql-proxy --address 0.0.0.0 \
+  --port 3306 \
+  --structured-logs \
+  --debug-logs \
+  --credentials-file /path/to/service-account-key.json \
+  demo-123:asia-east1:test
 ```
 
 連線名稱(connectionName) 的查詢方式，或者直接到網頁看
@@ -138,11 +145,23 @@ gcloud auth application-default login
 接著直接在本機使用下面指令，可以發現這次的指令是不需要 `--credentials-file`，因為我們需要讓系統自動到 `${HOME}/.config/gcloud` 取得授權驗證
 
 ```bash
-# Format
-./cloud-sql-proxy --port 3306 [INSTANCE_CONNECTION_NAME]
+# 2024/08/28 Updated
+
+# Syntax
+./cloud-sql-proxy --address 0.0.0.0 \
+  --port 3306 \
+  --structured-logs \
+  --debug-logs \
+  --credentials-file [PATH_TO_KEY_FILE] \
+  [INSTANCE_CONNECTION_NAME]
 
 # Example
-./cloud-sql-proxy --port 3306 demo-123:asia-east1:test
+./cloud-sql-proxy --address 0.0.0.0 \
+  --port 3306 \
+  --structured-logs \
+  --debug-logs \
+  --credentials-file ${HOME}/.config/gcloud/application_default_credentials.json \
+  demo-123:asia-east1:test
 ```
 
 ## Cloud SQL Auth Proxy in K8s
@@ -221,13 +240,17 @@ spec:
       serviceAccountName: ksa-cloud-sql-proxy
       containers:
       - name: cloud-sql-proxy
-        image: gcr.io/cloudsql-docker/gce-proxy:1.33.14
+        image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.13
         imagePullPolicy: Always
         ports:
           - containerPort: 3306
-        command:
-          - /cloud_sql_proxy
-          - -instances=demo-123:asia-east1:test=tcp:0.0.0.0:3306
+        args:
+          - "--private-ip"  # 使用私人叢集需要打開
+          - "--structured-logs"
+          - "--port=3306"
+          - "--address=0.0.0.0"
+          - "--debug-logs"
+          - "demo-123:asia-east1:test"
         env:
           - name: TZ
             value: Asia/Taipei
