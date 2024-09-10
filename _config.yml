@@ -122,5 +122,5 @@ nofollow:
 
 sitemap:
   path: sitemap.xml
-  tags: true
-  categories: true
+  tags: false
+  categories: false
