@@ -9,7 +9,7 @@ abbrlink: 8ebcb883
 
 ## 前言
 
-因為之前的 [透過 Auth Proxy 存取 Cloud SQL](https://blog.tonyjhang.tk/posts/8ebcb883/) 的篇幅有點長，所以決定把 Docker Engine 使用 Cloud SQL Auth Proxy 的方法另外寫一篇，在看這篇之前，如果還沒有閱讀過上一篇，可以點擊上面連結，先去看看，再回過頭來接續
+因為之前的 [透過 Auth Proxy 存取 Cloud SQL](https://blog.tonyjhang.dev/posts/3850bdf7/) 的篇幅有點長，所以決定把 Docker Engine 使用 Cloud SQL Auth Proxy 的方法另外寫一篇，在看這篇之前，如果還沒有閱讀過上一篇，可以點擊上面連結，先去看看，再回過頭來接續
 
 <!-- more -->
 
