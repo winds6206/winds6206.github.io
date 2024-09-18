@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="C2I2K3ifEz4zj3Dxkui7OQM-y4DHRfgwHRmyLGEAYUI">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.tonyjhang.dev","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="前言有在使用 K8s 的朋友，後期應該都會遇到一個問題，內部服務有一些設定檔是使用 ConfigMap 單獨掛出來，或是一些機敏資料是使用 Secret 掛出來，當這些單獨掛出來的資料有異動重新 kubectl apply，主要服務卻沒有辦法自動重啟(因為大部分都需要重啟才能吃到新的設定Ex: Nginx)，這時候只能手動將服務砍掉讓它重啟，這使得使用上有那麼一點不便利，如果當要修改的設定檔一多，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes 更新 ConfigMap 或 Secret 自動重啟 Pod">
+<meta property="og:url" content="https://blog.tonyjhang.dev/posts/1a2eedde/index.html">
+<meta property="og:site_name" content="偷尼的部落格">
+<meta property="og:description" content="前言有在使用 K8s 的朋友，後期應該都會遇到一個問題，內部服務有一些設定檔是使用 ConfigMap 單獨掛出來，或是一些機敏資料是使用 Secret 掛出來，當這些單獨掛出來的資料有異動重新 kubectl apply，主要服務卻沒有辦法自動重啟(因為大部分都需要重啟才能吃到新的設定Ex: Nginx)，這時候只能手動將服務砍掉讓它重啟，這使得使用上有那麼一點不便利，如果當要修改的設定檔一多，">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2024-09-09T07:25:09.000Z">
+<meta property="article:modified_time" content="2024-09-11T04:06:57.451Z">
+<meta property="article:author" content="Tony">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.tonyjhang.dev/posts/1a2eedde/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+<title>Kubernetes 更新 ConfigMap 或 Secret 自動重啟 Pod | 偷尼的部落格</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196052332-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-196052332-1');
+      }
+    </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">偷尼的部落格</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap. Show me the code.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reloader%E7%9A%84%E5%AE%89%E8%A3%9D"><span class="nav-number">2.</span> <span class="nav-text">Reloader的安裝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reloader%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">Reloader的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reloader%E7%9A%84%E5%AF%A6%E9%9A%9B%E6%87%89%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">Reloader的實際應用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E5%BE%8C%E8%A8%8E%E8%AB%96"><span class="nav-number">5.</span> <span class="nav-text">文後討論</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">6.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tony"
+      src="/./images/IMG_1598.jpg">
+  <p class="site-author-name" itemprop="name">Tony</p>
+  <div class="site-description" itemprop="description">Cloud System Engineer</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/winds6206" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;winds6206" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:winds6206@gmail.com" title="E-Mail → mailto:winds6206@gmail.com" rel="noopener external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-fw"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <a href="/posts/8ebcb883/" title="posts&#x2F;8ebcb883&#x2F;">在 Docker Engine 使用 Cloud SQL Auth Proxy</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/posts/1a2eedde/" title="posts&#x2F;1a2eedde&#x2F;">Kubernetes 更新 ConfigMap 或 Secret 自動重啟 Pod</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/posts/3850bdf7/" title="posts&#x2F;3850bdf7&#x2F;">透過 Auth Proxy 存取 Cloud SQL</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/posts/94411fbc/" title="posts&#x2F;94411fbc&#x2F;">使用 hexo-abbrlink 優化文章連結</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/posts/7d4918c/" title="posts&#x2F;7d4918c&#x2F;">GKE 上使用 Workload Identity</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://blog.tonyjhang.dev/posts/1a2eedde/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/IMG_1598.jpg">
+      <meta itemprop="name" content="Tony">
+      <meta itemprop="description" content="Cloud System Engineer">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="偷尼的部落格">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kubernetes 更新 ConfigMap 或 Secret 自動重啟 Pod
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2024-09-09 15:25:09" itemprop="dateCreated datePublished" datetime="2024-09-09T15:25:09+08:00">2024-09-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2024-09-11 12:06:57" itemprop="dateModified" datetime="2024-09-11T12:06:57+08:00">2024-09-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/posts/1a2eedde/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/1a2eedde/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>有在使用 K8s 的朋友，後期應該都會遇到一個問題，內部服務有一些設定檔是使用 ConfigMap 單獨掛出來，或是一些機敏資料是使用 Secret 掛出來，當這些單獨掛出來的資料有異動重新 <code>kubectl apply</code>，主要服務卻沒有辦法自動重啟(因為大部分都需要重啟才能吃到新的設定Ex: Nginx)，這時候只能手動將服務砍掉讓它重啟，這使得使用上有那麼一點不便利，如果當要修改的設定檔一多，所耗費的時間也就越多，如果能夠讓設定檔有異動時，服務可以自動重啟，那就再好不過了。</p>
+<span id="more"></span>
+
+<p>為了解決這個問題，下面將要介紹一款開源的套件 Reloader，將它安裝在 K8s 內，並在 <code>annatation</code> 多加一些設定，Reloader 就會自動幫你偵測服務所掛載的 Configmap/Secret 資料是否有異動，當有異動時就會幫忙將做 Rolling Update</p>
+<h2 id="Reloader的安裝"><a href="#Reloader的安裝" class="headerlink" title="Reloader的安裝"></a>Reloader的安裝</h2><p>安裝 Reloader</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;stakater&#x2F;Reloader&#x2F;master&#x2F;deployments&#x2F;kubernetes&#x2F;reloader.yaml</span><br></pre></td></tr></table></figure>
+
+<p>在預設下，Reloader 會部署在 <code>default</code> 的 namespace 且會幫你監視「所有 namespace」的 <code>Secret</code>、<code>ConfigMap</code> 是否有異動</p>
+<blockquote>
+<p>By default, Reloader gets deployed in <code>default</code> namespace and watches changes <code>secrets</code> and <code>configmaps</code> in all namespaces.</p>
+</blockquote>
+<p>安裝後，在 K8s <code>default</code> namespace 會多一個 stakater-reloader 服務</p>
+<h2 id="Reloader的使用"><a href="#Reloader的使用" class="headerlink" title="Reloader的使用"></a>Reloader的使用</h2><p>安裝後，我們必須告訴 Reloader，要請他幫我們監視哪個服務所掛載的 <code>Secret</code> 或 <code>ConfigMap</code>，</p>
+<p>假設 Deployment 名字是 foo，而他掛一個 ConfigMap 名稱叫 foo-configmap，然後在 deployment Object 的 annotation 加上主要設定，如下</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">configmap.reloader.stakater.com/reload:</span> <span class="string">&quot;foo-configmap&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>同樣的，如果要監視 <code>Secret</code> 也是一樣的方式，只是 annotation 要稍微改一下，由 <code>configmap.reloader.stakater.com/reload</code> 改成 <code>secret.reloader.stakater.com/reload</code>，冒號後面的值則是帶入 <code>Secret</code> 名稱</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">secret.reloader.stakater.com/reload:</span> <span class="string">&quot;foo-secret&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果 Deployment 同時掛載多個 <code>Secret</code> 或 <code>ConfigMap</code>，則以逗號分開，例如</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">configmap.reloader.stakater.com/reload:</span> <span class="string">&quot;foo-configmap,bar-configmap,baz-configmap&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>當然也可以讓 Reloader 自行判斷，<code>reloader.stakater.com/auto: &quot;true&quot;</code> 會自行判斷 Deployment 是否有掛載 ConfigMap 或 Secret 當掛載的資料有異動時會自動重啟 Pod</p>
+<blockquote>
+<p><code>reloader.stakater.com/auto: &quot;true&quot;</code> will only reload the pod, if the configmap or secret is used (as a volume mount or as an env) in <code>DeploymentConfigs/Deployment/Daemonsets/Statefulsets</code></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">reloader.stakater.com/auto:</span> <span class="string">&quot;true&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Reloader的實際應用"><a href="#Reloader的實際應用" class="headerlink" title="Reloader的實際應用"></a>Reloader的實際應用</h2><p>如果懶得自己寫 YAML 的朋友，可以拿下面的 Nginx 範例部署到環境內做測試，Deployment/ConfigMap 都部署後，可以試著修改 ConfigMap 中 Nginx 設定檔內容，在重新部署，就會發現 Nginx 神奇的自己重新啟動。</p>
+<p>Deployment</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-reloader-test</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx-reloader-test</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">configmap.reloader.stakater.com/reload:</span> <span class="string">&quot;nginx-config&quot;</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx-reloader-test</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">nginx-reloader-test</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-reloader-test</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">nginx:1.21.1</span></span><br><span class="line">        <span class="attr">imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">        <span class="attr">volumeMounts:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-conf-volume</span></span><br><span class="line">          <span class="attr">mountPath:</span> <span class="string">/etc/nginx/conf.d</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-conf-volume</span></span><br><span class="line">        <span class="attr">configMap:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">nginx-config</span></span><br></pre></td></tr></table></figure>
+
+<p>ConfiMap</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-config</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">nginx.conf:</span> <span class="string">|</span></span><br><span class="line">    <span class="string">server</span> &#123;</span><br><span class="line">        <span class="string">listen</span>       <span class="number">80</span><span class="string">;</span></span><br><span class="line">        <span class="string">server_name</span>  <span class="string">localhost;</span></span><br><span class="line">        <span class="string">root</span>   <span class="string">/usr/share/nginx/html;</span></span><br><span class="line">        <span class="string">index</span>  <span class="string">index.php</span> <span class="string">index.html</span> <span class="string">index.htm;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># redirect server error pages to the static page /50x.html</span></span><br><span class="line">        <span class="string">error_page</span>   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  <span class="string">/50x.html;</span></span><br><span class="line">        <span class="string">location</span> <span class="string">=</span> <span class="string">/50x.html</span> &#123;</span><br><span class="line">            <span class="string">root</span>   <span class="string">/usr/share/nginx/html;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="string">location</span> <span class="string">/</span> &#123;</span><br><span class="line">            <span class="string">try_files</span> <span class="string">$uri</span> <span class="string">$uri/</span> <span class="string">=404;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="文後討論"><a href="#文後討論" class="headerlink" title="文後討論"></a>文後討論</h2><p>官方 GitHub 底下還有蠻多可以調整的參數，如果有特殊需求的朋友，可以到 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/stakater/Reloader">官方GitHub</a> 去挖寶，或許會找到你所需要，尤其是在 NOTES 的區塊，可以考慮好好讀一下</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/stakater/Reloader#notes">https://github.com/stakater/Reloader#notes</a></p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/stakater/Reloader">https://github.com/stakater/Reloader</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <script type="text/javascript">
+    document.write(
+      "<iframe scrolling='no' frameborder='0' sandbox='allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-storage-access-by-user-activation' style='height: 212px; width: 100%;' src='https://button.like.co/in/embed/winds6206/button?referrer=" +
+      encodeURIComponent(location.href.split("?")[0].split("#")[0]) + "'></iframe>");
+  </script>
+<div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/3850bdf7/" rel="prev" title="透過 Auth Proxy 存取 Cloud SQL">
+                  <i class="fa fa-chevron-left"></i> 透過 Auth Proxy 存取 Cloud SQL
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/8ebcb883/" rel="next" title="在 Docker Engine 使用 Cloud SQL Auth Proxy">
+                  在 Docker Engine 使用 Cloud SQL Auth Proxy <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://winds6206.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://blog.tonyjhang.dev/posts/1a2eedde/";
+    this.page.identifier = "posts/1a2eedde/";
+    this.page.title = "Kubernetes 更新 ConfigMap 或 Secret 自動重啟 Pod";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://winds6206.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
