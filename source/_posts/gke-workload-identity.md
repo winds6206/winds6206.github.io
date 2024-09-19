@@ -100,6 +100,12 @@ gcloud iam service-accounts remove-iam-policy-binding gsa-workload-identity@demo
     --project=demo-123
 ```
 
+查詢 GSA 綁定哪個 KSA
+```bash
+gcloud iam service-accounts get-iam-policy gsa-workload-identity@demo-123.iam.gserviceaccount.com \
+    --project=demo-123
+```
+
 **使用 K8s 描述檔**
 
 ```yaml
