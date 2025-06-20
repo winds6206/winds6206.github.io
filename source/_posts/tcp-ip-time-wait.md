@@ -5,7 +5,6 @@ abbrlink: ab6fcbda
 date: 2021-08-17 15:29:31
 ---
 
-
 ## 前言
 
 之前 Maintain A團隊的 K8s 時，有發生過 golang 寫的服務太多的 TIME_WAIT 導致 Pod 無法建立新的連線。 近期 Maintain B團隊的服務時，因為線上人數變多，擔心 Nginx 向 Upstream 發請求時，會不會造成太多的連線，然後有過多的 TIME_WAIT 現象，因為預設 Nginx 向 Upstream 發送請求是使用 http/1.0，會導致連線無法複用，所以當連線一多時，就很容易發生過多的 TIME_WAIT 狀態。

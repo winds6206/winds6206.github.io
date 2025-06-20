@@ -8,7 +8,6 @@ abbrlink: 67cc021f
 date: 2021-08-09 10:48:45
 ---
 
-
 ## 前言
 
 在 Linux 環境中，我們常常使用 SSH 來與目標主機做連線，有時候因為目標主機的異動而導致我們後續連線時會出現 WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED這樣子的警示訊息，導致我們無法順利連線，為何會有這樣子的訊息，又該如何解決，可以參考以下內容
